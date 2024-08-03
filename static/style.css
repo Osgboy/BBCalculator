@@ -19,11 +19,6 @@ input:read-only {
     background-color: silver;
 }
 
-pre {
-    display: inline-block;
-    outline: black solid .1em;
-}
-
 input[type="submit"] {
     background-color: rgb(0, 200, 0);
     cursor: pointer;

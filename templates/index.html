@@ -560,19 +560,19 @@
             <div>
                 <label>
                     <input type="checkbox" name="DataReturns" id="DeathMean" value="DeathMean" {% if "DeathMean" in DataReturns %} checked {% endif %}>
-                    <pre>{{ results.DeathMean|default:"Returns the average number of hits until death." }}</pre>
+                    <samp>{{ results.DeathMean|default:"Returns the average number of hits until death." }}</samp>
                 </label>
             </div>
             <div>
                 <label>
                     <input type="checkbox" name="DataReturns" id="DeathStDev" value="DeathStDev" {% if "DeathStDev" in DataReturns %} checked {% endif %} checked>
-                    <pre>{{ results.DeathStDev|default:"Returns standard deviation of hits until death." }}</pre>
+                    <samp>{{ results.DeathStDev|default:"Returns standard deviation of hits until death." }}</samp>
                 </label>
             </div>
             <div>
                 <label>
                     <input type="checkbox" name="DataReturns" id="DeathPercent" value="DeathPercent" {% if "DeathPercent" in DataReturns %} checked {% endif %} checked>
-                    <pre>{{ results.DeathPercent|default:"Returns % chance of death by each hit." }}</pre>
+                    <samp>{{ results.DeathPercent|default:"Returns % chance of death by each hit." }}</samp>
                 </label>
                 {% if "DeathPercent" in DataReturns and "HitsToDeathPercent" in results%}
                 <div id="DeathPercentChart" class="canvas"></div>
@@ -581,13 +581,13 @@
             <div>
                 <label>
                     <input type="checkbox" name="DataReturns" id="InjuryMean" value="InjuryMean" {% if "InjuryMean" in DataReturns %} checked {% endif %} checked>
-                    <pre>{{ results.InjuryMean|default:"Returns average number of hits until first injury." }}</pre>
+                    <samp>{{ results.InjuryMean|default:"Returns average number of hits until first injury." }}</samp>
                 </label>
             </div>
             <div>
                 <label>
                     <input type="checkbox" name="DataReturns" id="InjuryPercent" value="InjuryPercent" {% if "InjuryPercent" in DataReturns %} checked {% endif %}>
-                    <pre>{{ results.InjuryPercent|default:"Returns % chance of first injury by each hit." }}</pre>
+                    <samp>{{ results.InjuryPercent|default:"Returns % chance of first injury by each hit." }}</samp>
                 </label>
                 {% if "InjuryPercent" in DataReturns and "HitsToInjurePercent" in results%}
                 <div id="InjuryPercentChart" class="canvas"></div>
@@ -596,13 +596,13 @@
             <div>
                 <label>
                     <input type="checkbox" name="DataReturns" id="HeavyInjuryMean" value="HeavyInjuryMean" {% if "HeavyInjuryMean" in DataReturns %} checked {% endif %} checked>
-                    <pre>{{ results.HeavyInjuryMean|default:"Returns average number of hits until chance of first heavy injury (heavy injuries are not guaranteed even when threshold is met)." }}</pre>
+                    <samp>{{ results.HeavyInjuryMean|default:"Returns average number of hits until chance of first heavy injury (heavy injuries are not guaranteed even when threshold is met)." }}</samp>
                 </label>
             </div>
             <div>
                 <label>
                     <input type="checkbox" name="DataReturns" id="HeavyInjuryPercent" value="HeavyInjuryPercent" {% if "HeavyInjuryPercent" in DataReturns %} checked {% endif %}>
-                    <pre>{{ results.HeavyInjuryPercent|default:"Returns % chance of first heavy injury chance by each hit." }}</pre>
+                    <samp>{{ results.HeavyInjuryPercent|default:"Returns % chance of first heavy injury chance by each hit." }}</samp>
                 </label>
                 {% if "HeavyInjuryPercent" in DataReturns and "HitsToHeavyInjuryChancePercent" in results%}
                 <div id="HeavyInjuryPercentChart" class="canvas"></div>
@@ -611,19 +611,19 @@
             <div>
                 <label>
                     <input type="checkbox" name="DataReturns" id="MoraleChecksTotal" value="MoraleChecksTotal" {% if "MoraleChecksTotal" in DataReturns %} checked {% endif %}>
-                    <pre>{{ results.MoraleChecksTotal|default:"Returns the total number of morale checks before death." }}</pre>
+                    <samp>{{ results.MoraleChecksTotal|default:"Returns the total number of morale checks before death." }}</samp>
                 </label>
             </div>
             <div>
                 <label>
                     <input type="checkbox" name="DataReturns" id="MoraleMean" value="MoraleMean" {% if "MoraleMean" in DataReturns %} checked {% endif %}>
-                    <pre>{{ results.MoraleMean|default:"Returns average number of hits until first morale check." }}</pre>
+                    <samp>{{ results.MoraleMean|default:"Returns average number of hits until first morale check." }}</samp>
                 </label>
             </div>
             <div>
                 <label>
                     <input type="checkbox" name="DataReturns" id="MoralePercent" value="MoralePercent" {% if "MoralePercent" in DataReturns %} checked {% endif %}>
-                    <pre>{{ results.MoralePercent|default:"Returns % chance of first morale check by each hit." }}</pre>
+                    <samp>{{ results.MoralePercent|default:"Returns % chance of first morale check by each hit." }}</samp>
                 </label>
                 {% if "MoralePercent" in DataReturns and "HitsToMoralePercent" in results%}
                 <div id="MoralePercentChart" class="canvas"></div>
@@ -632,13 +632,13 @@
             <div>
                 <label>
                     <input type="checkbox" name="DataReturns" id="MoraleDropsMean" value="MoraleDropsMean" {% if "MoraleDropsMean" in DataReturns %} checked {% endif %}>
-                    <pre>{{ results.MoraleDropsMean|default:"Returns average number of hits to drop morale to each morale level." }}</pre>
+                    <samp>{{ results.MoraleDropsMean|default:"Returns average number of hits to drop morale to each morale level." }}</samp>
                 </label>
             </div>
             <div>
                 <label>
                     <input type="checkbox" name="DataReturns" id="MoraleDropsPercent" value="MoraleDropsPercent" {% if "MoraleDropsPercent" in DataReturns %} checked {% endif %}>
-                    <pre>{{ results.MoraleDropsPercent|default:"Returns % chance of dropping morale to each morale level by each hit." }}</pre>
+                    <samp>{{ results.MoraleDropsPercent|default:"Returns % chance of dropping morale to each morale level by each hit." }}</samp>
                 </label>
                 {% if "MoraleDropsPercent" in DataReturns%}
                     {% if "HitsToWaveringPercent" in results%}
@@ -653,16 +653,16 @@
                 {% endif %}
             </div>
             <div>
-                <pre>{{ results.Nimble|default:"Returns % damage modifier from nimble." }}</pre>
+                <samp>{{ results.Nimble|default:"Returns % damage modifier from nimble." }}</samp>
             </div>
             <div>
-                <pre>{{ results.Forge|default:"Returns bonus armor from battleforged." }}</pre>
+                <samp>{{ results.Forge|default:"Returns bonus armor from battleforged." }}</samp>
             </div>
             <div>
-                <pre>{{ results.Ambusher|default:"Returns average number of hits until poisoned (Goblin Ambusher only)." }}</pre>
+                <samp>{{ results.Ambusher|default:"Returns average number of hits until poisoned (Goblin Ambusher only)." }}</samp>
             </div>
             <div>
-                <pre>{{ results.Cleaver|default:"Returns average number of hits until bleeding." }}</pre>
+                <samp>{{ results.Cleaver|default:"Returns average number of hits until bleeding." }}</samp>
             </div>
         </div>
         <div>
