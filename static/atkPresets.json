@@ -1,0 +1,323 @@
+{
+    "APreAncientSword": {
+      "Mind": 38,
+      "Maxd": 43,
+      "Headchance": 25,
+      "Ignore": 20,
+      "ArmorMod": 80,
+      "Fearsome": true,
+      "Atk_Resolve": 80
+    },
+    "APreBladedPike": {
+      "Mind": 55,
+      "Maxd": 80,
+      "Headchance": 30,
+      "Ignore": 30,
+      "ArmorMod": 125,
+      "Fearsome": true,
+      "Atk_Resolve": 80
+    },
+    "APreWarscytheAoE": {
+      "Mind": 55,
+      "Maxd": 80,
+      "Headchance": 25,
+      "Ignore": 25,
+      "ArmorMod": 104,
+      "Fearsome": true,
+      "Atk_Resolve": 100
+    },
+    "APreCryptCleaver": {
+      "Mind": 60,
+      "Maxd": 80,
+      "Headchance": 25,
+      "Ignore": 25,
+      "ArmorMod": 120,
+      "Fearsome": true,
+      "Atk_Resolve": 100,
+      "CleaverMastery": true
+    },
+    "APreKhopesh": {
+      "Mind": 35,
+      "Maxd": 55,
+      "Headchance": 25,
+      "Ignore": 25,
+      "ArmorMod": 120,
+      "HeadHunter": true,
+      "CripplingStrikes": true,
+      "DoubleGrip": true,
+      "CleaverBleed": true
+    },
+    "APreFHGreatAxe": {
+      "Mind": 80,
+      "Maxd": 100,
+      "Headchance": 25,
+      "Ignore": 40,
+      "ArmorMod": 150,
+      "Fearsome": true,
+      "Atk_Resolve": 100,
+      "SplitMan": true
+    },
+    "APreBerserkChain": {
+      "Mind": 50,
+      "Maxd": 100,
+      "Headchance": 40,
+      "Ignore": 30,
+      "ArmorMod": 125,
+      "TwoHander20": true,
+      "Flail2HPound": true,
+      "FlailMastery": true,
+      "Berserker": true
+    },
+    "APreHeadSplitter": {
+      "Mind": 35,
+      "Maxd": 65,
+      "Headchance": 25,
+      "Ignore": 30,
+      "ArmorMod": 130,
+      "Axe1H": true,
+      "Warrior": true
+    },
+    "APreHeadChopper": {
+      "Mind": 40,
+      "Maxd": 70,
+      "Headchance": 25,
+      "Ignore": 25,
+      "ArmorMod": 110,
+      "CleaverMastery": true,
+      "Warrior": true
+    },
+    "APreMansplitter": {
+      "Mind": 90,
+      "Maxd": 120,
+      "Headchance": 25,
+      "Ignore": 40,
+      "ArmorMod": 160,
+      "SplitMan": true,
+      "Fearsome": true,
+      "Atk_Resolve": 90,
+      "Warlord": true
+    },
+    "APreReinBoondock": {
+      "Mind": 30,
+      "Maxd": 50,
+      "Headchance": 25,
+      "Ignore": 35,
+      "ArmorMod": 60,
+      "Ambusher": true
+    },
+    "APreSpikedImpaler": {
+      "Mind": 50,
+      "Maxd": 70,
+      "Headchance": 25,
+      "Ignore": 50,
+      "ArmorMod": 75,
+      "Overseer": true,
+      "XbowMastery": true
+    },
+    "APre2HSpikedMace": {
+      "Mind": 50,
+      "Maxd": 70,
+      "Headchance": 25,
+      "Ignore": 60,
+      "ArmorMod": 115,
+      "CripplingStrikes": true,
+      "Executioner": true,
+      "TwoHander20": true
+    },
+    "APre2HSkullHammer": {
+      "Mind": 45,
+      "Maxd": 65,
+      "Headchance": 25,
+      "Ignore": 60,
+      "ArmorMod": 180,
+      "CripplingStrikes": true,
+      "Executioner": true,
+      "TwoHander20": true
+    },
+    "APreHeavyRustyAxe": {
+      "Mind": 75,
+      "Maxd": 90,
+      "Headchance": 25,
+      "Ignore": 50,
+      "ArmorMod": 150,
+      "CripplingStrikes": true,
+      "Executioner": true,
+      "SplitMan": true
+    },
+    "APreRustyWarblade": {
+      "Mind": 60,
+      "Maxd": 80,
+      "Headchance": 25,
+      "Ignore": 35,
+      "ArmorMod": 110,
+      "CripplingStrikes": true,
+      "Executioner": true,
+      "CleaverMastery": true
+    },
+    "APreBillhook": {
+      "Mind": 55,
+      "Maxd": 85,
+      "Headchance": 30,
+      "Ignore": 30,
+      "ArmorMod": 140
+    },
+    "APreHeavyXbow": {
+      "Mind": 50,
+      "Maxd": 70,
+      "Headchance": 25,
+      "Ignore": 50,
+      "ArmorMod": 75,
+      "XbowMastery": true
+    },
+    "APreFightingAxe": {
+      "Mind": 35,
+      "Maxd": 55,
+      "Headchance": 25,
+      "Ignore": 30,
+      "ArmorMod": 130,
+      "Axe1H": true,
+      "CripplingStrikes": true,
+      "Executioner": true
+    },
+    "APreWingedMace": {
+      "Mind": 35,
+      "Maxd": 55,
+      "Headchance": 25,
+      "Ignore": 40,
+      "ArmorMod": 110,
+      "Duelist": true,
+      "DoubleGrip": true
+    },
+    "APreGreatsword": {
+      "Mind": 85,
+      "Maxd": 100,
+      "Headchance": 30,
+      "Ignore": 25,
+      "ArmorMod": 100,
+      "TwoHander20": true
+    },
+    "APreFlailDGrip": {
+      "Mind": 25,
+      "Maxd": 55,
+      "Headchance": 35,
+      "Ignore": 30,
+      "ArmorMod": 100,
+      "Executioner": true,
+      "DoubleGrip": true
+    },
+    "APreLongAxe": {
+      "Mind": 70,
+      "Maxd": 95,
+      "Headchance": 30,
+      "Ignore": 30,
+      "ArmorMod": 110,
+      "Executioner": true
+    },
+    "APreMedXbow": {
+      "Mind": 40,
+      "Maxd": 60,
+      "Headchance": 25,
+      "Ignore": 50,
+      "ArmorMod": 70,
+      "XbowMastery": true
+    },
+    "APreNobleSword": {
+      "Mind": 45,
+      "Maxd": 50,
+      "Headchance": 25,
+      "Ignore": 20,
+      "ArmorMod": 85,
+      "Duelist": true,
+      "DoubleGrip": true,
+      "CripplingStrikes": true,
+      "Executioner": true
+    },
+    "APreWarbow": {
+      "Mind": 50,
+      "Maxd": 70,
+      "Headchance": 25,
+      "Ignore": 35,
+      "ArmorMod": 65,
+      "CripplingStrikes": true,
+      "Executioner": true,
+      "MasterArcher": true,
+      "HeadHunter": true
+    },
+    "APrePoleMace": {
+      "Mind": 60,
+      "Maxd": 75,
+      "Headchance": 30,
+      "Ignore": 40,
+      "ArmorMod": 120
+    },
+    "APreHandgonne": {
+      "Mind": 35,
+      "Maxd": 75,
+      "Headchance": 25,
+      "Ignore": 25,
+      "ArmorMod": 90,
+      "Fearsome": true,
+      "Atk_Resolve": 70
+    },
+    "APre2HScimitar": {
+      "Mind": 65,
+      "Maxd": 85,
+      "Headchance": 25,
+      "Ignore": 25,
+      "ArmorMod": 110,
+      "CleaverMastery": true,
+      "CripplingStrikes": true,
+      "Executioner": true
+    },
+    "APreQatal": {
+      "Mind": 30,
+      "Maxd": 45,
+      "Headchance": 25,
+      "Ignore": 20,
+      "ArmorMod": 70,
+      "Duelist": true,
+      "DoubleGrip": true,
+      "Executioner": true
+    },
+    "APreFDirewolf": {
+      "Mind": 30,
+      "Maxd": 50,
+      "Headchance": 25,
+      "Ignore": 20,
+      "ArmorMod": 70,
+      "Executioner": true,
+      "FrenziedDirewolf": true
+    },
+    "APreNachTier3": {
+      "Mind": 55,
+      "Maxd": 80,
+      "Headchance": 25,
+      "Ignore": 10,
+      "ArmorMod": 75
+    },
+    "APreLindwurm": {
+      "Mind": 80,
+      "Maxd": 140,
+      "Headchance": 25,
+      "Ignore": 35,
+      "ArmorMod": 140,
+      "Fearsome": true,
+      "Atk_Resolve": 180
+    },
+    "APreUnhold": {
+      "Mind": 40,
+      "Maxd": 80,
+      "Headchance": 25,
+      "Ignore": 40,
+      "ArmorMod": 80,
+      "CripplingStrikes": true
+    },
+    "APreSchrat": {
+      "Mind": 70,
+      "Maxd": 100,
+      "Headchance": 25,
+      "Ignore": 50,
+      "ArmorMod": 80,
+      "CripplingStrikes": true
+    }
+}

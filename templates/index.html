@@ -1,0 +1,674 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>BB Calculator</title>
+        <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+        <script>
+            window.onload = function () {
+                {% if 'HitsToDeathPercent' in results %}
+                var DeathPercentChart = new CanvasJS.Chart("DeathPercentChart", {
+                    animationEnabled: true,
+                    responsive: true,
+                    title:{
+                        text: "Hits to Die Histogram"
+                    },
+                    axisY:{
+                        title: "Percent",
+                        interval: 10,
+                        minimum: 0
+                    },
+                    axisX:{
+                        title: "# of Hits",
+                        interval: 1
+                    },
+                    data: [{
+                        type: "column",
+                        dataPoints: {{ results.HitsToDeathPercent | safe }}
+                    }]
+                }); 
+                DeathPercentChart.render();
+                {% endif %}
+                {% if 'HitsToInjurePercent' in results %}
+                var InjuryPercentChart = new CanvasJS.Chart("InjuryPercentChart", {
+                    animationEnabled: true,
+                    responsive: true,
+                    title:{
+                        text: "Hits to Injure Histogram"
+                    },
+                    axisY:{
+                        title: "Percent",
+                        interval: 10,
+                        minimum: 0
+                    },
+                    axisX:{
+                        title: "# of Hits",
+                        interval: 1
+                    },
+                    data: [{
+                        type: "column",
+                        dataPoints: {{ results.HitsToInjurePercent | safe }}
+                    }]
+                });
+                InjuryPercentChart.render();
+                {% endif %}
+                {% if 'HitsToHeavyInjuryChancePercent' in results %}
+                var HeavyInjuryPercentChart = new CanvasJS.Chart("HeavyInjuryPercentChart", {
+                    animationEnabled: true,
+                    responsive: true,
+                    title:{
+                        text: "Hits to Heavy Injury Chance Histogram"
+                    },
+                    axisY:{
+                        title: "Percent",
+                        interval: 10,
+                        minimum: 0
+                    },
+                    axisX:{
+                        title: "# of Hits",
+                        interval: 1
+                    },
+                    data: [{
+                        type: "column",
+                        dataPoints: {{ results.HitsToHeavyInjuryChancePercent | safe }}
+                    }]
+                });
+                HeavyInjuryPercentChart.render();
+                {% endif %}
+                {% if 'HitsToMoralePercent' in results %}
+                var MoralePercentChart = new CanvasJS.Chart("MoralePercentChart", {
+                    animationEnabled: true,
+                    responsive: true,
+                    title:{
+                        text: "Hits till First Morale Check Histogram"
+                    },
+                    axisY:{
+                        title: "Percent",
+                        interval: 10,
+                        minimum: 0
+                    },
+                    axisX:{
+                        title: "# of Hits",
+                        interval: 1
+                    },
+                    data: [{
+                        type: "column",
+                        dataPoints: {{ results.HitsToMoralePercent | safe }}
+                    }]
+                });
+                MoralePercentChart.render();
+                {% endif %}
+                {% if 'HitsToWaveringPercent' in results %}
+                var HitsToWaveringChart = new CanvasJS.Chart("HitsToWaveringChart", {
+                    animationEnabled: true,
+                    responsive: true,
+                    title:{
+                        text: "Hits to Wavering Histogram"
+                    },
+                    axisY:{
+                        title: "Percent",
+                        interval: 10
+                    },
+                    axisX:{
+                        title: "# of Hits",
+                        interval: 1,
+                        minimum: 0
+                    },
+                    data: [{
+                        type: "column",
+                        dataPoints: {{ results.HitsToWaveringPercent | safe }}
+                    }]
+                });
+                HitsToWaveringChart.render();
+                {% endif %}
+                {% if 'HitsToBreakingPercent' in results %}
+                var HitsToBreakingChart = new CanvasJS.Chart("HitsToBreakingChart", {
+                    animationEnabled: true,
+                    responsive: true,
+                    title:{
+                        text: "Hits to Breaking Histogram"
+                    },
+                    axisY:{
+                        title: "Percent",
+                        interval: 10,
+                        minimum: 0
+                    },
+                    axisX:{
+                        title: "# of Hits",
+                        interval: 1
+                    },
+                    data: [{
+                        type: "column",
+                        dataPoints: {{ results.HitsToBreakingPercent | safe }}
+                    }]
+                });
+                HitsToBreakingChart.render()
+                {% endif %}
+                {% if 'HitsToFleeingPercent' in results %}
+                var HitsToFleeingChart = new CanvasJS.Chart("HitsToFleeingChart", {
+                    animationEnabled: true,
+                    responsive: true,
+                    title:{
+                        text: "Hits to Fleeing Histogram"
+                    },
+                    axisY:{
+                        title: "Percent",
+                        interval: 10
+                    },
+                    axisX:{
+                        title: "# of Hits",
+                        interval: 1
+                    },
+                    data: [{
+                        type: "column",
+                        dataPoints: {{ results.HitsToFleeingPercent | safe }}
+                    }]
+                });
+                HitsToFleeingChart.render();
+                {% endif %}
+            }
+        </script>
+        {{ atkPresetJSON|json_script:"atkPresets" }}
+        {{ defPresetJSON|json_script:"defPresets" }}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Battle Brothers Damge Calculator">
+        <meta name="keywords" content="Battle Brothers, Calculator">
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+    </head>
+    <body>
+        <header>
+            <h1><a href="/">Battle Brothers Damage Calculator</a></h1>
+        </header>
+        <form action="" method="get">
+            <label for="Trials"># of trials</label>
+            <input type="number" name="Trials" id="Trials" min="2" max="10000" value={{request.Trials|default:1000}} required>
+        <div class="section" id="Attacker">
+        <h2>Attacker</h2>
+            <h3>Preset</h3>
+                <select name="AtkPreset" id="AtkPreset">
+                    <option value="None" {% if request.AtkPreset == "None" %} selected {% endif %}>None</option>
+                    <option value="APreAncientSword" {% if request.AtkPreset == "APreAncientSword" %} selected {% endif %}>Ancient Dead w/ Ancient Sword</option>
+                    <option value="APreBladedPike" {% if request.AtkPreset == "APreBladedPike" %} selected {% endif %}>Ancient Dead w/ Bladed Pike</option>
+                    <option value="APreWarscytheAoE" {% if request.AtkPreset == "APreWarscytheAoE" %} selected {% endif %}>Ancient Dead w/ AoE Warscythe</option>
+                    <option value="APreCryptCleaver" {% if request.AtkPreset == "APreCryptCleaver" %} selected {% endif %}>Ancient Dead w/ Crypt Cleaver</option>
+                    <option value="APreKhopesh" {% if request.AtkPreset == "APreKhopesh" %} selected {% endif %}>Necrosavant w/ Khopesh</option>
+                    <option value="APreFHGreatAxe" {% if request.AtkPreset == "APreFHGreatAxe" %} selected {% endif %}>Fallen Hero w/ Greataxe</option>
+                    <option value="APreBerserkChain" {% if request.AtkPreset == "APreBerserkChain" %} selected {% endif %}>Orc Berserker w/ Berserk Chain</option>
+                    <option value="APreHeadSplitter" {% if request.AtkPreset == "APreHeadSplitter" %} selected {% endif %}>Orc w/ Head Splitter</option>
+                    <option value="APreHeadChopper" {% if request.AtkPreset == "APreHeadChopper" %} selected {% endif %}>Orc w/ Head Chopper</option>
+                    <option value="APreMansplitter" {% if request.AtkPreset == "APreMansplitter" %} selected {% endif %}>Orc Warlord w/ Mansplitter</option>
+                    <option value="APreReinBoondock" {% if request.AtkPreset == "APreReinBoondock" %} selected {% endif %}>Goblin Ambusher w/ Reinforced Boondock</option>
+                    <option value="APreSpikedImpaler" {% if request.AtkPreset == "APreSpikedImpaler" %} selected {% endif %}>Goblin Overseer w/ Spiked Impaler</option>
+                    <option value="APre2HSpikedMace" {% if request.AtkPreset == "APre2HSpikedMace" %} selected {% endif %}>Chosen w/ Spiked Mace</option>
+                    <option value="APre2HSkullHammer" {% if request.AtkPreset == "APre2HSkullHammer" %} selected {% endif %}>Chosen w/ Skull Hammer</option>
+                    <option value="APreHeavyRustyAxe" {% if request.AtkPreset == "APreHeavyRustyAxe" %} selected {% endif %}>Chosen w/ Rusty Axe</option>
+                    <option value="APreRustyWarblade" {% if request.AtkPreset == "APreRustyWarblade" %} selected {% endif %}>Chosen w/ Rusty Warblade</option>
+                    <option value="APreBillhook" {% if request.AtkPreset == "APreBillhook" %} selected {% endif %}>Billman w/ Billhook</option>
+                    <option value="APreHeavyXbow" {% if request.AtkPreset == "APreHeavyXbow" %} selected {% endif %}>Arbalester w/ Heavy Xbow</option>
+                    <option value="APreFightingAxe" {% if request.AtkPreset == "APreFightingAxe" %} selected {% endif %}>Knight w/ Fighting Axe</option>
+                    <option value="APreWingedMace" {% if request.AtkPreset == "APreWingedMace" %} selected {% endif %}>Sergeant w/ Winged Mace</option>
+                    <option value="APreGreatsword" {% if request.AtkPreset == "APreGreatsword" %} selected {% endif %}>Zweihander w/ Greatsword</option>
+                    <option value="APreFlailDGrip" {% if request.AtkPreset == "APreFlailDGrip" %} selected {% endif %}>Raider w/ Double Gripped Flail</option>
+                    <option value="APreLongAxe" {% if request.AtkPreset == "APreLongAxe" %} selected {% endif %}>Raider w/ Longaxe</option>
+                    <option value="APreMedXbow" {% if request.AtkPreset == "APreMedXbow" %} selected {% endif %}>Marksman w/ Medium Xbow</option>
+                    <option value="APreNobleSword" {% if request.AtkPreset == "APreNobleSword" %} selected {% endif %}>Swordmaster w/ Noble Sword</option>
+                    <option value="APreWarbow" {% if request.AtkPreset == "APreWarbow" %} selected {% endif %}>Master Archer w/ Warbow</option>
+                    <option value="APrePoleMace" {% if request.AtkPreset == "APrePoleMace" %} selected {% endif %}>Conscript w/ Polemace</option>
+                    <option value="APreHandgonne" {% if request.AtkPreset == "APreHandgonne" %} selected {% endif %}>Gunner w/ Handgonne</option>
+                    <option value="APre2HScimitar" {% if request.AtkPreset == "APre2HScimitar" %} selected {% endif %}>Officer w/ Scimitar</option>
+                    <option value="APreQatal" {% if request.AtkPreset == "APreQatal" %} selected {% endif %}>Assassin w/ Qatal</option>
+                    <option value="APreFDirewolf" {% if request.AtkPreset == "APreFDirewolf" %} selected {% endif %}>Frenzied Direwolf</option>
+                    <option value="APreNachTier3" {% if request.AtkPreset == "APreNachTier3" %} selected {% endif %}>Tier 3 Nachzehrer</option>
+                    <option value="APreLindwurm" {% if request.AtkPreset == "APreLindwurm" %} selected {% endif %}>Lindwurm Head</option>
+                    <option value="APreUnhold" {% if request.AtkPreset == "APreUnhold" %} selected {% endif %}>Unhold</option>
+                    <option value="APreSchrat" {% if request.AtkPreset == "APreSchrat" %} selected {% endif %}>Schrat</option>
+                </select>
+            <h3>Stats</h3>
+                <div>
+                    <label for="Mind">Min Damage</label>
+                    <input class="atk-stat" type="number" name="Mind" id="Mind" min="1" max="999" value={{request.Mind|default:55}}>
+                    <label for="Maxd">Max Damage</label>
+                    <input class="atk-stat" type="number" name="Maxd" id="Maxd" min="1" max="999" value={{request.Maxd|default:80}}>
+                </div>
+                <div>
+                    <label for="Ignore">Armor Ignore %</label>
+                    <input class="atk-stat" type="number" name="Ignore" id="Ignore" min="0" max="999" value={{request.Ignore|default:30}}>
+                    <label for="ArmorMod">Armor Damage %</label>
+                    <input class="atk-stat" type="number" name="ArmorMod" id="ArmorMod" min="0" max="999" value={{request.ArmorMod|default:125}}>
+                </div>
+                <div>
+                    <label for="Headchance">% Chance to Hit Head</label>
+                    <input class="atk-stat" type="number" name="Headchance" id="Headchance" min="0" max="100" value={{request.Headchance|default:30}}>
+                    <label for="Atk_Resolve">Resolve</label>
+                    <input class="atk-stat" type="number" name="Atk_Resolve" id="Atk_Resolve" min="0" max="999" value={{request.Atk_Resolve|default:50}}>
+                </div>
+            <h3>Weapon</h3>
+                <div>
+                    <label for="DoubleGrip" title="Only 1Handers are valid for Double Grip. Dagger Puncture tests should not be given Double Grip.">
+                        <input class="atk-checkbox" class="atk-checkbox" type="checkbox" name="AtkWeapon" id="DoubleGrip" value="DoubleGrip" {% if "DoubleGrip" in AtkWeapon%} checked {% endif %}> Double Grip
+                    </label>
+                    <label for="TwoHander20" title="Damage +20. Applies to the single target 2Hander attacks Cudgel (Mace), Pound (Flail), Smite (Hammer), Overhead Strike (Long/Greatsword).">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="TwoHander20" value="TwoHander20" {% if "TwoHander20" in AtkWeapon %} checked {% endif %}> 2H Main Attack (+20 damage)
+                    </label>
+                    <label for="FlailLash" title="Gaurantees headshot. Also apply to 3Head Hail special.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="FlailLash" value="FlailLash" {% if "FlailLash" in AtkWeapon %} checked {% endif %}> Flail Lash
+                    </label>
+                    <label for="Flail3Head" title="3Head Flail. Returns number of swings rather than number of hits.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Flail3Head" value="Flail3Head" {% if "Flail3Head" in AtkWeapon %} checked {% endif %}> 3H Flail
+                    </label>
+                    <label for="Hammer10" title="Guarantees at least 10 hp damage, applies to 1H Hammer and Polehammer.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Hammer10" value="Hammer10" {% if "Hammer10" in AtkWeapon %} checked {% endif %}> Hammer Batter (min 10 HP damage)
+                    </label>
+                    <label for="DestroyArmor" title="Will use Destroy Armor once and then switch to normal attacks.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="DestroyArmor" value="DestroyArmor" {% if "DestroyArmor" in AtkWeapon %} checked {% endif %}> Destroy Armor
+                    </label>
+                    <label for="DestroyArmorMastery" title="Hammer Mastery. Will use Destroy Armor once and then switch to normal attacks.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="DestroyArmorMastery" value="DestroyArmorMastery" {% if "DestroyArmorMastery" in AtkWeapon %} checked {% endif %}> Destroy Armor Mastery
+                    </label>
+                    <label for="DestroyArmorTwice" title="Uses Destroy Armor two times instead of 1. Does nothing unless DestroyArmor or DestroyArmorMastery are set.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="DestroyArmorTwice" value="DestroyArmorTwice" {% if "DestroyArmorTwice" in AtkWeapon %} checked {% endif %}> Destroy Armor Twice
+                    </label>
+                    <label for="Axe1H" title="Applies bonus damage to Headshots. Negated by Steel Brow.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Axe1H" value="Axe1H">  {% if "Axe1H" in AtkWeapon %} checked {% endif %}1H Axe
+                    </label>
+                    <label for="SplitMan" title="Applies to single target 2HAxe except for Longaxe.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="SplitMan" value="SplitMan" {% if "SplitMan" in AtkWeapon %} checked {% endif %}> Split Man
+                    </label>
+                    <label for="AoE2HAxe" title="Applies to Round Swing and Split in Two (Bardiche), reduces Ignore by 10%.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="AoE2HAxe" value="AoE2HAxe" {% if "AoE2HAxe" in AtkWeapon %} checked {% endif %}> 2H Axe AoE
+                    </label>
+                    <label for="CleaverBleed" title="5 bleed damage per bleed tick.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="CleaverBleed" value="CleaverBleed" {% if "CleaverBleed" in AtkWeapon %} checked {% endif %}> Cleaver Bleed
+                    </label>
+                    <label for="CleaverMastery" title="10 bleed damage per bleed tick.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="CleaverMastery" value="CleaverMastery" {% if "CleaverMastery" in AtkWeapon %} checked {% endif %}> Cleaver Mastery
+                    </label>
+                    <label for="Decapitate" title="Cleaver Decapitate. Will use Decapitate for all attacks.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Decapitate" value="Decapitate" {% if "Decapitate" in AtkWeapon %} checked {% endif %}> Decapitate
+                    </label>
+                    <label for="SmartDecap50" title="Switches from normal Cleaver attacks to Decapitate once opposing hp is &lt;= 50%.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="SmartDecap50" value="SmartDecap50" {% if "SmartDecap50" in AtkWeapon %} checked {% endif %}> Decapitate &lt;50% HP
+                    </label>
+                    <label for="SmartDecap33" title="Switches from normal Cleaver attacks to Decapitate once opposing hp is &lt;= 33.33%">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="SmartDecap33" value="SmartDecap33" {% if "SmartDecap33" in AtkWeapon %} checked {% endif %}> Decapitate &lt;33% HP
+                    </label>
+                    <label for="Shamshir" title="Shamshir special Gash, acts like Crippling Strikes.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Shamshir" value="Shamshir" {% if "Shamshir" in AtkWeapon %} checked {% endif %}> Shamshir Gash
+                    </label>
+                    <label for="ShamshirMastery" title="Sword Mastery with Gash, 50% reduction to injury threshold instead of 33%. Overrides Shamshir flag.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="ShamshirMastery" value="ShamshirMastery" {% if "ShamshirMastery" in AtkWeapon %} checked {% endif %}> Shamshir Mastery
+                    </label>
+                    <label for="Sword2HSplit" title="Ignore +5%. Applies to Greatsword Split attack. Does not apply to Overhead or Swing.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Sword2HSplit" value="Sword2HSplit" {% if "Sword2HSplit" in AtkWeapon %} checked {% endif %}> Greatsword Split
+                    </label>
+                    <label for="Puncture" title="Dagger Puncture. Do not apply Double Grip.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Puncture" value="Puncture" {% if "Puncture" in AtkWeapon %} checked {% endif %}> Puncture
+                    </label>
+                    <label for="Deathblow" title="Qatal special. Ignore +20%. Damage x1.33. Assumes target is always setup for Deathblow value in calculation.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Deathblow" value="Deathblow" {% if "Deathblow" in AtkWeapon %} checked {% endif %}> Deathblow
+                    </label>
+                    <label for="Spearwall" title="Warning: May take a long time to compute against durable targets, consider lowering number of trials.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Spearwall" value="Spearwall" {% if "Spearwall" in AtkWeapon %} checked {% endif %}> Spearwall
+                    </label>
+                    <label for="AimedShot" title="Damage +10% for Bows. +5% Armor Ignore.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="AimedShot" value="AimedShot" {% if "AimedShot" in AtkWeapon %} checked {% endif %}> Aimed Shot
+                    </label>
+                    <label for="XbowMastery" title="+20% Armor Ignore.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="XbowMastery" value="XbowMastery" {% if "XbowMastery" in AtkWeapon %} checked {% endif %}> Crossbow Mastery
+                    </label>
+                    <label for="R2Throw" title="Throwing Mastery for 1 or 2 Range.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="R2Throw" value="R2Throw">  {% if "R2Throw" in AtkWeapon %} checked {% endif %}Throwing Mastery (range 2)
+                    </label>
+                    <label for="R3Throw" title="Throwing Mastery for 3 Range.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="R3Throw" value="R3Throw">  {% if "R3Throw" in AtkWeapon %} checked {% endif %}Throwing Mastery (range 3)
+                    </label>
+                    <label for="Scatter" title="Ranged attacks that hit an unintended target deal 75% damage.">
+                        <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Scatter" value="Scatter">  {% if "Scatter" in AtkWeapon %} checked {% endif %}Scatter
+                    </label>
+                </div>
+            <h3>Perks</h3>
+                <div>
+                    <label for="CripplingStrikes">
+                        <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="CripplingStrikes" value="CripplingStrikes" {% if "CripplingStrikes" in AtkPerks %} checked {% endif %}> Crippling Strikes
+                    </label>
+                    <label for="Executioner">
+                        <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="Executioner" value="Executioner" {% if "Executioner" in AtkPerks %} checked {% endif %}> Executioner
+                    </label>
+                    <label for="HeadHunter">
+                        <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="HeadHunter" value="HeadHunter" {% if "HeadHunter" in AtkPerks %} checked {% endif %}> Head Hunter
+                    </label>
+                    <label for="Duelist">
+                        <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="Duelist" value="Duelist" {% if "Duelist" in AtkPerks %} checked {% endif %}> Duelist
+                    </label>
+                    <label for="KillingFrenzy">
+                        <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="KillingFrenzy" value="KillingFrenzy" {% if "KillingFrenzy" in AtkPerks %} checked {% endif %}> Killing Frenzy
+                    </label>
+                    <label for="Fearsome">
+                        <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="Fearsome" value="Fearsome" {% if "Fearsome" in AtkPerks %} checked {% endif %}> Fearsome
+                    </label>
+                </div>
+            <h3>Traits</h3>
+                <div>
+                    <label for="Brute">
+                        <input type="checkbox" name="AtkTraits" id="Brute" value="Brute" {% if "Brute" in AtkTraits %} checked {% endif %}> Brute (+15% headshot damage)
+                    </label>
+                    <label for="Drunkard">
+                        <input type="checkbox" name="AtkTraits" id="Drunkard" value="Drunkard" {% if "Drunkard" in AtkTraits %} checked {% endif %}> Drunkard (+10% damage)
+                    </label>
+                    <label for="Huge">
+                        <input type="checkbox" name="AtkTraits" id="Huge" value="Huge" {% if "Huge" in AtkTraits %} checked {% endif %}> Huge (+10% damage)
+                    </label>
+                    <label for="Tiny">
+                        <input type="checkbox" name="AtkTraits" id="Tiny" value="Tiny" {% if "Tiny" in AtkTraits %} checked {% endif %}> Tiny (-15% damage)
+                    </label>
+                </div>
+            <h3>Background</h3>
+                <select name="AtkBackground" id="AtkBackground">
+                    <option value="None" {% if request.AtkBackground == "None" %} selected {% endif %}>None</option>
+                    <option value="Juggler" {% if request.AtkBackground == "Juggler" %} selected {% endif %}>Juggler (+5% hit head chance)</option>
+                    <option value="KillerOnTheRun" {% if request.AtkBackground == "KillerOnTheRun" %} selected {% endif %}>Killer on the Run (+10% hit head chance)</option>
+                </select>
+            <h3>Injuries</h3>
+                <div>
+                    <label for="BrokenArm">
+                        <input type="checkbox" name="AtkInjuries" id="BrokenArm" value="BrokenArm" {% if "BrokenArm" in AtkInjuries %} checked {% endif %}> Broken Arm (-50% damage)
+                    </label>
+                    <label for="SplitShoulder">
+                        <input type="checkbox" name="AtkInjuries" id="SplitShoulder" value="SplitShoulder" {% if "SplitShoulder" in AtkInjuries %} checked {% endif %}> Split Shoulder (-50% damage)
+                    </label>
+                    <label for="CutArmSinew">
+                        <input type="checkbox" name="AtkInjuries" id="CutArmSinew" value="CutArmSinew" {% if "CutArmSinew" in AtkInjuries %} checked {% endif %}> Cut Arm Sinew (-40% damage)
+                    </label>
+                    <label for="InjuredShoulder">
+                        <input type="checkbox" name="AtkInjuries" id="InjuredShoulder" value="InjuredShoulder" {% if "InjuredShoulder" in AtkInjuries %} checked {% endif %}> Injured Shoulder (-25% damage)
+                    </label>
+                </div>
+            <h3>Status Effects</h3>
+                <div>
+                    <label for="Dazed">
+                        <input type="checkbox" name="AtkStatus" id="Dazed" value="Dazed" {% if "Dazed" in AtkStatus %} checked {% endif %}> Dazed (-25% damage)
+                    </label>
+                    <label for="Distracted">
+                        <input type="checkbox" name="AtkStatus" id="Distracted" value="Distracted" {% if "Distracted" in AtkStatus %} checked {% endif %}> Distracted (-35% damage, from Nomads)
+                    </label>
+                    <label for="Mushrooms">
+                        <input type="checkbox" name="AtkStatus" id="Mushrooms" value="Mushrooms" {% if "Mushrooms" in AtkStatus %} checked {% endif %}> Strange Mushrooms (+25% damage)
+                    </label>
+                </div>
+            <h3>Race</h3>
+                <!-- <label for="Race">Race</label> -->
+                <select name="AtkRace" id="AtkRace">
+                    <option id="atk-race-none" value="None" {% if request.AtkRace == "None" %} selected {% endif %}>None</option>
+                    <option class="atk-race-selection" value="Young" {% if request.AtkRace == "Young" %} selected {% endif %}>Orc Young (+15% damage)</option>
+                    <option class="atk-race-selection" value="Berserker" {% if request.AtkRace == "Berserker" %} selected {% endif %}>Orc Berserker (+20% damage)</option>
+                    <option class="atk-race-selection" value="BerserkerDay190" {% if request.AtkRace == "BerserkerDay190" %} selected {% endif %}>Orc Berserker after day 190 (+30% damage)</option>
+                    <option class="atk-race-selection" value="Warrior" {% if request.AtkRace == "Warrior" %} selected {% endif %}>Orc Warrior (+15% damage)</option>
+                    <option class="atk-race-selection" value="WarriorDay200" {% if request.AtkRace == "WarriorDay200" %} selected {% endif %}>Orc Warrior after day 200 (+25% damage)</option>
+                    <option class="atk-race-selection" value="Warlord" {% if request.AtkRace == "Warlord" %} selected {% endif %}>Orc Warlord (+35% damage)</option>
+                    <option class="atk-race-selection" value="WarlordDay200" {% if request.AtkRace == "WarlordDay200" %} selected {% endif %}>Orc Warlord after day 200 (+45% damage)</option>
+                    <option class="atk-race-selection" value="Conqueror" {% if request.AtkRace == "Conqueror" %} selected {% endif %}>Conqueror (+35% damage, Monolith)</option>
+                    <option class="atk-race-selection" value="FallenBetrayer" {% if request.AtkRace == "FallenBetrayer" %} selected {% endif %}>Fallen Betrayer (+25% damage, Watermill)</option>
+                    <option class="atk-race-selection" value="FallenHeroDay100" {% if request.AtkRace == "FallenHeroDay100" %} selected {% endif %}>Fallen Hero after day 100 (+10% damage)</option>
+                    <option class="atk-race-selection" value="ArmoredZombieDay100" {% if request.AtkRace == "ArmoredZombieDay100" %} selected {% endif %}>Armored Zombie (+10% damage)</option>
+                    <option class="atk-race-selection" value="BarbKing" {% if request.AtkRace == "BarbKing" %} selected {% endif %}>Barbarian King (+20% damage)</option>
+                    <option class="atk-race-selection" value="HedgeKnight" {% if request.AtkRace == "HedgeKnight" %} selected {% endif %}>Hedge Knight (+20% damage)</option>
+                    <option class="atk-race-selection" value="BrigandLeader" {% if request.AtkRace == "BrigandLeader" %} selected {% endif %}>Brigand Leader (+20% armor damage)</option>
+                    <option class="atk-race-selection" value="MasterArcher" {% if request.AtkRace == "MasterArcher" %} selected {% endif %}>Master Archer (+25% armor ignore)</option>
+                    <option class="atk-race-selection" value="Ambusher" {% if request.AtkRace == "Ambusher" %} selected {% endif %}>Goblin Ambusher (+25% armor ignore)</option>
+                    <option class="atk-race-selection" value="AmbusherDay180" {% if request.AtkRace == "AmbusherDay180" %} selected {% endif %}>Goblin Ambusher after day 180 (+35% armor ignore)</option>
+                    <option class="atk-race-selection" value="Skirmisher" {% if request.AtkRace == "Skirmisher" %} selected {% endif %}>Goblin Skirmisher (+25% armor ignore)</option>
+                    <option class="atk-race-selection" value="Overseer" {% if request.AtkRace == "Overseer" %} selected {% endif %}>Goblin Overseer (+10% armor ignore)</option>
+                    <option class="atk-race-selection" value="Wolfrider" {% if request.AtkRace == "Wolfrider" %} selected {% endif %}>Goblin Wolfrider (+25% armor ignore)</option>
+                    <option class="atk-race-selection" value="FrenziedDirewolf" {% if request.AtkRace == "FrenziedDirewolf" %} selected {% endif %}>Frenzied Direwolf (+20% damage)</option>
+                    <option class="atk-race-selection" value="UnholdDay90" {% if request.AtkRace == "UnholdDay90" %} selected {% endif %}>Unhold after day 90 (+10% damage)</option>
+                    <option class="atk-race-selection" value="LindwurmDay170" {% if request.AtkRace == "LindwurmDay170" %} selected {% endif %}>Lindwurm after day 170 (+20% damage)</option>
+                </select>
+        </div>
+        <div class="section" id="Defender">
+        <h2>Defender</h2>
+            <div>
+                <h3>Preset</h3>
+                <select name="DefPreset" id="DefPreset">
+                    <option value="None" {% if request.DefPreset == "None" %} selected {% endif %}>None</option>
+                    <option value="DPreNimbleBro" {% if request.DefPreset == "DPreNimbleBro" %} selected {% endif %}>120hp, 120/95, Nimble Bro</option>
+                    <option value="DPreNimbleBroBP" {% if request.DefPreset == "DPreNimbleBroBP" %} selected {% endif %}>120hp, 120/95, Nimble, Bone Plates Bro</option>
+                    <option value="DPreForgeBro" {% if request.DefPreset == "DPreForgeBro" %} selected {% endif %}>80hp, 300/300, Forge Bro</option>
+                    <option value="DPreForgeBroAFP" {% if request.DefPreset == "DPreForgeBroAFP" %} selected {% endif %}>80hp, 300/300, Forge, Additional Fur Padding Bro</option>
+                    <option value="DPreAncientLegion" {% if request.DefPreset == "DPreAncientLegion" %} selected {% endif %}>Ancient Legionary</option>
+                    <option value="DPreHonorGuard" {% if request.DefPreset == "DPreHonorGuard" %} selected {% endif %}>Honor Guard</option>
+                    <option value="DPreArmGangerHeavy" {% if request.DefPreset == "DPreArmGangerHeavy" %} selected {% endif %}>Heavy Armored Weiderganger</option>
+                    <option value="DPreFHeroHeavy" {% if request.DefPreset == "DPreFHeroHeavy" %} selected {% endif %}>Heavy Fallen Hero</option>
+                    <option value="DPreYoungHeavy" {% if request.DefPreset == "DPreYoungHeavy" %} selected {% endif %}>Heavy Orc Young</option>
+                    <option value="DPreBerserkerHeavy" {% if request.DefPreset == "DPreBerserkerHeavy" %} selected {% endif %}>Heavy Orc Berserker</option>
+                    <option value="DPreWarriorLight" {% if request.DefPreset == "DPreWarriorLight" %} selected {% endif %}>Light Orc Warrior</option>
+                    <option value="DPreWarriorHeavy" {% if request.DefPreset == "DPreWarriorHeavy" %} selected {% endif %}>Heavy Orc Warrior</option>
+                    <option value="DPreWarlord" {% if request.DefPreset == "DPreWarlord" %} selected {% endif %}>Orc Warlord</option>
+                    <option value="DPreSkirmisherHeavy" {% if request.DefPreset == "DPreSkirmisherHeavy" %} selected {% endif %}>Heavy Goblin Skirmisher</option>
+                    <option value="DPreAmbusher" {% if request.DefPreset == "DPreAmbusher" %} selected {% endif %}>Goblin Ambusher</option>
+                    <option value="DPreShaman" {% if request.DefPreset == "DPreShaman" %} selected {% endif %}>Goblin Shaman</option>
+                    <option value="DPreOverseer" {% if request.DefPreset == "DPreOverseer" %} selected {% endif %}>Goblin Overseer</option>
+                    <option value="DPreReaverHeavy" {% if request.DefPreset == "DPreReaverHeavy" %} selected {% endif %}>Heavy Barbarian Reaver</option>
+                    <option value="DPreChosenLight" {% if request.DefPreset == "DPreChosenLight" %} selected {% endif %}>Light Barbarian Chosen</option>
+                    <option value="DPreChosenHeavy" {% if request.DefPreset == "DPreChosenHeavy" %} selected {% endif %}>Heavy Barbarian Chosen</option>
+                    <option value="DPreBarbKing" {% if request.DefPreset == "DPreBarbKing" %} selected {% endif %}>Barbarian King</option>
+                    <option value="DPreBeastmaster" {% if request.DefPreset == "DPreBeastmaster" %} selected {% endif %}>Barbarian DPreBeastmaster</option>
+                    <option value="DPreFootmanHeavy" {% if request.DefPreset == "DPreFootmanHeavy" %} selected {% endif %}>Heavy Footman</option>
+                    <option value="DPreBillman" {% if request.DefPreset == "DPreBillman" %} selected {% endif %}>Billman</option>
+                    <option value="DPreArbalester" {% if request.DefPreset == "DPreArbalester" %} selected {% endif %}>Arbalester</option>
+                    <option value="DPreBannerHeavy" {% if request.DefPreset == "DPreBannerHeavy" %} selected {% endif %}>Heavy Bannerman</option>
+                    <option value="DPreKnight" {% if request.DefPreset == "DPreKnight" %} selected {% endif %}>Knight</option>
+                    <option value="DPreSergeant" {% if request.DefPreset == "DPreSergeant" %} selected {% endif %}>Sergeant</option>
+                    <option value="DPreZweiHeavy" {% if request.DefPreset == "DPreZweiHeavy" %} selected {% endif %}>Heavy Zweihander</option>
+                    <option value="DPreRaiderHeavy" {% if request.DefPreset == "DPreRaiderHeavy" %} selected {% endif %}>Heavy Brigand Raider</option>
+                    <option value="DPreMarkman" {% if request.DefPreset == "DPreMarkman" %} selected {% endif %}>Brigand Marksman</option>
+                    <option value="DPreLeaderHeavy" {% if request.DefPreset == "DPreLeaderHeavy" %} selected {% endif %}>Heavy Brigand Leader</option>
+                    <option value="DPreMercenaryHeavy" {% if request.DefPreset == "DPreMercenaryHeavy" %} selected {% endif %}>Heavy Mercenary</option>
+                    <option value="DPreMercRange" {% if request.DefPreset == "DPreMercRange" %} selected {% endif %}>Ranged Mercenary</option>
+                    <option value="DPreHedgeKnight" {% if request.DefPreset == "DPreHedgeKnight" %} selected {% endif %}>Hedge Knight</option>
+                    <option value="DPreSwordmaster" {% if request.DefPreset == "DPreSwordmaster" %} selected {% endif %}>Swordmaster</option>
+                    <option value="DPreMasterArcher" {% if request.DefPreset == "DPreMasterArcher" %} selected {% endif %}>Master Archer</option>
+                    <option value="DPreOutlawHeavy" {% if request.DefPreset == "DPreOutlawHeavy" %} selected {% endif %}>Heavy Brigand Outlaw</option>
+                    <option value="DPreConscript" {% if request.DefPreset == "DPreConscript" %} selected {% endif %}>Conscript</option>
+                    <option value="DPreOfficer" {% if request.DefPreset == "DPreOfficer" %} selected {% endif %}>Officer</option>
+                    <option value="DPreAssassinHeavy" {% if request.DefPreset == "DPreAssassinHeavy" %} selected {% endif %}>Heavy Assassin</option>
+                </select>
+            </div>
+            <div>
+                <h3>Stats</h3>
+                <div>
+                    <label for="Def_HP">HP</label>
+                    <input class="def-stat" type="number" name="Def_HP" id="Def_HP" min="1" max="500" value={{request.Def_HP|default:100}}>
+                    <label for="Def_Helmet">Helmet Armor</label>
+                    <input class="def-stat" type="number" name="Def_Helmet" id="Def_Helmet" min="0" max="500" value={{request.Def_Helmet|default:120}}>
+                </div>
+                <div>
+                    <label for="Def_Armor">Body Armor</label>
+                    <input class="def-stat" type="number" name="Def_Armor" id="Def_Armor" min="0" max="500" value={{request.Def_Armor|default:95}}>
+                    <label for="Fatigue" title="Only affects nimble.">Armor Fatigue Penalty</label>
+                    <input class="def-stat" type="number" name="Fatigue" id="Fatigue" min="-50" max="0" value={{request.Fatigue|default:-15}}>
+                </div>
+                <div>
+                    <label for="Def_Resolve" title="Used only if morale drop data returns are enabled.">Resolve</label>
+                    <input class="def-stat" type="number" name="Def_Resolve" id="Def_Resolve" min="0" max="999" value={{request.Def_Resolve|default:70}}>
+                </div>
+            </div>
+            <div>
+                <h3>Perks</h3>
+                <div>
+                    <label for="NineLives">
+                        <input class="def-checkbox" type="checkbox" name="DefPerks" id="NineLives" value="NineLives" {% if "NineLives" in DefPerks %} checked {% endif %}> 9 Lives
+                    </label>
+                    <label for="Resilient">
+                        <input class="def-checkbox" type="checkbox" name="DefPerks" id="Resilient" value="Resilient" {% if "Resilient" in DefPerks %} checked {% endif %}> Resilient
+                    </label>
+                    <label for="SteelBrow">
+                        <input class="def-checkbox" type="checkbox" name="DefPerks" id="SteelBrow" value="SteelBrow" {% if "SteelBrow" in DefPerks %} checked {% endif %}> Steel Brow
+                    </label>
+                    <label for="Nimble">
+                        <input class="def-checkbox" type="checkbox" name="DefPerks" id="Nimble" value="Nimble" {% if "Nimble" in DefPerks %} checked {% endif %}> Nimble
+                    </label>
+                    <label for="Forge">
+                        <input class="def-checkbox" type="checkbox" name="DefPerks" id="Forge" value="Forge" {% if "Forge" in DefPerks %} checked {% endif %}> Battleforged
+                    </label>
+                    <label for="Indomitable">
+                        <input class="def-checkbox" type="checkbox" name="DefPerks" id="Indomitable" value="Indomitable" {% if "Indomitable" in DefPerks %} checked {% endif %}> Indomitable
+                    </label>
+                </div>
+            </div>
+            <div>
+                <h3>Traits</h3>
+                <div>
+                    <label for="Ironjaw">
+                        <input type="checkbox" name="DefTraits" id="Ironjaw" value="Ironjaw" {% if "Ironjaw" in DefTraits %} checked {% endif %}> Iron Jaw
+                    </label>
+                    <label for="GloriousEndurance">
+                        <input type="checkbox" name="DefTraits" id="GloriousEndurance" value="GloriousEndurance" {% if "GloriousEndurance" in DefTraits %} checked {% endif %}> Glorious Endurance (Bear)
+                    </label>
+                </div>
+            </div>
+            <div>
+                <h3>Armor Attachment</h3>
+                <p>IMPORTANT: Attachments will automatically add armor or subtract Fatigue. Use the base armor/Fatigue values in the Defender Stats section or else you will double dip the attachment.</p>
+                <select name="ArmorAttachment" id="ArmorAttachment">
+                    <option id="def-attachment-none" value="None" {% if request.ArmorAttachment == "None" %} selected {% endif %}>None</option>
+                    <option class="def-attachment-selection" value="Wolf_Hyena" title="+15 armor." {% if request.ArmorAttachment == "Wolf_Hyena" %} selected {% endif %}>Wolf/Hyena Pelt</option>
+                    <option class="def-attachment-selection" value="LindwurmCloak" title="+60 armor, -3 Fatigue." {% if request.ArmorAttachment == "LindwurmCloak" %} selected {% endif %}>Lindwurm Cloak</option>
+                    <option class="def-attachment-selection" value="AdFurPad" title="33% reduced armor ignoring damage. -2 Fatigue." {% if request.ArmorAttachment == "AdFurPad" %} selected {% endif %}>Additional Fur Padding</option>
+                    <option class="def-attachment-selection" value="Boneplate" title="Absorbs first body hit. -2 Fatigue." {% if request.ArmorAttachment == "Boneplate" %} selected {% endif %}>Bone Platings</option>
+                    <option class="def-attachment-selection" value="HornPlate" title="Only select against melee attacks. +30 armor, 10% damage reduction." {% if request.ArmorAttachment == "HornPlate" %} selected {% endif %}>Horn Plate</option>
+                    <option class="def-attachment-selection" value="UnholdFurCloak" title="Only select against range attacks. +10 armor, 20% damage reduction." {% if request.ArmorAttachment == "UnholdFurCloak" %} selected {% endif %}>Unhold Fur Cloak</option>
+                    <option class="def-attachment-selection" value="SerpentSkin" title="Only select in Handgonne tests. +30 armor, -2 Fatigue, 33% damage reduction." {% if request.ArmorAttachment == "SerpentSkin" %} selected {% endif %}>Serpent Skin</option>
+                </select>
+            </div>
+            <div>
+                <h3>Race</h3>
+                <select name="DefRace" id="DefRace">
+                    <option id="def-race-none" value="None" {% if request.DefRace == "None" %} selected {% endif %}>None</option>
+                    <option class="def-race-selection" value="Undead" {% if request.DefRace == "Undead" %} selected {% endif %}>Undead (Immunity to Injury, Bleeding, Poison, and Morale)</option>
+                    <option class="def-race-selection" value="Savant" {% if request.DefRace == "Savant" %} selected {% endif %}>Savant (Immunity to Injury and Morale)</option>
+                    <option class="def-race-selection" value="SkeletonVsPierce" {% if request.DefRace == "SkeletonVsPierce" %} selected {% endif %}>Piercing DR (50% health DR for Ancient Dead and Ifrits vs. Daggers/Spears/Pikes)</option>
+                    <option class="def-race-selection" value="SkeletonVsJavelin" {% if request.DefRace == "SkeletonVsJavelin" %} selected {% endif %}>Javelin DR (75% health DR for Ancient Dead and Ifrits vs. Javelins)</option>
+                    <option class="def-race-selection" value="SkeletonVsArrow" {% if request.DefRace == "SkeletonVsArrow" %} selected {% endif %}>Arrow DR (90% health DR for Anciend Dead and Ifrits vs. Arrows)</option>
+                    <option class="def-race-selection" value="PossessedUndead" {% if request.DefRace == "PossessedUndead" %} selected {% endif %}>Possessed (25% damage reduction, Necromancer buff)</option>
+                    <option class="def-race-selection" value="FallenBetrayerD" {% if request.DefRace == "FallenBetrayerD" %} selected {% endif %}>Fallen Betrayer (25% armor damage reduction, Watermill)</option>
+                </select>
+            </div>
+        </div>
+        <div class="section" id="Results">
+        <h2>Results</h2>
+            <div>
+                <label>
+                    <input type="checkbox" name="DataReturns" id="DeathMean" value="DeathMean" {% if "DeathMean" in DataReturns %} checked {% endif %}>
+                    <pre>{{ results.DeathMean|default:"Returns the average number of hits until death." }}</pre>
+                </label>
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" name="DataReturns" id="DeathStDev" value="DeathStDev" {% if "DeathStDev" in DataReturns %} checked {% endif %} checked>
+                    <pre>{{ results.DeathStDev|default:"Returns standard deviation of hits until death." }}</pre>
+                </label>
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" name="DataReturns" id="DeathPercent" value="DeathPercent" {% if "DeathPercent" in DataReturns %} checked {% endif %} checked>
+                    <pre>{{ results.DeathPercent|default:"Returns % chance of death by each hit." }}</pre>
+                </label>
+                {% if "DeathPercent" in DataReturns and "HitsToDeathPercent" in results%}
+                <div id="DeathPercentChart" class="canvas"></div>
+                {% endif %}
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" name="DataReturns" id="InjuryMean" value="InjuryMean" {% if "InjuryMean" in DataReturns %} checked {% endif %} checked>
+                    <pre>{{ results.InjuryMean|default:"Returns average number of hits until first injury." }}</pre>
+                </label>
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" name="DataReturns" id="InjuryPercent" value="InjuryPercent" {% if "InjuryPercent" in DataReturns %} checked {% endif %}>
+                    <pre>{{ results.InjuryPercent|default:"Returns % chance of first injury by each hit." }}</pre>
+                </label>
+                {% if "InjuryPercent" in DataReturns and "HitsToInjurePercent" in results%}
+                <div id="InjuryPercentChart" class="canvas"></div>
+                {% endif %}
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" name="DataReturns" id="HeavyInjuryMean" value="HeavyInjuryMean" {% if "HeavyInjuryMean" in DataReturns %} checked {% endif %} checked>
+                    <pre>{{ results.HeavyInjuryMean|default:"Returns average number of hits until chance of first heavy injury (heavy injuries are not guaranteed even when threshold is met)." }}</pre>
+                </label>
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" name="DataReturns" id="HeavyInjuryPercent" value="HeavyInjuryPercent" {% if "HeavyInjuryPercent" in DataReturns %} checked {% endif %}>
+                    <pre>{{ results.HeavyInjuryPercent|default:"Returns % chance of first heavy injury chance by each hit." }}</pre>
+                </label>
+                {% if "HeavyInjuryPercent" in DataReturns and "HitsToHeavyInjuryChancePercent" in results%}
+                <div id="HeavyInjuryPercentChart" class="canvas"></div>
+                {% endif %}
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" name="DataReturns" id="MoraleChecksTotal" value="MoraleChecksTotal" {% if "MoraleChecksTotal" in DataReturns %} checked {% endif %}>
+                    <pre>{{ results.MoraleChecksTotal|default:"Returns the total number of morale checks before death." }}</pre>
+                </label>
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" name="DataReturns" id="MoraleMean" value="MoraleMean" {% if "MoraleMean" in DataReturns %} checked {% endif %}>
+                    <pre>{{ results.MoraleMean|default:"Returns average number of hits until first morale check." }}</pre>
+                </label>
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" name="DataReturns" id="MoralePercent" value="MoralePercent" {% if "MoralePercent" in DataReturns %} checked {% endif %}>
+                    <pre>{{ results.MoralePercent|default:"Returns % chance of first morale check by each hit." }}</pre>
+                </label>
+                {% if "MoralePercent" in DataReturns and "HitsToMoralePercent" in results%}
+                <div id="MoralePercentChart" class="canvas"></div>
+                {% endif %}
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" name="DataReturns" id="MoraleDropsMean" value="MoraleDropsMean" {% if "MoraleDropsMean" in DataReturns %} checked {% endif %}>
+                    <pre>{{ results.MoraleDropsMean|default:"Returns average number of hits to drop morale to each morale level." }}</pre>
+                </label>
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" name="DataReturns" id="MoraleDropsPercent" value="MoraleDropsPercent" {% if "MoraleDropsPercent" in DataReturns %} checked {% endif %}>
+                    <pre>{{ results.MoraleDropsPercent|default:"Returns % chance of dropping morale to each morale level by each hit." }}</pre>
+                </label>
+                {% if "MoraleDropsPercent" in DataReturns%}
+                    {% if "HitsToWaveringPercent" in results%}
+                    <div id="HitsToWaveringChart" class="canvas"></div>
+                    {% endif %}
+                    {% if "HitsToBreakingPercent" in results%}
+                    <div id="HitsToBreakingChart" class="canvas"></div>
+                    {% endif %}
+                    {% if "HitsToFleeingPercent" in results%}
+                    <div id="HitsToFleeingChart" class="canvas"></div>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div>
+                <pre>{{ results.Nimble|default:"Returns % damage modifier from nimble." }}</pre>
+            </div>
+            <div>
+                <pre>{{ results.Forge|default:"Returns bonus armor from battleforged." }}</pre>
+            </div>
+            <div>
+                <pre>{{ results.Ambusher|default:"Returns average number of hits until poisoned (Goblin Ambusher only)." }}</pre>
+            </div>
+            <div>
+                <pre>{{ results.Cleaver|default:"Returns average number of hits until bleeding." }}</pre>
+            </div>
+        </div>
+        <div>
+            <input type="submit" value="Calculate">
+        </div>
+        </form>
+        <script src="{% static 'presets.js' %}"></script>
+    </body>
+</html>

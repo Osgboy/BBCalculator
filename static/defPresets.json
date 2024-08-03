@@ -1,0 +1,299 @@
+{
+    "DPreNimbleBro": {
+        "Def_HP": 120,
+        "Def_Helmet": 120,
+        "Def_Armor": 95,
+        "Def_Resolve": 50,
+        "Fatigue": -15,
+        "Nimble": true
+    },
+    "DPreNimbleBroBP": {
+        "Def_HP": 120,
+        "Def_Helmet": 120,
+        "Def_Armor": 80,
+        "Def_Resolve": 50,
+        "Fatigue": -13,
+        "Nimble": true,
+        "Boneplate": true
+    },
+    "DPreForgeBro": {
+        "Def_HP": 80,
+        "Def_Helmet": 300,
+        "Def_Armor": 300,
+        "Def_Resolve": 50,
+        "Forge": true
+    },
+    "DPreForgeBroAFP": {
+        "Def_HP": 80,
+        "Def_Helmet": 300,
+        "Def_Armor": 300,
+        "Def_Resolve": 50,
+        "Forge": true,
+        "AdFurPad": true
+    },
+    "DPreAncientLegion": {
+        "Def_HP": 55,
+        "Def_Helmet": 130,
+        "Def_Armor": 135,
+        "Forge": true,
+        "SteelBrow": true,
+        "Undead": true
+    },
+    "DPreHonorGuard": {
+        "Def_HP": 65,
+        "Def_Helmet": 180,
+        "Def_Armor": 210,
+        "Forge": true,
+        "SteelBrow": true,
+        "Undead": true
+    },
+    "DPreArmGangerHeavy": {
+        "Def_HP": 130,
+        "Def_Helmet": 140,
+        "Def_Armor": 115,
+        "Forge": true,
+        "Undead": true
+    },
+    "DPreFHeroHeavy": {
+        "Def_HP": 180,
+        "Def_Helmet": 255,
+        "Def_Armor": 260,
+        "Forge": true,
+        "Undead": true
+    },
+    "DPreYoungHeavy": {
+        "Def_HP": 125,
+        "Def_Helmet": 120,
+        "Def_Armor": 120,
+        "Def_Resolve": 65
+    },
+    "DPreBerserkerHeavy": {
+        "Def_HP": 250,
+        "Def_Helmet": 120,
+        "Def_Armor": 110,
+        "Def_Resolve": 90,
+        "Resilient": true
+    },
+    "DPreWarriorLight": {
+        "Def_HP": 200,
+        "Def_Helmet": 240,
+        "Def_Armor": 280,
+        "Def_Resolve": 75,
+        "Resilient": true
+    },
+    "DPreWarriorHeavy": {
+        "Def_HP": 200,
+        "Def_Helmet": 360,
+        "Def_Armor": 400,
+        "Def_Resolve": 75,
+        "Resilient": true
+    },
+    "DPreWarlord": {
+        "Def_HP": 300,
+        "Def_Helmet": 500,
+        "Def_Armor": 500,
+        "Def_Resolve": 90
+    },
+    "DPreSkirmisherHeavy": {
+        "Def_HP": 40,
+        "Def_Helmet": 90,
+        "Def_Armor": 90,
+        "Def_Resolve": 55
+    },
+    "DPreAmbusher": {
+        "Def_HP": 40,
+        "Def_Helmet": 25,
+        "Def_Armor": 35,
+        "Def_Resolve": 45
+    },
+    "DPreShaman": {
+        "Def_HP": 70,
+        "Def_Helmet": 35,
+        "Def_Armor": 45,
+        "Def_Resolve": 70
+    },
+    "DPreOverseer": {
+        "Def_HP": 70,
+        "Def_Helmet": 120,
+        "Def_Armor": 180,
+        "Def_Resolve": 70
+    },
+    "DPreReaverHeavy": {
+        "Def_HP": 80,
+        "Def_Helmet": 145,
+        "Def_Armor": 95,
+        "Def_Resolve": 80,
+        "Resilient": true
+    },
+    "DPreChosenLight": {
+        "Def_HP": 130,
+        "Def_Helmet": 145,
+        "Def_Armor": 140,
+        "Def_Resolve": 90,
+        "Forge": true,
+        "Resilient": true
+    },
+    "DPreChosenHeavy": {
+        "Def_HP": 130,
+        "Def_Helmet": 190,
+        "Def_Armor": 230,
+        "Def_Resolve": 90,
+        "Forge": true,
+        "Resilient": true
+    },
+    "DPreBarbKing": {
+        "Def_HP": 150,
+        "Def_Helmet": 250,
+        "Def_Armor": 270,
+        "Def_Resolve": 110,
+        "Forge": true,
+        "Resilient": true
+    },
+    "DPreBeastmaster": {
+        "Def_HP": 70,
+        "Def_Helmet": 130,
+        "Def_Armor": 95,
+        "Def_Resolve": 90,
+        "Resilient": true
+    },
+    "DPreFootmanHeavy": {
+        "Def_HP": 70,
+        "Def_Helmet": 215,
+        "Def_Armor": 150,
+        "Def_Resolve": 60,
+        "Forge": true
+    },
+    "DPreBillman": {
+        "Def_HP": 70,
+        "Def_Helmet": 80,
+        "Def_Armor": 130,
+        "Def_Resolve": 60,
+        "Forge": true
+    },
+    "DPreArbalester": {
+        "Def_HP": 60,
+        "Def_Helmet": 80,
+        "Def_Armor": 65,
+        "Def_Resolve": 60
+    },
+    "DPreBannerHeavy": {
+        "Def_HP": 80,
+        "Def_Helmet": 215,
+        "Def_Armor": 150,
+        "Def_Resolve": 80,
+        "SteelBrow": true
+    },
+    "DPreKnight": {
+        "Def_HP": 125,
+        "Def_Helmet": 300,
+        "Def_Armor": 300,
+        "Def_Resolve": 90,
+        "Forge": true
+    },
+    "DPreSergeant": {
+        "Def_HP": 100,
+        "Def_Helmet": 0,
+        "Def_Armor": 150,
+        "Def_Resolve": 80,
+        "Fatigue": -18,
+        "Nimble": true,
+        "SteelBrow": true
+    },
+    "DPreZweiHeavy": {
+        "Def_HP": 90,
+        "Def_Helmet": 160,
+        "Def_Armor": 240,
+        "Def_Resolve": 70,
+        "Forge": true,
+        "SteelBrow": true
+    },
+    "DPreRaiderHeavy": {
+        "Def_HP": 70,
+        "Def_Helmet": 140,
+        "Def_Armor": 115,
+        "Def_Resolve": 55
+    },
+    "DPreMarkman": {
+        "Def_HP": 60,
+        "Def_Helmet": 45,
+        "Def_Armor": 70,
+        "Def_Resolve": 50
+    },
+    "DPreLeaderHeavy": {
+        "Def_HP": 100,
+        "Def_Helmet": 250,
+        "Def_Armor": 230,
+        "Def_Resolve": 70,
+        "NineLives": true
+    },
+    "DPreMercenaryHeavy": {
+        "Def_HP": 90,
+        "Def_Helmet": 230,
+        "Def_Armor": 260,
+        "Def_Resolve": 70,
+        "Forge": true
+    },
+    "DPreMercRange": {
+        "Def_HP": 65,
+        "Def_Helmet": 115,
+        "Def_Armor": 115,
+        "Def_Resolve": 70,
+        "Fatigue": -18,
+        "Nimble": true
+    },
+    "DPreHedgeKnight": {
+        "Def_HP": 150,
+        "Def_Helmet": 300,
+        "Def_Armor": 300,
+        "Def_Resolve": 90,
+        "Forge": true,
+        "Resilient": true
+    },
+    "DPreSwordmaster": {
+        "Def_HP": 70,
+        "Def_Helmet": 70,
+        "Def_Armor": 115,
+        "Def_Resolve": 90,
+        "Fatigue": -15,
+        "Nimble": true,
+        "SteelBrow": true
+    },
+    "DPreMasterArcher": {
+        "Def_HP": 80,
+        "Def_Helmet": 30,
+        "Def_Armor": 115,
+        "Def_Resolve": 70,
+        "Fatigue": -12,
+        "Nimble": true,
+        "SteelBrow": true
+    },
+    "DPreOutlawHeavy": {
+        "Def_HP": 75,
+        "Def_Helmet": 125,
+        "Def_Armor": 105,
+        "Def_Resolve": 60
+    },
+    "DPreConscript": {
+        "Def_HP": 55,
+        "Def_Helmet": 105,
+        "Def_Armor": 110,
+        "Def_Resolve": 70,
+        "Fatigue": -16,
+        "Nimble": true
+    },
+    "DPreOfficer": {
+        "Def_HP": 100,
+        "Def_Helmet": 290,
+        "Def_Armor": 290,
+        "Def_Resolve": 80,
+        "Forge": true
+    },
+    "DPreAssassinHeavy": {
+        "Def_HP": 80,
+        "Def_Helmet": 140,
+        "Def_Armor": 120,
+        "Def_Resolve": 85,
+        "Fatigue": -15,
+        "Nimble": true
+    }
+}
