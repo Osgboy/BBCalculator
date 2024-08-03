@@ -16,6 +16,10 @@
     border-bottom-right-radius: 0.5rem;
 }
 
+.SectionButton {
+    font-weight: bold;   
+}
+
 #AttackerSection {
     background-color: #E8DFF2;
 }
@@ -23,7 +27,6 @@
 #AttackerButton {
     background-color: #7540BF;
     border-color: #7540BF;
-    font-weight: bold;
 }
 
 #AttackerButton:hover {
@@ -38,7 +41,6 @@
 #DefenderButton {
     background-color: #00895A;
     border-color: #00895A;
-    font-weight: bold;
 }
 
 #DefenderButton:hover {
@@ -53,7 +55,6 @@
 #ResultsButton {
     background-color: #9E9E9E;
     border-color: #9E9E9E;
-    font-weight: bold;
 }
 
 #ResultsButton:hover {
