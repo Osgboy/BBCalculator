@@ -1,10 +1,15 @@
 from django.shortcuts import render
 from . import BBCalc
 import json
+import os
 import pdb
 
 # Create your views here.
 def index(request):
+    abspath = os.path.abspath(__file__)
+    dname = os.path.dirname(abspath)
+    os.chdir(dname)
+    os.chdir('..')
     with open('static/atkPresets.json', 'r') as f:
         # atkPresetJSON = f.read()
         atkPresetJSON = json.load(f)
