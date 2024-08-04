@@ -18,8 +18,7 @@
 }
 
 .BackgroundSection {
-    border-bottom-left-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
+    border-radius: 0.25rem 0.25rem 0.5rem 0.5rem;
 }
 
 .SectionButton {
@@ -67,6 +66,50 @@
     background-color: #ABABAB;
     border-color: #ABABAB;
 }
+
+@media (prefers-color-scheme: dark) {
+    #AttackerSection {
+        background-color: #5E206B;
+    }
+
+    #AttackerButton {
+        background-color: #3D1545;
+        border-color: #3D1545;
+    }
+    
+    #AttackerButton:hover {
+        background-color: #4D1A57;
+        border-color: #4D1A57;
+    }
+
+    #DefenderSection {
+        background-color: #00452B;
+    }
+
+    #DefenderButton {
+        background-color: #042C1B;
+        border-color: #042C1B;
+    }
+    
+    #DefenderButton:hover {
+        background-color: #033823;
+        border-color: #033823;
+    }
+    
+    #ResultsSection {
+        background-color: #3B3B3B;
+    }
+    
+    #ResultsButton {
+        background-color: #262626;
+        border-color: #262626;
+    }
+
+    #ResultsButton:hover {
+        background-color: #303030;
+        border-color: #303030;
+    }
+    }
 
 footer {
     background-color: #13171f;

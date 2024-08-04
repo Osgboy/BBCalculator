@@ -738,11 +738,13 @@
                     </div>
                 </details>
             </section>
-            <label for="Trials"><h6># of trials</h6></label>
-            <fieldset role="group">
-                <input type="number" name="Trials" id="Trials" min="2" max="10000" value={{request.Trials|default:1000}} required>
-                <input type="submit" value="Calculate">
-            </fieldset>
+            <section id="CalculateSection">
+                <label for="Trials"><h6># of trials</h6></label>
+                <fieldset role="group">
+                    <input type="number" name="Trials" id="Trials" min="2" max="10000" value={{request.Trials|default:1000}} required>
+                    <input type="submit" value="Calculate">
+                </fieldset>
+            </section>
             </form>
         </main>
         <footer>
