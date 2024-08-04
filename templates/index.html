@@ -266,21 +266,21 @@
                         <details id="AttackerStats">
                             <summary role="button" class="secondary">Stats</summary>
                             <fieldset class="grid">
-                                <label for="Mind">Min Damage <img src="{% static 'icons/stats/damage_dealt.png' %}" alt="Damage dealt icon"></label>
+                                <label class="StatLabel" for="Mind">Min Damage <img src="{% static 'icons/stats/damage_dealt.png' %}" alt="Damage dealt icon"></label>
                                 <input class="atk-stat" type="number" name="Mind" id="Mind" min="1" max="999" value={{request.Mind|default:55}}>
-                                <label for="Maxd">Max Damage <img src="{% static 'icons/stats/damage_dealt.png' %}" alt="Damage dealt icon"></label>
+                                <label class="StatLabel" for="Maxd">Max Damage <img src="{% static 'icons/stats/damage_dealt.png' %}" alt="Damage dealt icon"></label>
                                 <input class="atk-stat" type="number" name="Maxd" id="Maxd" min="1" max="999" value={{request.Maxd|default:80}}>
                             </fieldset>
                             <fieldset class="grid">
-                                <label for="Ignore">Armor Ignore % <img src="{% static 'icons/stats/direct_damage.png' %}" alt="Direct damage icon"></label>
+                                <label class="StatLabel" for="Ignore">Armor Ignore % <img src="{% static 'icons/stats/direct_damage.png' %}" alt="Direct damage icon"></label>
                                 <input class="atk-stat" type="number" name="Ignore" id="Ignore" min="0" max="999" value={{request.Ignore|default:30}}>
-                                <label for="ArmorMod">Armor Damage % <img src="{% static 'icons/stats/armor_damage.png' %}" alt="Armor damage icon"></label>
+                                <label class="StatLabel" for="ArmorMod">Armor Damage % <img src="{% static 'icons/stats/armor_damage.png' %}" alt="Armor damage icon"></label>
                                 <input class="atk-stat" type="number" name="ArmorMod" id="ArmorMod" min="0" max="999" value={{request.ArmorMod|default:125}}>
                             </fieldset>
                             <fieldset class="grid">
-                                <label for="Headchance">% Chance to Hit Head <img src="{% static 'icons/stats/headchance.png' %}" alt="Headshot chance icon"></label>
+                                <label class="StatLabel" for="Headchance">% Chance to Hit Head <img src="{% static 'icons/stats/headchance.png' %}" alt="Headshot chance icon"></label>
                                 <input class="atk-stat" type="number" name="Headchance" id="Headchance" min="0" max="100" value={{request.Headchance|default:30}}>
-                                <label for="Atk_Resolve">Resolve <img src="{% static 'icons/stats/resolve.png' %}" alt="Resolve icon"></label>
+                                <label class="StatLabel" for="Atk_Resolve">Resolve <img src="{% static 'icons/stats/resolve.png' %}" alt="Resolve icon"></label>
                                 <input class="atk-stat" type="number" name="Atk_Resolve" id="Atk_Resolve" min="0" max="999" value={{request.Atk_Resolve|default:50}}>
                             </fieldset>
                         </details>
@@ -553,19 +553,19 @@
                         <details>
                             <summary role="button" class="secondary">Stats</summary>
                             <fieldset class="grid">
-                                <label for="Def_HP">HP <img src="{% static 'icons/stats/health.png' %}" alt="Health icon"></label>
+                                <label class="StatLabel" for="Def_HP">Health <img src="{% static 'icons/stats/health.png' %}" alt="Health icon"></label>
                                 <input class="def-stat" type="number" name="Def_HP" id="Def_HP" min="1" max="500" value={{request.Def_HP|default:100}}>
-                                <label for="Def_Helmet">Helmet Armor <img src="{% static 'icons/stats/helmetarmor.png' %}" alt="Helmet armor icon"></label>
+                                <label class="StatLabel" for="Def_Helmet">Helmet Armor <img src="{% static 'icons/stats/helmetarmor.png' %}" alt="Helmet armor icon"></label>
                                 <input class="def-stat" type="number" name="Def_Helmet" id="Def_Helmet" min="0" max="500" value={{request.Def_Helmet|default:120}}>
                             </fieldset>
                             <fieldset class="grid">
-                                <label for="Def_Armor">Body Armor <img src="{% static 'icons/stats/bodyarmor.png' %}" alt="Body armor icon"></label>
+                                <label class="StatLabel" for="Def_Armor">Body Armor <img src="{% static 'icons/stats/bodyarmor.png' %}" alt="Body armor icon"></label>
                                 <input class="def-stat" type="number" name="Def_Armor" id="Def_Armor" min="0" max="500" value={{request.Def_Armor|default:95}}>
-                                <label for="Fatigue" title="Only affects nimble.">Armor Fatigue Penalty <img src="{% static 'icons/stats/fatigue.png' %}" alt="Fatigue icon"></label>
+                                <label class="StatLabel" for="Fatigue" title="Only affects nimble.">Armor Fatigue Penalty <img src="{% static 'icons/stats/fatigue.png' %}" alt="Fatigue icon"></label>
                                 <input class="def-stat" type="number" name="Fatigue" id="Fatigue" min="-50" max="0" value={{request.Fatigue|default:-15}}>
                             </fieldset>
                             <fieldset>
-                                <label for="Def_Resolve" title="Used only if morale drop data returns are enabled.">Resolve <img src="{% static 'icons/stats/resolve.png' %}" alt="Resolve icon"></label>
+                                <label class="StatLabel" for="Def_Resolve" title="Used only if morale drop data returns are enabled.">Resolve <img src="{% static 'icons/stats/resolve.png' %}" alt="Resolve icon"></label>
                                 <input class="def-stat" type="number" name="Def_Resolve" id="Def_Resolve" min="0" max="999" value={{request.Def_Resolve|default:70}}>
                             </fieldset>
                         </details>

@@ -20,14 +20,11 @@ defPreset.addEventListener("change", applyDefPreset);
 window.addEventListener("load", applyDefPreset);
 
 function applyAtkPreset(event) {
-    if (atkPreset.value == 'None') {
-        atkStats.forEach(s => s.removeAttribute('readonly'))
-    } else {
+    if (atkPreset.value != 'None') {
         const attrs = atkPresets[atkPreset.value];
         for (const stat of atkStats) {
             if (Object.keys(attrs).includes(stat.id)) {
                 stat.value = attrs[stat.id]
-                stat.setAttribute('readonly', '')
             }
         }
         for (const checkbox of atkCheckboxes) {
@@ -53,14 +50,11 @@ function applyAtkPreset(event) {
 };
 
 function applyDefPreset(event) {
-    if (defPreset.value == 'None') {
-        defStats.forEach(s => s.removeAttribute('readonly'))
-    } else {
+    if (defPreset.value != 'None') {
         const attrs = defPresets[defPreset.value];
         for (const stat of defStats) {
             if (Object.keys(attrs).includes(stat.id)) {
                 stat.value = attrs[stat.id]
-                stat.setAttribute('readonly', '')
             }
         }
         for (const checkbox of defCheckboxes) {
