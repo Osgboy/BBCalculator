@@ -15,7 +15,8 @@
       "Ignore": 30,
       "ArmorMod": 125,
       "Fearsome": true,
-      "Atk_Resolve": 80
+      "Atk_Resolve": 80,
+      "Pierce": true
     },
     "APreWarscytheAoE": {
       "Mind": 55,
@@ -103,7 +104,8 @@
       "Headchance": 25,
       "Ignore": 35,
       "ArmorMod": 60,
-      "Ambusher": true
+      "Ambusher": true,
+      "Arrow": true
     },
     "APreSpikedImpaler": {
       "Mind": 50,
@@ -112,7 +114,8 @@
       "Ignore": 50,
       "ArmorMod": 75,
       "Overseer": true,
-      "XbowMastery": true
+      "XbowMastery": true,
+      "XbowOrSling": true
     },
     "APre2HSpikedMace": {
       "Mind": 50,
@@ -167,7 +170,8 @@
       "Headchance": 25,
       "Ignore": 50,
       "ArmorMod": 75,
-      "XbowMastery": true
+      "XbowMastery": true,
+      "XbowOrSling": true
     },
     "APreFightingAxe": {
       "Mind": 35,
@@ -219,7 +223,8 @@
       "Headchance": 25,
       "Ignore": 50,
       "ArmorMod": 70,
-      "XbowMastery": true
+      "XbowMastery": true,
+      "XbowOrSling": true
     },
     "APreNobleSword": {
       "Mind": 45,
@@ -241,7 +246,8 @@
       "CripplingStrikes": true,
       "Executioner": true,
       "MasterArcher": true,
-      "HeadHunter": true
+      "HeadHunter": true,
+      "Arrow": true
     },
     "APrePoleMace": {
       "Mind": 60,
@@ -257,7 +263,8 @@
       "Ignore": 25,
       "ArmorMod": 90,
       "Fearsome": true,
-      "Atk_Resolve": 70
+      "Atk_Resolve": 70,
+      "Handgonne": true
     },
     "APre2HScimitar": {
       "Mind": 65,
@@ -277,7 +284,8 @@
       "ArmorMod": 70,
       "Duelist": true,
       "DoubleGrip": true,
-      "Executioner": true
+      "Executioner": true,
+      "Pierce": true
     },
     "APreFDirewolf": {
       "Mind": 30,

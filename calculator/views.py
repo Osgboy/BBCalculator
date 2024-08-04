@@ -16,6 +16,7 @@ def index(request):
         # defPresetJSON = f.read()
         defPresetJSON = json.load(f)
     if request.GET:
+        #breakpoint()
         results = BBCalc.main(**BBCalc.parse(request.GET))
         context = {
             'atkPresetJSON': atkPresetJSON,

@@ -111,6 +111,10 @@
     }
     }
 
+#CalculateSection {
+    padding: 1rem;
+}
+
 footer {
     background-color: #13171f;
     color: #c2c7d0;

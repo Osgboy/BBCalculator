@@ -37,7 +37,7 @@
         "Def_Armor": 135,
         "Forge": true,
         "SteelBrow": true,
-        "Undead": true
+        "Skeleton": true
     },
     "DPreHonorGuard": {
         "Def_HP": 65,
@@ -45,21 +45,21 @@
         "Def_Armor": 210,
         "Forge": true,
         "SteelBrow": true,
-        "Undead": true
+        "Skeleton": true
     },
     "DPreArmGangerHeavy": {
         "Def_HP": 130,
         "Def_Helmet": 140,
         "Def_Armor": 115,
         "Forge": true,
-        "Undead": true
+        "Zombie": true
     },
     "DPreFHeroHeavy": {
         "Def_HP": 180,
         "Def_Helmet": 255,
         "Def_Armor": 260,
         "Forge": true,
-        "Undead": true
+        "Zombie": true
     },
     "DPreYoungHeavy": {
         "Def_HP": 125,

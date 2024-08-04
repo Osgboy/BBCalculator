@@ -34,6 +34,9 @@ MoralePercent = False,      #Returns % chance of first morale check by each hit.
 MoraleDropsMean = False,    #Returns average number of hits to drop morale to each morale level.
 MoraleDropsPercent = False, #Returns % chance of dropping morale to each morale level by each hit.
 
+#Hit Chance: Use a whole number - 50% hit chance put "50" rather than .5
+HitChance = None, #Not enabled by default
+
 #Attacker Stats: #Example is Ancient Bladed Pike, follow that formatting. If you wish to use a attacker Preset, then skip this section.
 Mind = 55,        #Mind = 55
 Maxd = 80,        #Maxd = 80
@@ -102,7 +105,15 @@ XbowMastery = False,         #Ignore +20%.
 R2Throw = False,             #Throwing Mastery for 1 or 2 Range.
 R3Throw = False,             #Throwing Mastery for 3 Range.
 Scatter = False,             #Ranged attacks that hit an unintended target deal 75% damage.
+Pierce = False,              #-50% health damage for Daggers, Spears, and Pikes against Ancient Dead, Alps, and Ifrits.
+DogBite = False,             #-66% health damage for Dog bites against Alps.
+XbowOrSling = False,         #-66% health damage for Xbows and Slings against Ancient Dead, Alps, and Ifrits.
+Handgonne = False,           #-66% health damage for Handgonnes against Ancient Dead, -50% against Alps, and -75% against Ifrits.
+Javelin = False,             #-75% health damage for Javelins against Ancient Dead, Alps, and Ifrits.
+Ignite = False,              #-75% health damage for Ignite against Ancient Dead, -90% against Ifrits.
+Arrow = False,               #-90% health damage for Bows against Ancient Dead, Alps, and Ifrits.
 #Perks:
+FastAdaptation = False,
 CripplingStrikes = False,
 Executioner = False,
 HeadHunter = False,          #Will carry over HH stacks between kills as happens in game.
@@ -153,11 +164,11 @@ UnholdDay90 = False,         #Damage +10%.
 LindwurmDay170 = False,      #Damage +10%.
 
 #RACE FLAGS (DEFENDER): Set these values to 1 if they apply and 0 otherwise.
-Undead = False,              #Immunity to Injury, Bleeding, Poison, and Morale.
+Zombie = False,              #Immunity to Injury, Bleeding, Poison, and Morale.
 Savant = False,              #Immunity to Injury and Morale.
-SkeletonVsPierce = False,    #50% health damage reduction for Ancient Dead and Alps vs. Daggers, Spears, and Pikes.
-SkeletonVsJavelin = False,   #75% health damage reduction for Ancient Dead and Alps vs. Javelins. 
-SkeletonVsArrow = False,     #90% health damage reduction for Anciend Dead and Alps vs. Arrows.
+Skeleton = False,            #Take only 10% damage from bows, 25% damage from javelins and fire lances' ignite, 33% damage from crossbows, slings and handgonnes, 50% from other piercing attacks.
+Alp = False,                 #Take only 10% damage from bows, 25% damage from javelins, 33% damage from crossbows, slings and dog bites, 50% from other piercing attacks and handgonnes. 
+Ifrit = False,               #Takes only 10% damage from bows and fire lances' ignite, 25% damage from javelins and handgonne, 33% damage from crossbows and slings, 50% damage from other piercing weapons.
 PossessedUndead = False,     #25% damage reduction. Necromancer buff.
 FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers.
 
@@ -529,6 +540,9 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
         if Axe1H:
             HeadMod += .5
 
+    #Fast Adaptation:
+    FastAdMod = 0
+
     #HeadHunter
     HHStack = 0
 
@@ -621,14 +635,61 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
         IndomMod = 1
 
     #Racial defense modifier:
-    if SkeletonVsPierce:
-        SkeletonMod = .5
-    elif SkeletonVsJavelin:
-        SkeletonMod = .25
-    elif SkeletonVsArrow:
-        SkeletonMod = .1
+    if Skeleton:
+        if Pierce:
+            RaceMod = .5
+        elif XbowOrSling:
+            RaceMod = 2/3
+        elif Handgonne:
+            RaceMod = 2/3
+        elif Javelin:
+            RaceMod = .25
+        elif Ignite:
+            RaceMod = .25
+        elif Arrow:
+            RaceMod = .1
+    elif Alp:
+        if Pierce:
+            RaceMod = .5
+        elif DogBite:
+            RaceMod = 2/3
+        elif XbowOrSling:
+            RaceMod = 2/3
+        elif Handgonne:
+            RaceMod = .5
+        elif Javelin:
+            RaceMod = .25
+        elif Arrow:
+            RaceMod = .1
+    elif Ifrit:
+        if Pierce:
+            RaceMod = .5
+        elif XbowOrSling:
+            RaceMod = 2/3
+        elif Handgonne:
+            RaceMod = .25
+        elif Javelin:
+            RaceMod = .25
+        elif Ignite:
+            RaceMod = .1
+        elif Arrow:
+            RaceMod = .1
     else:
-        SkeletonMod = 1
+        RaceMod = 1
+
+    #Racial immunities:
+    if Zombie or Savant or Skeleton or Alp or Ifrit or PossessedUndead or FallenBetrayerD:
+        injuryImmune = True
+    else:
+        injuryImmune = False
+    if Zombie or Skeleton or Alp or Ifrit or PossessedUndead or FallenBetrayerD:
+        DOTImmune = True
+    else:
+        DOTImmune = False
+    if Zombie or Savant or Skeleton or Ifrit or PossessedUndead or FallenBetrayerD:
+        moraleImmune = True
+    else:
+        moraleImmune = False
 
     #Bleeding damage:
     BleedDamage = 0
@@ -691,6 +752,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
         Bleed = 0                           #Tracker for when first bleeding occurs against cleavers.
 
         count = 0 #Number of hits until death. Starts at 0 and goes up after each attack.
+        Hits = 0 #Used for Glorious Endurance. Starts at 0 and goes up after each hit.
 
         while hp > 0: #Continue looping until death.
             #Check various modifiers that change over the course of one's life. These will be re-checked after each attack.
@@ -724,9 +786,9 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
             #Gladiator - The Bear - Glorious Endurance:
             if GloriousEndurance:
                 if SplitMan:
-                    GladMod = 1 - (.05 * (count * 2))
+                    GladMod = 1 - (.05 * (Hits * 2))
                 else:
-                    GladMod = 1 - (.05 * count)
+                    GladMod = 1 - (.05 * Hits)
                 if GladMod < .75:
                     GladMod = .75
             else:
@@ -743,141 +805,150 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                 else:
                     Headshotchance = Headchance
 
-            #Begin damage rolls:
-            hp_roll = random.randint(Mind,Maxd) #Random roll to determine unmodified hp damage.
-            head_roll = random.randint(1,100) #Random roll to determine if hit is a headshot.
-            if head_roll <= Headshotchance: #If headshot, do the following code blocks.
-                #Headshot injuries use a different formula. This flag will signal later when Injury is checked.
-                UseHeadShotInjuryFormula = 1
-                #HeadHunter check -- Lose current stack if you had one. Gain stack if you didn't.
-                if HeadHunter:
-                    if not HHStack:
-                        HHStack = True
-                    elif HHStack:
-                        HHStack = False
-                #2H Flail Check -- Have a higher armor ignoring% on Pound for headshots compared to bodyshots.
-                if Flail2HPound:
-                    Ignore = Flail2HHeadshot
-                    
-                #Destroy armor check -- if Destroy Armor special is active do this code block and skip the rest.
-                if not DArmorMod:
-                    hp_roll = 10 #DestroyArmor forces hp damage to = 10.
-                    hp -= hp_roll 
-                    armor_roll = random.randint(Mind,Maxd) * ArmorMod * DArmorMod * GladMod * IndomMod * DamageMod *  ExecMod
-                    ForgeSaved += armor_roll - armor_roll * ForgeMod
-                    armor_roll = min(helmet,(armor_roll * ForgeMod))
-                    helmet = math.ceil(helmet - armor_roll) #Rounding armor damage.
-                #If not DestoryArmor, and no armor is present, apply damage directly to hp.
-                elif helmet == 0:
-                    hp_roll = hp_roll * NimbleMod * SkeletonMod * GladMod * IndomMod * ((DamageMod *  ExecMod * AimedShotMod) * DecapMod) * HeadMod
-                    if Hammer10: #If 1H Hammer, deal 10 damage minimum.
-                        hp_roll = max(hp_roll,10)
-                    hp = math.ceil(hp - hp_roll) #Rounding hp damage.
-                #Otherwise, do the following.
-                else:
-                    armor_roll = random.randint(Mind,Maxd) * ArmorMod * GladMod * IndomMod * DamageMod *  ExecMod
-                    ForgeSaved += armor_roll - armor_roll * ForgeMod #Calculate how much armor is saved by Forge.
-                    armor_roll = min(helmet,(armor_roll * ForgeMod)) #Applying Forge, and armor damage cannot exceed current armor.
-                    helmet -= armor_roll #Armor damage applied to helmet.
-                    #If the helmet does not get destroyed by the attack, do the following.
-                    if helmet > 0:
-                        hp_roll = max(0,(hp_roll * Ignore * NimbleMod * SkeletonMod * GladMod * IndomMod * ((DamageMod *  ExecMod * AimedShotMod) * DecapMod) - (helmet * 0.1)) * HeadMod)
-                        if Hammer10:
-                            hp_roll = max(hp_roll,10) 
-                        helmet = math.ceil(helmet)
-                        hp = math.ceil(hp - hp_roll)
-                    #If the helmet did get destoryed by the attack, do the following.
-                    else:
-                        OverflowDamage = max(0,(hp_roll * (1 - Ignore) * NimbleMod * SkeletonMod * GladMod * IndomMod * ((DamageMod *  ExecMod * AimedShotMod) * DecapMod) - armor_roll))
-                        hp_roll = (hp_roll * Ignore * NimbleMod * SkeletonMod * GladMod * IndomMod * ((DamageMod *  ExecMod * AimedShotMod) * DecapMod) + OverflowDamage) * HeadMod
-                        if Hammer10:
+            HitChanceCheck = random.randint(1,100) #Random roll to determine hit chance check.
+            if HitChance is None or HitChanceCheck <= (min(95,HitChance + FastAdMod)): #If hit chance roll is lower or equal to hit chance, hit is successful.
+                FastAdMod = 0 #Reset FastAd because of successful hit.
+                Hits += 1 #Used for Glorious Endurance.
+
+                #Begin damage rolls:
+                hp_roll = random.randint(Mind,Maxd) #Random roll to determine unmodified hp damage.
+                head_roll = random.randint(1,100) #Random roll to determine if hit is a headshot.
+                if head_roll <= Headshotchance: #If headshot, do the following code blocks.
+                    #Headshot injuries use a different formula. This flag will signal later when Injury is checked.
+                    UseHeadShotInjuryFormula = 1
+                    #HeadHunter check -- Lose current stack if you had one. Gain stack if you didn't.
+                    if HeadHunter:
+                        if not HHStack:
+                            HHStack = True
+                        elif HHStack:
+                            HHStack = False
+                    #2H Flail Check -- Have a higher armor ignoring% on Pound for headshots compared to bodyshots.
+                    if Flail2HPound:
+                        Ignore = Flail2HHeadshot
+                        
+                    #Destroy armor check -- if Destroy Armor special is active do this code block and skip the rest.
+                    if not DArmorMod:
+                        hp_roll = 10 #DestroyArmor forces hp damage to = 10.
+                        hp -= hp_roll 
+                        armor_roll = random.randint(Mind,Maxd) * ArmorMod * DArmorMod * GladMod * IndomMod * DamageMod *  ExecMod
+                        ForgeSaved += armor_roll - armor_roll * ForgeMod
+                        armor_roll = min(helmet,(armor_roll * ForgeMod))
+                        helmet = math.ceil(helmet - armor_roll) #Rounding armor damage.
+                    #If not DestoryArmor, and no armor is present, apply damage directly to hp.
+                    elif helmet == 0:
+                        hp_roll = hp_roll * NimbleMod * RaceMod * GladMod * IndomMod * ((DamageMod *  ExecMod * AimedShotMod) * DecapMod) * HeadMod
+                        if Hammer10: #If 1H Hammer, deal 10 damage minimum.
                             hp_roll = max(hp_roll,10)
-                        hp = math.ceil(hp - hp_roll)
-                #If SplitMan is active, do the following code block for the bonus body hit.
-                if SplitMan:
-                    if BoneplateMod:
-                        BoneplateMod = 0
+                        hp = math.ceil(hp - hp_roll) #Rounding hp damage.
+                    #Otherwise, do the following.
                     else:
-                        SMhp_roll = random.randint(Mind,Maxd) * .5
-                        if body == 0:
-                            SMhp_roll = SMhp_roll * NimbleMod * GladMod * IndomMod * AttachMod
-                            hp = math.ceil(hp - SMhp_roll)
+                        armor_roll = random.randint(Mind,Maxd) * ArmorMod * GladMod * IndomMod * DamageMod *  ExecMod
+                        ForgeSaved += armor_roll - armor_roll * ForgeMod #Calculate how much armor is saved by Forge.
+                        armor_roll = min(helmet,(armor_roll * ForgeMod)) #Applying Forge, and armor damage cannot exceed current armor.
+                        helmet -= armor_roll #Armor damage applied to helmet.
+                        #If the helmet does not get destroyed by the attack, do the following.
+                        if helmet > 0:
+                            hp_roll = max(0,(hp_roll * Ignore * NimbleMod * RaceMod * GladMod * IndomMod * ((DamageMod *  ExecMod * AimedShotMod) * DecapMod) - (helmet * 0.1)) * HeadMod)
+                            if Hammer10:
+                                hp_roll = max(hp_roll,10) 
+                            helmet = math.ceil(helmet)
+                            hp = math.ceil(hp - hp_roll)
+                        #If the helmet did get destoryed by the attack, do the following.
                         else:
-                            SMarmor_roll = random.randint(Mind,Maxd) * .5 * ArmorMod * GladMod * IndomMod * AttachMod
-                            ForgeSaved += SMarmor_roll - SMarmor_roll * ForgeMod
-                            SMarmor_roll = min(body,(SMarmor_roll * ForgeMod))
-                            body -= SMarmor_roll
-                            if body > 0:
-                                SMhp_roll = max(0,(SMhp_roll * Ignore * NimbleMod * AdFurPadMod * GladMod * IndomMod * AttachMod - (body * 0.1)))
-                                body = math.ceil(body)
+                            OverflowDamage = max(0,(hp_roll * (1 - Ignore) * NimbleMod * RaceMod * GladMod * IndomMod * ((DamageMod *  ExecMod * AimedShotMod) * DecapMod) - armor_roll))
+                            hp_roll = (hp_roll * Ignore * NimbleMod * RaceMod * GladMod * IndomMod * ((DamageMod *  ExecMod * AimedShotMod) * DecapMod) + OverflowDamage) * HeadMod
+                            if Hammer10:
+                                hp_roll = max(hp_roll,10)
+                            hp = math.ceil(hp - hp_roll)
+                    #If SplitMan is active, do the following code block for the bonus body hit.
+                    if SplitMan:
+                        if BoneplateMod:
+                            BoneplateMod = 0
+                        else:
+                            SMhp_roll = random.randint(Mind,Maxd) * .5
+                            if body == 0:
+                                SMhp_roll = SMhp_roll * NimbleMod * GladMod * IndomMod * AttachMod
                                 hp = math.ceil(hp - SMhp_roll)
                             else:
-                                OverflowDamage = max(0,(SMhp_roll * (1 - Ignore * AdFurPadMod) * NimbleMod * GladMod * IndomMod * AttachMod - SMarmor_roll))
-                                SMhp_roll = SMhp_roll * Ignore * NimbleMod * AdFurPadMod * GladMod * IndomMod * AttachMod + OverflowDamage
+                                SMarmor_roll = random.randint(Mind,Maxd) * .5 * ArmorMod * GladMod * IndomMod * AttachMod
+                                ForgeSaved += SMarmor_roll - SMarmor_roll * ForgeMod
+                                SMarmor_roll = min(body,(SMarmor_roll * ForgeMod))
+                                body -= SMarmor_roll
+                                if body > 0:
+                                    SMhp_roll = max(0,(SMhp_roll * Ignore * NimbleMod * AdFurPadMod * GladMod * IndomMod * AttachMod - (body * 0.1)))
+                                    body = math.ceil(body)
+                                    hp = math.ceil(hp - SMhp_roll)
+                                else:
+                                    OverflowDamage = max(0,(SMhp_roll * (1 - Ignore * AdFurPadMod) * NimbleMod * GladMod * IndomMod * AttachMod - SMarmor_roll))
+                                    SMhp_roll = SMhp_roll * Ignore * NimbleMod * AdFurPadMod * GladMod * IndomMod * AttachMod + OverflowDamage
+                                    hp = math.ceil(hp - SMhp_roll)
+                            
+                else: #If not a headshot, do the following. 
+                    #2H Flail Check -- Have a higher armor ignoring% on Pound for headshots compared to bodyshots.
+                    if Flail2HPound:
+                        Ignore = Flail2HBodyshot
+                    #Bone Plates check -- Attack is negated if Boneplates are online, then turns off Boneplates until next trial.
+                    if BoneplateMod:
+                        BoneplateMod = 0
+                        hp_roll = 0
+                    else:
+                        if not DArmorMod:
+                            hp_roll = 10
+                            hp -= hp_roll
+                            armor_roll = random.randint(Mind,Maxd) * ArmorMod * DArmorMod * GladMod * IndomMod * DamageMod * ExecMod
+                            ForgeSaved += armor_roll - armor_roll * ForgeMod
+                            armor_roll = min(body,(armor_roll * ForgeMod))
+                            body = math.ceil(body - armor_roll)
+                        elif body == 0 or Puncture:
+                            hp_roll = hp_roll * NimbleMod * RaceMod * GladMod * IndomMod * AttachMod * ((DamageMod * ExecMod * AimedShotMod) * DecapMod)
+                            if Hammer10:
+                                hp_roll = max(hp_roll,10)
+                            hp = math.ceil(hp - hp_roll)
+                        else:
+                            armor_roll = random.randint(Mind,Maxd) * ArmorMod * GladMod * IndomMod * DamageMod * ExecMod * AttachMod
+                            ForgeSaved += armor_roll - armor_roll * ForgeMod
+                            armor_roll = min(body,(armor_roll * ForgeMod))
+                            body -= armor_roll
+                            if body > 0:
+                                hp_roll = max(0,(hp_roll * Ignore * NimbleMod * RaceMod * AdFurPadMod * GladMod * IndomMod * AttachMod * ((DamageMod * ExecMod * AimedShotMod) * DecapMod) - (body * 0.1)))
+                                if Hammer10:
+                                    hp_roll = max(hp_roll,10)
+                                body = math.ceil(body)
+                                hp = math.ceil(hp - hp_roll)
+                            else:
+                                OverflowDamage = max(0,(hp_roll * (1 - Ignore * AdFurPadMod) * NimbleMod * RaceMod * GladMod * IndomMod * AttachMod * ((DamageMod * ExecMod * AimedShotMod) * DecapMod) - armor_roll))
+                                hp_roll = hp_roll * Ignore * NimbleMod * RaceMod * AdFurPadMod * GladMod * IndomMod * AttachMod * ((DamageMod * ExecMod * AimedShotMod) * DecapMod) + OverflowDamage
+                                if Hammer10:
+                                    hp_roll = max(hp_roll,10)
+                                hp = math.ceil(hp - hp_roll)
+                    #If SplitMan is active, do the following code block for the bonus head hit.
+                    if SplitMan:
+                        SMhp_roll = random.randint(Mind,Maxd) * .5
+                        if helmet == 0:
+                            SMhp_roll = SMhp_roll * NimbleMod * GladMod * IndomMod
+                            hp = math.ceil(hp - SMhp_roll)
+                        else:
+                            SMarmor_roll = random.randint(Mind,Maxd) * .5 * ArmorMod * GladMod * IndomMod
+                            ForgeSaved += SMarmor_roll - SMarmor_roll * ForgeMod
+                            SMarmor_roll = min(helmet,(SMarmor_roll * ForgeMod))
+                            helmet -= SMarmor_roll
+                            if helmet > 0:
+                                SMhp_roll = max(0,(SMhp_roll * Ignore * NimbleMod * GladMod * IndomMod - (helmet * 0.1)))
+                                helmet = math.ceil(helmet)
                                 hp = math.ceil(hp - SMhp_roll)
-                        
-            else: #If not a headshot, do the following. 
-                #2H Flail Check -- Have a higher armor ignoring% on Pound for headshots compared to bodyshots.
-                if Flail2HPound:
-                    Ignore = Flail2HBodyshot
-                #Bone Plates check -- Attack is negated if Boneplates are online, then turns off Boneplates until next trial.
-                if BoneplateMod:
-                    BoneplateMod = 0
-                    hp_roll = 0
-                else:
-                    if not DArmorMod:
-                        hp_roll = 10
-                        hp -= hp_roll
-                        armor_roll = random.randint(Mind,Maxd) * ArmorMod * DArmorMod * GladMod * IndomMod * DamageMod * ExecMod
-                        ForgeSaved += armor_roll - armor_roll * ForgeMod
-                        armor_roll = min(body,(armor_roll * ForgeMod))
-                        body = math.ceil(body - armor_roll)
-                    elif body == 0 or Puncture:
-                        hp_roll = hp_roll * NimbleMod * SkeletonMod * GladMod * IndomMod * AttachMod * ((DamageMod * ExecMod * AimedShotMod) * DecapMod)
-                        if Hammer10:
-                            hp_roll = max(hp_roll,10)
-                        hp = math.ceil(hp - hp_roll)
-                    else:
-                        armor_roll = random.randint(Mind,Maxd) * ArmorMod * GladMod * IndomMod * DamageMod * ExecMod * AttachMod
-                        ForgeSaved += armor_roll - armor_roll * ForgeMod
-                        armor_roll = min(body,(armor_roll * ForgeMod))
-                        body -= armor_roll
-                        if body > 0:
-                            hp_roll = max(0,(hp_roll * Ignore * NimbleMod * SkeletonMod * AdFurPadMod * GladMod * IndomMod * AttachMod * ((DamageMod * ExecMod * AimedShotMod) * DecapMod) - (body * 0.1)))
-                            if Hammer10:
-                                hp_roll = max(hp_roll,10)
-                            body = math.ceil(body)
-                            hp = math.ceil(hp - hp_roll)
-                        else:
-                            OverflowDamage = max(0,(hp_roll * (1 - Ignore * AdFurPadMod) * NimbleMod * SkeletonMod * GladMod * IndomMod * AttachMod * ((DamageMod * ExecMod * AimedShotMod) * DecapMod) - armor_roll))
-                            hp_roll = hp_roll * Ignore * NimbleMod * SkeletonMod * AdFurPadMod * GladMod * IndomMod * AttachMod * ((DamageMod * ExecMod * AimedShotMod) * DecapMod) + OverflowDamage
-                            if Hammer10:
-                                hp_roll = max(hp_roll,10)
-                            hp = math.ceil(hp - hp_roll)
-                #If SplitMan is active, do the following code block for the bonus head hit.
-                if SplitMan:
-                    SMhp_roll = random.randint(Mind,Maxd) * .5
-                    if helmet == 0:
-                        SMhp_roll = SMhp_roll * NimbleMod * GladMod * IndomMod
-                        hp = math.ceil(hp - SMhp_roll)
-                    else:
-                        SMarmor_roll = random.randint(Mind,Maxd) * .5 * ArmorMod * GladMod * IndomMod
-                        ForgeSaved += SMarmor_roll - SMarmor_roll * ForgeMod
-                        SMarmor_roll = min(helmet,(SMarmor_roll * ForgeMod))
-                        helmet -= SMarmor_roll
-                        if helmet > 0:
-                            SMhp_roll = max(0,(SMhp_roll * Ignore * NimbleMod * GladMod * IndomMod - (helmet * 0.1)))
-                            helmet = math.ceil(helmet)
-                            hp = math.ceil(hp - SMhp_roll)
-                        else:
-                            OverflowDamage = max(0,(SMhp_roll * (1 - Ignore) * NimbleMod * GladMod * IndomMod - SMarmor_roll))
-                            SMhp_roll = SMhp_roll * Ignore * NimbleMod * GladMod * IndomMod + OverflowDamage
-                            hp = math.ceil(hp - SMhp_roll)
+                            else:
+                                OverflowDamage = max(0,(SMhp_roll * (1 - Ignore) * NimbleMod * GladMod * IndomMod - SMarmor_roll))
+                                SMhp_roll = SMhp_roll * Ignore * NimbleMod * GladMod * IndomMod + OverflowDamage
+                                hp = math.ceil(hp - SMhp_roll)
+            else: #This block is run if attack misses.
+                hp_roll = 0
+                if FastAdaptation == 1: #If Fast Adaptation is selected, gain a stack.
+                    FastAdMod += 10
 
             count += 1 #Add +1 to the number of hits taken. 
 
             #Injury check:
-            if not Undead and not Savant and (hp > 0 or NineLivesMod):
+            if not injuryImmune and (hp > 0 or NineLivesMod):
                 InjuryThreshold = 1
                 if UseHeadShotInjuryFormula:
                     InjuryThreshold *= 1.25
@@ -906,7 +977,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                             hits_until_1st_heavy_injury_chance.append(count)
                 
             #Morale check:
-            if (hp > 0 or NineLivesMod) and not Fleeing and not Undead and not Savant:
+            if (hp > 0 or NineLivesMod) and not Fleeing and not injuryImmune:
                 if Fearsome:
                     if Flail3Head != 1 or (Flail3Head and count % 3 == 1): #Checking weapon and if 3Head only apply 1-14 Fearsome effect on every first hit.
                         if math.floor(hp_roll) > 0 and math.floor(hp_roll) < 15:
@@ -1038,7 +1109,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                         hits_until_1st_morale.append(count)
                     
             #Bleeding check:
-            if (CleaverBleed or CleaverMastery) and not Undead:
+            if (CleaverBleed or CleaverMastery) and not DOTImmune:
                 #If damage taken >= 6 and Decapitate isn't in play, then apply a 2 turn bleed stack.
                 if hp > 0 or NineLivesMod:
                     if math.floor(hp_roll) >= 6 and DecapMod and not Decapitate:
@@ -1060,7 +1131,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                             Bleedstack2T = 0
 
             #Poison check:
-            if Ambusher and not Undead:
+            if Ambusher and not DOTImmune:
                 if not Poison:
                     if math.floor(hp_roll) >= 6:
                         Poison = True
@@ -1116,7 +1187,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
     hits_until_death.sort()
     HitsToDeathCounter = collections.Counter(hits_until_death)
     HitsToDeathPercent = [(i,round(HitsToDeathCounter[i]/len(hits_until_death)*100, 2)) for i in HitsToDeathCounter]
-    if not Undead and not Savant:
+    if not injuryImmune:
         if len(hits_until_1st_injury) != 0:
             hits_to_injure = statistics.mean(hits_until_1st_injury)
             hits_until_1st_injury.sort()
@@ -1132,6 +1203,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
             hits_until_1st_morale.sort()
             HitsToMoraleCounter = collections.Counter(hits_until_1st_morale)
             HitsToMoralePercent = [(i,round(HitsToMoraleCounter[i]/len(hits_until_death)*100, 2)) for i in HitsToMoraleCounter]
+    if not moraleImmune:
         if len(Total_Morale_Checks) != 0:
             AvgNumberMoraleChecks = statistics.mean(Total_Morale_Checks)
         if len(hits_until_wavering) != 0:
@@ -1163,8 +1235,12 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
 
     #Results:
     results = {}
+    if HitChance is None:
+        hitOrSwing = "hits"
+    else:
+        hitOrSwing = "swings"
     if DeathMean:
-        string = f"Death in {HitsToDeath:.2f} hits on average."
+        string = f"Death in {HitsToDeath:.2f} {hitOrSwing} on average."
         print(string)
         results['DeathMean'] = string
     if DeathStDev:
@@ -1172,13 +1248,13 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
         print(string)
         results['DeathStDev'] = string
     if DeathPercent:
-        string = f"% Hits to die: {str(HitsToDeathPercent)}"
+        string = f"% {hitOrSwing} to die: {str(HitsToDeathPercent)}"
         print(string)
         results['DeathPercent'] = string
         results['HitsToDeathPercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToDeathPercent]
 
     #Injury Data Return
-    if Undead or Savant or hits_to_injure >= HitsToDeath:
+    if injuryImmune or hits_to_injure >= HitsToDeath:
         if InjuryMean or InjuryPercent:
             string = "No chance of injury."
             print(string)
@@ -1188,7 +1264,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                 results['InjuryPercent'] = string
     else:        
         if InjuryMean:
-            string = f"First injury in {hits_to_injure:.2f} hits on average."
+            string = f"First injury in {hits_to_injure:.2f} {hitOrSwing} on average."
             print(string)
             results['InjuryMean'] = string
         if InjuryPercent:
@@ -1196,7 +1272,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
             print(string)
             results['InjuryPercent'] = string
             results['HitsToInjurePercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToInjurePercent]
-    if Undead or Savant or hits_to_1st_heavy_injury_chance >= HitsToDeath:
+    if injuryImmune or hits_to_1st_heavy_injury_chance >= HitsToDeath:
         if HeavyInjuryMean or HeavyInjuryPercent:
             string = "No chance of heavy injury."
             print(string)
@@ -1206,7 +1282,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                 results['HeavyInjuryPercent'] = string
     else:
         if HeavyInjuryMean:
-            string = f"Chance of first heavy injury in {hits_to_1st_heavy_injury_chance:.2f} hits on average."
+            string = f"Chance of first heavy injury in {hits_to_1st_heavy_injury_chance:.2f} {hitOrSwing} on average."
             print(string)
             results['HeavyInjuryMean'] = string
         if HeavyInjuryPercent:
@@ -1215,7 +1291,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
             results['HeavyInjuryPercent'] = string
             results['HitsToHeavyInjuryChancePercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToHeavyInjuryChancePercent]
         
-    if not Undead and not Savant:
+    if not moraleImmune:
         #Morale Data Return
         if MoraleChecksTotal:
             if len(Total_Morale_Checks) != 0:
@@ -1224,7 +1300,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                 results['MoraleChecksTotal'] = string
         if len(hits_until_1st_morale) != 0:
             if MoraleMean:
-                string = f"First morale check in {hits_to_morale:.2f} hits on average."
+                string = f"First morale check in {hits_to_morale:.2f} {hitOrSwing} on average."
                 print(string)
                 results['MoraleMean'] = string
             if MoralePercent:
@@ -1248,7 +1324,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                     results['MoraleDropsPercent'].append(string)
         else:
             if MoraleDropsMean:
-                string = f"Wavering morale (or death) in {hits_to_wavering:.2f} hits on average."
+                string = f"Wavering morale (or death) in {hits_to_wavering:.2f} {hitOrSwing} on average."
                 print(string)
                 results['MoraleDropsMean'].append(string)
             if MoraleDropsPercent:
@@ -1268,7 +1344,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                     results['MoraleDropsPercent'].append(string)
         else:
             if MoraleDropsMean:
-                string = f"Breaking morale (or death) in {hits_to_breaking:.2f} hits on average."
+                string = f"Breaking morale (or death) in {hits_to_breaking:.2f} {hitOrSwing} on average."
                 print(string)
                 results['MoraleDropsMean'].append(string)
             if MoraleDropsPercent:
@@ -1288,7 +1364,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                     results['MoraleDropsPercent'].append(string)
         else:
             if MoraleDropsMean:
-                string = f"Fleeing morale (or death) in {hits_to_fleeing:.2f} hits on average."
+                string = f"Fleeing morale (or death) in {hits_to_fleeing:.2f} {hitOrSwing} on average."
                 print(string)
                 results['MoraleDropsMean'].append(string)
             if MoraleDropsPercent:
@@ -1308,7 +1384,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
             print(string)
             results['Fearsome'] = string
     else:
-        string = "Undead/Savant immune to morale."
+        string = "Immune to morale."
         print(string)
         if MoraleChecksTotal:
             results['MoraleChecksTotal'] = string
@@ -1324,7 +1400,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
             results['Fearsome'] = string
 
     if Nimble:
-        string = f"Nimble%: {str(NimbleMod)}"
+        string = f"Nimble %: {str(NimbleMod)}"
         print(string)
         results['Nimble'] = string
     if Forge:
@@ -1333,14 +1409,14 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
         results['Forge'] = string
     if Ambusher:
         if len(hits_until_1st_poison) != 0:
-            string = f"First poison in {hits_to_posion:.2f} hits on average."
+            string = f"First poison in {hits_to_posion:.2f} {hitOrSwing} on average."
             print(string)
             results['Ambusher'] = string
         else:
             results['Ambusher'] = "No poison applied."
     if CleaverBleed or CleaverMastery:
         if len(hits_until_1st_bleed) != 0:
-            string = f"First bleed in {hits_to_bleed:.2f} hits on average."
+            string = f"First bleed in {hits_to_bleed:.2f} {hitOrSwing} on average."
             print(string)
             results['Cleaver'] = string
         else:
@@ -1364,16 +1440,20 @@ def parse(query: dict) -> dict:
         'Def_Armor',
         'Fatigue',
         'Def_Resolve',
+        'HitChance',
     )
     # print('Begin parse ---------------')
     for k, v in query.lists():
         # print(f'{type(k)}, {k}')
         # print(f'{type(v)}, {v}')
-        if k in intArgs:
-            kwargs[k] = int(v[0])
-        elif v != 'None':
-            for arg in v:
-                kwargs[arg] = True
+        try:
+            if k in intArgs:
+                kwargs[k] = int(v[0])
+            elif v != 'None':
+                for arg in v:
+                    kwargs[arg] = True
+        except Exception:
+            pass
     #     print(kwargs)
     #     print()
     # print('End parse ---------------')

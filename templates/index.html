@@ -2,16 +2,21 @@
 <!DOCTYPE html>
 <html lang="en-US">
     <head>
-        <title>BB Calculator</title>
+        <title>Batle Brothers Damage Calculator</title>
         <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
         <script>
             window.onload = function () {
+                {% if request.HitChance %}
+                const hits = "Swings"
+                {% else %}
+                const hits = "Hits"
+                {% endif %}
                 {% if 'HitsToDeathPercent' in results %}
                 var DeathPercentChart = new CanvasJS.Chart("DeathPercentChart", {
                     animationEnabled: true,
                     responsive: true,
                     title:{
-                        text: "Hits to Die Histogram"
+                        text: hits + " to Die Histogram"
                     },
                     axisY:{
                         title: "Percent",
@@ -19,7 +24,7 @@
                         minimum: 0
                     },
                     axisX:{
-                        title: "# of Hits",
+                        title: "# of " + hits,
                         interval: 1
                     },
                     data: [{
@@ -34,7 +39,7 @@
                     animationEnabled: true,
                     responsive: true,
                     title:{
-                        text: "Hits to Injure Histogram"
+                        text: hits + " to Injure Histogram"
                     },
                     axisY:{
                         title: "Percent",
@@ -42,7 +47,7 @@
                         minimum: 0
                     },
                     axisX:{
-                        title: "# of Hits",
+                        title: "# of " + hits,
                         interval: 1
                     },
                     data: [{
@@ -80,7 +85,7 @@
                     animationEnabled: true,
                     responsive: true,
                     title:{
-                        text: "Hits till First Morale Check Histogram"
+                        text: hits + " till First Morale Check Histogram"
                     },
                     axisY:{
                         title: "Percent",
@@ -88,7 +93,7 @@
                         minimum: 0
                     },
                     axisX:{
-                        title: "# of Hits",
+                        title: "# of " + hits,
                         interval: 1
                     },
                     data: [{
@@ -103,14 +108,14 @@
                     animationEnabled: true,
                     responsive: true,
                     title:{
-                        text: "Hits to Wavering Histogram"
+                        text: hits + " to Wavering Histogram"
                     },
                     axisY:{
                         title: "Percent",
                         interval: 10
                     },
                     axisX:{
-                        title: "# of Hits",
+                        title: "# of " + hits,
                         interval: 1,
                         minimum: 0
                     },
@@ -126,7 +131,7 @@
                     animationEnabled: true,
                     responsive: true,
                     title:{
-                        text: "Hits to Breaking Histogram"
+                        text: hits + " to Breaking Histogram"
                     },
                     axisY:{
                         title: "Percent",
@@ -134,7 +139,7 @@
                         minimum: 0
                     },
                     axisX:{
-                        title: "# of Hits",
+                        title: "# of " + hits,
                         interval: 1
                     },
                     data: [{
@@ -149,14 +154,14 @@
                     animationEnabled: true,
                     responsive: true,
                     title:{
-                        text: "Hits to Fleeing Histogram"
+                        text: hits + " to Fleeing Histogram"
                     },
                     axisY:{
                         title: "Percent",
                         interval: 10
                     },
                     axisX:{
-                        title: "# of Hits",
+                        title: "# of " + hits,
                         interval: 1
                     },
                     data: [{
@@ -177,6 +182,7 @@
         <meta name="google-site-verification" content="xwf1Th8eSui_5JP24GIGfOjzPi2fQEyaz1UMHhxI6oQ" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
         <link rel="stylesheet" href="{% static 'style.css' %}">
+        <link rel="canonical" href="/">
         <link rel="icon" sizes="128x128" href="{% static 'favicon.ico' %}" type="image/ico">
         <link rel="apple-touch-icon" sizes="192x192" href="{% static 'apple-touch-icon.png' %}" type="image/png">
     </head>
@@ -269,21 +275,21 @@
                             <summary role="button" class="secondary">Stats</summary>
                             <fieldset class="grid">
                                 <label class="StatLabel" for="Mind">Min Damage <img src="{% static 'icons/stats/damage_dealt.png' %}" alt="Damage dealt icon"></label>
-                                <input class="atk-stat" type="number" name="Mind" id="Mind" min="1" max="999" value={{request.Mind|default:55}}>
+                                <input class="atk-stat" type="number" name="Mind" id="Mind" min="1" max="999" value={{request.Mind|default:55}} required>
                                 <label class="StatLabel" for="Maxd">Max Damage <img src="{% static 'icons/stats/damage_dealt.png' %}" alt="Damage dealt icon"></label>
-                                <input class="atk-stat" type="number" name="Maxd" id="Maxd" min="1" max="999" value={{request.Maxd|default:80}}>
+                                <input class="atk-stat" type="number" name="Maxd" id="Maxd" min="1" max="999" value={{request.Maxd|default:80}} required>
                             </fieldset>
                             <fieldset class="grid">
                                 <label class="StatLabel" for="Ignore">Armor Ignore % <img src="{% static 'icons/stats/direct_damage.png' %}" alt="Direct damage icon"></label>
-                                <input class="atk-stat" type="number" name="Ignore" id="Ignore" min="0" max="999" value={{request.Ignore|default:30}}>
+                                <input class="atk-stat" type="number" name="Ignore" id="Ignore" min="0" max="999" value={{request.Ignore|default:30}} required>
                                 <label class="StatLabel" for="ArmorMod">Armor Damage % <img src="{% static 'icons/stats/armor_damage.png' %}" alt="Armor damage icon"></label>
-                                <input class="atk-stat" type="number" name="ArmorMod" id="ArmorMod" min="0" max="999" value={{request.ArmorMod|default:125}}>
+                                <input class="atk-stat" type="number" name="ArmorMod" id="ArmorMod" min="0" max="999" value={{request.ArmorMod|default:125}} required>
                             </fieldset>
                             <fieldset class="grid">
                                 <label class="StatLabel" for="Headchance">% Chance to Hit Head <img src="{% static 'icons/stats/headchance.png' %}" alt="Headshot chance icon"></label>
-                                <input class="atk-stat" type="number" name="Headchance" id="Headchance" min="0" max="100" value={{request.Headchance|default:30}}>
+                                <input class="atk-stat" type="number" name="Headchance" id="Headchance" min="0" max="100" value={{request.Headchance|default:30}} required>
                                 <label class="StatLabel" for="Atk_Resolve">Resolve <img src="{% static 'icons/stats/resolve.png' %}" alt="Resolve icon"></label>
-                                <input class="atk-stat" type="number" name="Atk_Resolve" id="Atk_Resolve" min="0" max="999" value={{request.Atk_Resolve|default:50}}>
+                                <input class="atk-stat" type="number" name="Atk_Resolve" id="Atk_Resolve" min="0" max="999" value={{request.Atk_Resolve|default:50}} required>
                             </fieldset>
                         </details>
                         <details id="AttackerWeapon">
@@ -396,9 +402,41 @@
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Scatter" value="Scatter" {% if "Scatter" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/quickshot.png' %}" alt="Quick shot icon"> Scatter
                             </label>
+                            <label for="Pierce" title="-50% health damage for Daggers, Spears, and Pikes against Ancient Dead, Alps, and Ifrits.">
+                                <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Pierce" value="Pierce" {% if "Pierce" in AtkWeapon %} checked {% endif %}>
+                                <img src="{% static 'icons/weapon/impale.png' %}" alt="Impale icon"> Piercing (-50% health damage vs skeletons/alps/ifrits)
+                            </label>
+                            <label for="DogBite" title="-66% health damage for Dog bites against Alps.">
+                                <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="DogBite" value="DogBite" {% if "DogBite" in AtkWeapon %} checked {% endif %}>
+                                <img src="{% static 'icons/weapon/dogbite.png' %}" alt="Dog bite icon"> Dog bite (-66% health damage vs alps)
+                            </label>
+                            <label for="XbowOrSling" title="-66% health damage for Xbows and Slings against Ancient Dead, Alps, and Ifrits.">
+                                <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="XbowOrSling" value="XbowOrSling" {% if "XbowOrSling" in AtkWeapon %} checked {% endif %}>
+                                <img src="{% static 'icons/weapon/shootbolt.png' %}" alt="Shoot bolt icon"> Xbow/Sling (-66% health damage vs skeletons/alps/ifrits)
+                            </label>
+                            <label for="Handgonne" title="-66% health damage for Handgonnes against Ancient Dead, -50% against Alps, and -75% against Ifrits.">
+                                <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Handgonne" value="Handgonne" {% if "Handgonne" in AtkWeapon %} checked {% endif %}>
+                                <img src="{% static 'icons/weapon/firehandgonne.png' %}" alt="Fire handgonne icon"> Handgonne (-50% health damage vs alps, -66% vs skeletons, -75% vs ifrits)
+                            </label>
+                            <label for="Javelin" title="-75% health damage for Javelins against Ancient Dead, Alps, and Ifrits.">
+                                <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Javelin" value="Javelin" {% if "Javelin" in AtkWeapon %} checked {% endif %}>
+                                <img src="{% static 'icons/weapon/throwjavelin.png' %}" alt="Throw javelin icon"> Javelin (-75% health damage vs skeletons/alps/ifrits)
+                            </label>
+                            <label for="Ignite" title="-75% health damage for Ignite against Ancient Dead, -90% against Ifrits.">
+                                <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Ignite" value="Ignite" {% if "Ignite" in AtkWeapon %} checked {% endif %}>
+                                <img src="{% static 'icons/weapon/ignite.png' %}" alt="Ignite icon"> Ignite (-75% health damage vs skeletons, -90% vs ifrits)
+                            </label>
+                            <label for="Arrow" title="-90% health damage for Bows against Ancient Dead, Alps, and Ifrits.">
+                                <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Arrow" value="Arrow" {% if "Arrow" in AtkWeapon %} checked {% endif %}>
+                                <img src="{% static 'icons/weapon/quickshot.png' %}" alt="Quick shot icon"> Bow (-90% health damage vs skeletons/alps/ifrits)
+                            </label>
                         </details>
                         <details id="AttackerPerks">
                             <summary role="button" class="secondary">Perks</summary>
+                            <label for="FastAdaptation">
+                                <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="FastAdaptation" value="FastAdaptation" {% if "FastAdaptation" in AtkPerks %} checked {% endif %}>
+                                <img src="{% static 'icons/perks/fastadaptation.png' %}" alt="Fast adaptation icon"> Fast Adaptation (use only with hit chance)
+                            </label>
                             <label for="CripplingStrikes">
                                 <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="CripplingStrikes" value="CripplingStrikes" {% if "CripplingStrikes" in AtkPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/cripplingstrikes.png' %}" alt="Crippling strikes icon"> Crippling Strikes
@@ -544,31 +582,31 @@
                         <h6>Race</h6>
                             <select name="DefRace" id="DefRace">
                                 <option id="def-race-none" value="None" {% if request.DefRace == "None" %} selected {% endif %}>None</option>
-                                <option class="def-race-selection" value="Undead" {% if request.DefRace == "Undead" %} selected {% endif %}>Undead (Immunity to Injury, Bleeding, Poison, and Morale)</option>
+                                <option class="def-race-selection" value="Zombie" {% if request.DefRace == "Zombie" %} selected {% endif %}>Zombie (Immunity to Injury, Bleeding, Poison, and Morale)</option>
                                 <option class="def-race-selection" value="Savant" {% if request.DefRace == "Savant" %} selected {% endif %}>Savant (Immunity to Injury and Morale)</option>
-                                <option class="def-race-selection" value="SkeletonVsPierce" {% if request.DefRace == "SkeletonVsPierce" %} selected {% endif %}>Piercing DR (50% health DR for Ancient Dead and Ifrits vs. Daggers/Spears/Pikes)</option>
-                                <option class="def-race-selection" value="SkeletonVsJavelin" {% if request.DefRace == "SkeletonVsJavelin" %} selected {% endif %}>Javelin DR (75% health DR for Ancient Dead and Ifrits vs. Javelins)</option>
-                                <option class="def-race-selection" value="SkeletonVsArrow" {% if request.DefRace == "SkeletonVsArrow" %} selected {% endif %}>Arrow DR (90% health DR for Anciend Dead and Ifrits vs. Arrows)</option>
-                                <option class="def-race-selection" value="PossessedUndead" {% if request.DefRace == "PossessedUndead" %} selected {% endif %}>Possessed (25% damage reduction, Necromancer buff)</option>
-                                <option class="def-race-selection" value="FallenBetrayerD" {% if request.DefRace == "FallenBetrayerD" %} selected {% endif %}>Fallen Betrayer (25% armor damage reduction, Watermill)</option>
+                                <option class="def-race-selection" value="Skeleton" {% if request.DefRace == "Skeleton" %} selected {% endif %}>Skeleton (Zombie immunities + damage reduction vs certain weapons)</option>
+                                <option class="def-race-selection" value="Alp" {% if request.DefRace == "Alp" %} selected {% endif %}>Alp (Immunity to Injury, Bleeding, and Poison + damage reduction vs certain weapons)</option>
+                                <option class="def-race-selection" value="Ifrit" {% if request.DefRace == "Ifrit" %} selected {% endif %}>Ifrit (Zombie immunities + damage reduction vs certain weapons)</option>
+                                <option class="def-race-selection" value="PossessedUndead" {% if request.DefRace == "PossessedUndead" %} selected {% endif %}>Possessed (Zombie immunities + 25% damage reduction, Necromancer buff)</option>
+                                <option class="def-race-selection" value="FallenBetrayerD" {% if request.DefRace == "FallenBetrayerD" %} selected {% endif %}>Fallen Betrayer (Zombie immunities + 25% armor damage reduction, Watermill)</option>
                             </select>
                         <details>
                             <summary role="button" class="secondary">Stats</summary>
                             <fieldset class="grid">
                                 <label class="StatLabel" for="Def_HP">Health <img src="{% static 'icons/stats/health.png' %}" alt="Health icon"></label>
-                                <input class="def-stat" type="number" name="Def_HP" id="Def_HP" min="1" max="500" value={{request.Def_HP|default:100}}>
+                                <input class="def-stat" type="number" name="Def_HP" id="Def_HP" min="1" max="500" value={{request.Def_HP|default:100}} required>
                                 <label class="StatLabel" for="Def_Helmet">Helmet Armor <img src="{% static 'icons/stats/helmetarmor.png' %}" alt="Helmet armor icon"></label>
-                                <input class="def-stat" type="number" name="Def_Helmet" id="Def_Helmet" min="0" max="500" value={{request.Def_Helmet|default:120}}>
+                                <input class="def-stat" type="number" name="Def_Helmet" id="Def_Helmet" min="0" max="500" value={{request.Def_Helmet|default:120}} required>
                             </fieldset>
                             <fieldset class="grid">
                                 <label class="StatLabel" for="Def_Armor">Body Armor <img src="{% static 'icons/stats/bodyarmor.png' %}" alt="Body armor icon"></label>
-                                <input class="def-stat" type="number" name="Def_Armor" id="Def_Armor" min="0" max="500" value={{request.Def_Armor|default:95}}>
+                                <input class="def-stat" type="number" name="Def_Armor" id="Def_Armor" min="0" max="500" value={{request.Def_Armor|default:95}} required>
                                 <label class="StatLabel" for="Fatigue" title="Only affects nimble.">Armor Fatigue Penalty <img src="{% static 'icons/stats/fatigue.png' %}" alt="Fatigue icon"></label>
-                                <input class="def-stat" type="number" name="Fatigue" id="Fatigue" min="-50" max="0" value={{request.Fatigue|default:-15}}>
+                                <input class="def-stat" type="number" name="Fatigue" id="Fatigue" min="-50" max="0" value={{request.Fatigue|default:-15}} required>
                             </fieldset>
                             <fieldset>
                                 <label class="StatLabel" for="Def_Resolve" title="Used only if morale drop data returns are enabled.">Resolve <img src="{% static 'icons/stats/resolve.png' %}" alt="Resolve icon"></label>
-                                <input class="def-stat" type="number" name="Def_Resolve" id="Def_Resolve" min="0" max="999" value={{request.Def_Resolve|default:70}}>
+                                <input class="def-stat" type="number" name="Def_Resolve" id="Def_Resolve" min="0" max="999" value={{request.Def_Resolve|default:70}} required>
                             </fieldset>
                         </details>
                         <details>
@@ -741,6 +779,9 @@
                 </details>
             </section>
             <section id="CalculateSection">
+                <label for="HitChance"><h6>Hit chance</h6></label>
+                If left blank, the calculator will assume every swing hits.
+                <input type="number" name="HitChance" id="HitChance" min="5" max="95" value={{request.HitChance}} placeholder="Enter a whole number">
                 <label for="Trials"><h6># of trials</h6></label>
                 <fieldset role="group">
                     <input type="number" name="Trials" id="Trials" min="2" max="10000" value={{request.Trials|default:1000}} required>
