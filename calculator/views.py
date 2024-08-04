@@ -5,6 +5,8 @@ import pathlib
 import pdb
 
 # Create your views here.
+
+
 def index(request):
     basedir = pathlib.Path(__file__).parent.parent.resolve()
     with open(basedir / 'static' / 'atkPresets.json', 'r') as f:
@@ -18,6 +20,7 @@ def index(request):
         context = {
             'atkPresetJSON': atkPresetJSON,
             'defPresetJSON': defPresetJSON,
+            'blank': False,
             'results': results,
             'request': request.GET,
             'AtkWeapon': request.GET.getlist('AtkWeapon'),
@@ -40,5 +43,10 @@ def index(request):
         print(context['DefTraits'])
         print('-----------------------------------')
     else:
-        context = {'atkPresetJSON': atkPresetJSON, 'defPresetJSON': defPresetJSON, 'DataReturns': ['DeathMean', 'DeathStDev', 'DeathPercent', 'InjuryMean', 'HeavyInjuryMean'],}
+        context = {
+            'atkPresetJSON': atkPresetJSON,
+            'defPresetJSON': defPresetJSON,
+            'blank': True,
+            'DataReturns': ['DeathMean', 'DeathStDev', 'DeathPercent', 'InjuryMean', 'HeavyInjuryMean'],
+        }
     return render(request, 'index.html', context)
