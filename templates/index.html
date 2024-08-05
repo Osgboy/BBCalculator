@@ -776,7 +776,7 @@
             <section id="CalculateSection">
                 <label for="HitChance"><h6>Hit chance</h6></label>
                 If left blank, the calculator will assume every swing hits.
-                <input type="number" name="HitChance" id="HitChance" min="5" max="95" value={{request.HitChance}} placeholder="Enter a whole number">
+                <input type="number" name="HitChance" id="HitChance" min="5" max="95" value={{request.HitChance|default:"''"}} placeholder="Enter a whole number">
                 <label for="Trials"><h6># of trials</h6></label>
                 <fieldset role="group">
                     <input type="number" name="Trials" id="Trials" min="2" max="10000" value={{request.Trials|default:1000}} required>
