@@ -15,9 +15,9 @@ const defRaceSelection = document.querySelectorAll(".def-race-selection")
 const defRaceNone = document.querySelector("#def-race-none")
 
 atkPreset.addEventListener("change", applyAtkPreset);
-window.addEventListener("load", applyAtkPreset);
+// window.addEventListener("load", applyAtkPreset);
 defPreset.addEventListener("change", applyDefPreset);
-window.addEventListener("load", applyDefPreset);
+// window.addEventListener("load", applyDefPreset);
 
 function applyAtkPreset(event) {
     if (atkPreset.value != 'None') {
