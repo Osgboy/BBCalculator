@@ -1,5 +1,6 @@
 {
     "APreAncientSword": {
+      "name": "Ancient Dead w/ Ancient Sword",
       "Mind": 38,
       "Maxd": 43,
       "Headchance": 25,
@@ -9,6 +10,7 @@
       "Atk_Resolve": 80
     },
     "APreBladedPike": {
+      "name": "Ancient Dead w/ Bladed Pike",
       "Mind": 55,
       "Maxd": 80,
       "Headchance": 30,
@@ -19,6 +21,7 @@
       "Pierce": true
     },
     "APreWarscytheAoE": {
+      "name": "Ancient Dead w/ AoE Warscythe",
       "Mind": 55,
       "Maxd": 80,
       "Headchance": 25,
@@ -28,6 +31,7 @@
       "Atk_Resolve": 100
     },
     "APreCryptCleaver": {
+      "name": "Ancient Dead w/ Crypt Cleaver",
       "Mind": 60,
       "Maxd": 80,
       "Headchance": 25,
@@ -38,6 +42,7 @@
       "CleaverMastery": true
     },
     "APreKhopesh": {
+      "name": "Necrosavant w/ Khopesh",
       "Mind": 35,
       "Maxd": 55,
       "Headchance": 25,
@@ -49,6 +54,7 @@
       "CleaverBleed": true
     },
     "APreFHGreatAxe": {
+      "name": "Fallen Hero w/ Greataxe",
       "Mind": 80,
       "Maxd": 100,
       "Headchance": 25,
@@ -59,6 +65,7 @@
       "SplitMan": true
     },
     "APreBerserkChain": {
+      "name": "Orc Berserker w/ Berserk Chain",
       "Mind": 50,
       "Maxd": 100,
       "Headchance": 40,
@@ -70,6 +77,7 @@
       "Berserker": true
     },
     "APreHeadSplitter": {
+      "name": "Orc w/ Head Splitter",
       "Mind": 35,
       "Maxd": 65,
       "Headchance": 25,
@@ -79,6 +87,7 @@
       "Warrior": true
     },
     "APreHeadChopper": {
+      "name": "Orc w/ Head Chopper",
       "Mind": 40,
       "Maxd": 70,
       "Headchance": 25,
@@ -88,6 +97,7 @@
       "Warrior": true
     },
     "APreMansplitter": {
+      "name": "Orc Warlord w/ Mansplitter",
       "Mind": 90,
       "Maxd": 120,
       "Headchance": 25,
@@ -99,6 +109,7 @@
       "Warlord": true
     },
     "APreReinBoondock": {
+      "name": "Goblin Ambusher w/ Reinforced Boondock",
       "Mind": 30,
       "Maxd": 50,
       "Headchance": 25,
@@ -108,6 +119,7 @@
       "Arrow": true
     },
     "APreSpikedImpaler": {
+      "name": "Goblin Overseer w/ Spiked Impaler",
       "Mind": 50,
       "Maxd": 70,
       "Headchance": 25,
@@ -118,6 +130,7 @@
       "XbowOrSling": true
     },
     "APre2HSpikedMace": {
+      "name": "Chosen w/ Spiked Mace",
       "Mind": 50,
       "Maxd": 70,
       "Headchance": 25,
@@ -128,6 +141,7 @@
       "TwoHander20": true
     },
     "APre2HSkullHammer": {
+      "name": "Chosen w/ Skull Hammer",
       "Mind": 45,
       "Maxd": 65,
       "Headchance": 25,
@@ -138,6 +152,7 @@
       "TwoHander20": true
     },
     "APreHeavyRustyAxe": {
+      "name": "Chosen w/ Rusty Axe",
       "Mind": 75,
       "Maxd": 90,
       "Headchance": 25,
@@ -148,6 +163,7 @@
       "SplitMan": true
     },
     "APreRustyWarblade": {
+      "name": "Chosen w/ Rusty Warblade",
       "Mind": 60,
       "Maxd": 80,
       "Headchance": 25,
@@ -158,6 +174,7 @@
       "CleaverMastery": true
     },
     "APreBillhook": {
+      "name": "Billman w/ Billhook",
       "Mind": 55,
       "Maxd": 85,
       "Headchance": 30,
@@ -165,6 +182,7 @@
       "ArmorMod": 140
     },
     "APreHeavyXbow": {
+      "name": "Arbalester w/ Heavy Xbow",
       "Mind": 50,
       "Maxd": 70,
       "Headchance": 25,
@@ -174,6 +192,7 @@
       "XbowOrSling": true
     },
     "APreFightingAxe": {
+      "name": "Knight w/ Fighting Axe",
       "Mind": 35,
       "Maxd": 55,
       "Headchance": 25,
@@ -184,6 +203,7 @@
       "Executioner": true
     },
     "APreWingedMace": {
+      "name": "Sergeant w/ Winged Mace",
       "Mind": 35,
       "Maxd": 55,
       "Headchance": 25,
@@ -193,6 +213,7 @@
       "DoubleGrip": true
     },
     "APreGreatsword": {
+      "name": "Zweihander w/ Greatsword",
       "Mind": 85,
       "Maxd": 100,
       "Headchance": 30,
@@ -201,6 +222,7 @@
       "TwoHander20": true
     },
     "APreFlailDGrip": {
+      "name": "Raider w/ Double Gripped Flail",
       "Mind": 25,
       "Maxd": 55,
       "Headchance": 35,
@@ -210,6 +232,7 @@
       "DoubleGrip": true
     },
     "APreLongAxe": {
+      "name": "Raider w/ Longaxe",
       "Mind": 70,
       "Maxd": 95,
       "Headchance": 30,
@@ -218,6 +241,7 @@
       "Executioner": true
     },
     "APreMedXbow": {
+      "name": "Marksman w/ Medium Xbow",
       "Mind": 40,
       "Maxd": 60,
       "Headchance": 25,
@@ -227,6 +251,7 @@
       "XbowOrSling": true
     },
     "APreNobleSword": {
+      "name": "Swordmaster w/ Noble Sword",
       "Mind": 45,
       "Maxd": 50,
       "Headchance": 25,
@@ -238,6 +263,7 @@
       "Executioner": true
     },
     "APreWarbow": {
+      "name": "Master Archer w/ Warbow",
       "Mind": 50,
       "Maxd": 70,
       "Headchance": 25,
@@ -250,6 +276,7 @@
       "Arrow": true
     },
     "APrePoleMace": {
+      "name": "Conscript w/ Polemace",
       "Mind": 60,
       "Maxd": 75,
       "Headchance": 30,
@@ -257,6 +284,7 @@
       "ArmorMod": 120
     },
     "APreHandgonne": {
+      "name": "Gunner w/ Handgonne",
       "Mind": 35,
       "Maxd": 75,
       "Headchance": 25,
@@ -267,6 +295,7 @@
       "Handgonne": true
     },
     "APre2HScimitar": {
+      "name": "Officer w/ Scimitar",
       "Mind": 65,
       "Maxd": 85,
       "Headchance": 25,
@@ -277,6 +306,7 @@
       "Executioner": true
     },
     "APreQatal": {
+      "name": "Assassin w/ Qatal",
       "Mind": 30,
       "Maxd": 45,
       "Headchance": 25,
@@ -288,6 +318,7 @@
       "Pierce": true
     },
     "APreFDirewolf": {
+      "name": "Frenzied Direwolf",
       "Mind": 30,
       "Maxd": 50,
       "Headchance": 25,
@@ -297,6 +328,7 @@
       "FrenziedDirewolf": true
     },
     "APreNachTier3": {
+      "name": "Tier 3 Nachzehrer",
       "Mind": 55,
       "Maxd": 80,
       "Headchance": 25,
@@ -304,6 +336,7 @@
       "ArmorMod": 75
     },
     "APreLindwurm": {
+      "name": "Lindwurm Head",
       "Mind": 80,
       "Maxd": 140,
       "Headchance": 25,
@@ -313,6 +346,7 @@
       "Atk_Resolve": 180
     },
     "APreUnhold": {
+      "name": "Unhold",
       "Mind": 40,
       "Maxd": 80,
       "Headchance": 25,
@@ -321,6 +355,7 @@
       "CripplingStrikes": true
     },
     "APreSchrat": {
+      "name": "Schrat",
       "Mind": 70,
       "Maxd": 100,
       "Headchance": 25,

@@ -1,0 +1,30 @@
+{
+    "HitsToDeathPercent": {
+      "name": "DeathPercentChart",
+      "title": " to Die Histogram"
+    },
+    "HitsToInjurePercent": {
+      "name": "InjuryPercentChart",
+      "title": " to Injure Histogram"
+    },
+    "HitsToHeavyInjuryChancePercent": {
+      "name": "HeavyInjuryPercentChart",
+      "title": " to Heavy Injury Chance Histogram"
+    },
+    "HitsToMoralePercent": {
+      "name": "MoralePercentChart",
+      "title": " till First Morale Check Histogram"
+    },
+    "HitsToWaveringPercent": {
+      "name": "HitsToWaveringChart",
+      "title": " to Wavering Histogram"
+    },
+    "HitsToBreakingPercent": {
+      "name": "HitsToBreakingChart",
+      "title": " to Breaking Histogram"
+    },
+    "HitsToFleeingPercent": {
+      "name": "HitsToFleeingChart",
+      "title": " to Fleeing Histogram"
+    }
+  }

@@ -1,5 +1,6 @@
 {
     "DPreNimbleBro": {
+        "name": "120hp, 120/95, Nimble Bro",
         "Def_HP": 120,
         "Def_Helmet": 120,
         "Def_Armor": 95,
@@ -8,6 +9,7 @@
         "Nimble": true
     },
     "DPreNimbleBroBP": {
+        "name": "120hp, 120/95, Nimble, Bone Plates Bro",
         "Def_HP": 120,
         "Def_Helmet": 120,
         "Def_Armor": 80,
@@ -17,6 +19,7 @@
         "Boneplate": true
     },
     "DPreForgeBro": {
+        "name": "80hp, 300/300, Forge Bro",
         "Def_HP": 80,
         "Def_Helmet": 300,
         "Def_Armor": 300,
@@ -24,6 +27,7 @@
         "Forge": true
     },
     "DPreForgeBroAFP": {
+        "name": "80hp, 300/300, Forge, Additional Fur Padding Bro",
         "Def_HP": 80,
         "Def_Helmet": 300,
         "Def_Armor": 300,
@@ -32,6 +36,7 @@
         "AdFurPad": true
     },
     "DPreAncientLegion": {
+        "name": "Ancient Legionary",
         "Def_HP": 55,
         "Def_Helmet": 130,
         "Def_Armor": 135,
@@ -40,6 +45,7 @@
         "Skeleton": true
     },
     "DPreHonorGuard": {
+        "name": "Honor Guard",
         "Def_HP": 65,
         "Def_Helmet": 180,
         "Def_Armor": 210,
@@ -48,6 +54,7 @@
         "Skeleton": true
     },
     "DPreArmGangerHeavy": {
+        "name": "Heavy Armored Weiderganger",
         "Def_HP": 130,
         "Def_Helmet": 140,
         "Def_Armor": 115,
@@ -55,6 +62,7 @@
         "Zombie": true
     },
     "DPreFHeroHeavy": {
+        "name": "Heavy Fallen Hero",
         "Def_HP": 180,
         "Def_Helmet": 255,
         "Def_Armor": 260,
@@ -62,12 +70,14 @@
         "Zombie": true
     },
     "DPreYoungHeavy": {
+        "name": "Heavy Orc Young",
         "Def_HP": 125,
         "Def_Helmet": 120,
         "Def_Armor": 120,
         "Def_Resolve": 65
     },
     "DPreBerserkerHeavy": {
+        "name": "Heavy Orc Berserker",
         "Def_HP": 250,
         "Def_Helmet": 120,
         "Def_Armor": 110,
@@ -75,6 +85,7 @@
         "Resilient": true
     },
     "DPreWarriorLight": {
+        "name": "Light Orc Warrior",
         "Def_HP": 200,
         "Def_Helmet": 240,
         "Def_Armor": 280,
@@ -82,6 +93,7 @@
         "Resilient": true
     },
     "DPreWarriorHeavy": {
+        "name": "Heavy Orc Warrior",
         "Def_HP": 200,
         "Def_Helmet": 360,
         "Def_Armor": 400,
@@ -89,36 +101,42 @@
         "Resilient": true
     },
     "DPreWarlord": {
+        "name": "Orc Warlord",
         "Def_HP": 300,
         "Def_Helmet": 500,
         "Def_Armor": 500,
         "Def_Resolve": 90
     },
     "DPreSkirmisherHeavy": {
+        "name": "Heavy Goblin Skirmisher",
         "Def_HP": 40,
         "Def_Helmet": 90,
         "Def_Armor": 90,
         "Def_Resolve": 55
     },
     "DPreAmbusher": {
+        "name": "Goblin Ambusher",
         "Def_HP": 40,
         "Def_Helmet": 25,
         "Def_Armor": 35,
         "Def_Resolve": 45
     },
     "DPreShaman": {
+        "name": "Goblin Shaman",
         "Def_HP": 70,
         "Def_Helmet": 35,
         "Def_Armor": 45,
         "Def_Resolve": 70
     },
     "DPreOverseer": {
+        "name": "Goblin Overseer",
         "Def_HP": 70,
         "Def_Helmet": 120,
         "Def_Armor": 180,
         "Def_Resolve": 70
     },
     "DPreReaverHeavy": {
+        "name": "Heavy Barbarian Reaver",
         "Def_HP": 80,
         "Def_Helmet": 145,
         "Def_Armor": 95,
@@ -126,6 +144,7 @@
         "Resilient": true
     },
     "DPreChosenLight": {
+        "name": "Light Barbarian Chosen",
         "Def_HP": 130,
         "Def_Helmet": 145,
         "Def_Armor": 140,
@@ -134,6 +153,7 @@
         "Resilient": true
     },
     "DPreChosenHeavy": {
+        "name": "Heavy Barbarian Chosen",
         "Def_HP": 130,
         "Def_Helmet": 190,
         "Def_Armor": 230,
@@ -142,6 +162,7 @@
         "Resilient": true
     },
     "DPreBarbKing": {
+        "name": "Barbarian King",
         "Def_HP": 150,
         "Def_Helmet": 250,
         "Def_Armor": 270,
@@ -150,6 +171,7 @@
         "Resilient": true
     },
     "DPreBeastmaster": {
+        "name": "Barbarian DPreBeastmaster",
         "Def_HP": 70,
         "Def_Helmet": 130,
         "Def_Armor": 95,
@@ -157,6 +179,7 @@
         "Resilient": true
     },
     "DPreFootmanHeavy": {
+        "name": "Heavy Footman",
         "Def_HP": 70,
         "Def_Helmet": 215,
         "Def_Armor": 150,
@@ -164,6 +187,7 @@
         "Forge": true
     },
     "DPreBillman": {
+        "name": "Billman",
         "Def_HP": 70,
         "Def_Helmet": 80,
         "Def_Armor": 130,
@@ -171,12 +195,14 @@
         "Forge": true
     },
     "DPreArbalester": {
+        "name": "Arbalester",
         "Def_HP": 60,
         "Def_Helmet": 80,
         "Def_Armor": 65,
         "Def_Resolve": 60
     },
     "DPreBannerHeavy": {
+        "name": "Heavy Bannerman",
         "Def_HP": 80,
         "Def_Helmet": 215,
         "Def_Armor": 150,
@@ -184,6 +210,7 @@
         "SteelBrow": true
     },
     "DPreKnight": {
+        "name": "Knight",
         "Def_HP": 125,
         "Def_Helmet": 300,
         "Def_Armor": 300,
@@ -191,6 +218,7 @@
         "Forge": true
     },
     "DPreSergeant": {
+        "name": "Sergeant",
         "Def_HP": 100,
         "Def_Helmet": 0,
         "Def_Armor": 150,
@@ -200,6 +228,7 @@
         "SteelBrow": true
     },
     "DPreZweiHeavy": {
+        "name": "Heavy Zweihander",
         "Def_HP": 90,
         "Def_Helmet": 160,
         "Def_Armor": 240,
@@ -208,18 +237,21 @@
         "SteelBrow": true
     },
     "DPreRaiderHeavy": {
+        "name": "Heavy Brigand Raider",
         "Def_HP": 70,
         "Def_Helmet": 140,
         "Def_Armor": 115,
         "Def_Resolve": 55
     },
     "DPreMarkman": {
+        "name": "Brigand Marksman",
         "Def_HP": 60,
         "Def_Helmet": 45,
         "Def_Armor": 70,
         "Def_Resolve": 50
     },
     "DPreLeaderHeavy": {
+        "name": "Heavy Brigand Leader",
         "Def_HP": 100,
         "Def_Helmet": 250,
         "Def_Armor": 230,
@@ -227,6 +259,7 @@
         "NineLives": true
     },
     "DPreMercenaryHeavy": {
+        "name": "Heavy Mercenary",
         "Def_HP": 90,
         "Def_Helmet": 230,
         "Def_Armor": 260,
@@ -234,6 +267,7 @@
         "Forge": true
     },
     "DPreMercRange": {
+        "name": "Ranged Mercenary",
         "Def_HP": 65,
         "Def_Helmet": 115,
         "Def_Armor": 115,
@@ -242,6 +276,7 @@
         "Nimble": true
     },
     "DPreHedgeKnight": {
+        "name": "Hedge Knight",
         "Def_HP": 150,
         "Def_Helmet": 300,
         "Def_Armor": 300,
@@ -250,6 +285,7 @@
         "Resilient": true
     },
     "DPreSwordmaster": {
+        "name": "Swordmaster",
         "Def_HP": 70,
         "Def_Helmet": 70,
         "Def_Armor": 115,
@@ -259,6 +295,7 @@
         "SteelBrow": true
     },
     "DPreMasterArcher": {
+        "name": "Master Archer",
         "Def_HP": 80,
         "Def_Helmet": 30,
         "Def_Armor": 115,
@@ -268,12 +305,14 @@
         "SteelBrow": true
     },
     "DPreOutlawHeavy": {
+        "name": "Heavy Brigand Outlaw",
         "Def_HP": 75,
         "Def_Helmet": 125,
         "Def_Armor": 105,
         "Def_Resolve": 60
     },
     "DPreConscript": {
+        "name": "Conscript",
         "Def_HP": 55,
         "Def_Helmet": 105,
         "Def_Armor": 110,
@@ -282,6 +321,7 @@
         "Nimble": true
     },
     "DPreOfficer": {
+        "name": "Officer",
         "Def_HP": 100,
         "Def_Helmet": 290,
         "Def_Armor": 290,
@@ -289,6 +329,7 @@
         "Forge": true
     },
     "DPreAssassinHeavy": {
+        "name": "Heavy Assassin",
         "Def_HP": 80,
         "Def_Helmet": 140,
         "Def_Armor": 120,

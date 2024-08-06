@@ -1,0 +1,220 @@
+[
+    {
+        "name": "2H Flanged Mace - Cudgel",
+        "Mind": 95,
+        "Maxd": 115,
+        "Headchance": 25,
+        "Ignore": 50,
+        "ArmorMod": 125
+    },
+    {
+        "name": "2H Flail - Pound",
+        "Mind": 65,
+        "Maxd": 110,
+        "Headchance": 40,
+        "Ignore": 30,
+        "ArmorMod": 115,
+        "Flail2HPound": true,
+        "FlailMastery": true
+    },
+    {
+        "name": "Berserk Chain - Pound",
+        "Mind": 70,
+        "Maxd": 120,
+        "Headchance": 40,
+        "Ignore": 30,
+        "ArmorMod": 125,
+        "Flail2HPound": true,
+        "FlailMastery": true
+    },
+    {
+        "name": "2H Hammer - Smite",
+        "Mind": 80,
+        "Maxd": 110,
+        "Headchance": 25,
+        "Ignore": 50,
+        "ArmorMod": 200
+    },
+    {
+        "name": "2H Hammer - AoE",
+        "Mind": 60,
+        "Maxd": 90,
+        "Headchance": 25,
+        "Ignore": 50,
+        "ArmorMod": 200
+    },
+    {
+        "name": "Bardiche - Split Man",
+        "Mind": 75,
+        "Maxd": 95,
+        "Headchance": 25,
+        "Ignore": 40,
+        "ArmorMod": 130,
+        "SplitMan": true
+    },
+    {
+        "name": "Greataxe - Split Man",
+        "Mind": 80,
+        "Maxd": 100,
+        "Headchance": 25,
+        "Ignore": 40,
+        "ArmorMod": 150,
+        "SplitMan": true
+    },
+    {
+        "name": "Mansplitter - Split Man",
+        "Mind": 90,
+        "Maxd": 120,
+        "Headchance": 25,
+        "Ignore": 40,
+        "ArmorMod": 160,
+        "SplitMan": true
+    },
+    {
+        "name": "2H Scimitar",
+        "Mind": 65,
+        "Maxd": 85,
+        "Headchance": 25,
+        "Ignore": 25,
+        "ArmorMod": 110,
+        "BleedDamage": 10,
+        "CleaverMastery": true
+    },
+    {
+        "name": "2H Scimitar - Decap at 50%",
+        "Mind": 65,
+        "Maxd": 85,
+        "Headchance": 25,
+        "Ignore": 25,
+        "ArmorMod": 110,
+        "BleedDamage": 10,
+        "CleaverMastery": true,
+        "SmartDecap50": true
+    },
+    {
+        "name": "Rusty Warblade",
+        "Mind": 60,
+        "Maxd": 80,
+        "Headchance": 25,
+        "Ignore": 35,
+        "ArmorMod": 110,
+        "BleedDamage": 10,
+        "CleaverMastery": true
+    },
+    {
+        "name": "Rusty Warblade - Decap at 50%",
+        "Mind": 60,
+        "Maxd": 80,
+        "Headchance": 25,
+        "Ignore": 35,
+        "ArmorMod": 110,
+        "BleedDamage": 10,
+        "CleaverMastery": true,
+        "SmartDecap50": true
+    },
+    {
+        "name": "Greatsword - Overhead",
+        "Mind": 105,
+        "Maxd": 120,
+        "Headchance": 30,
+        "Ignore": 25,
+        "ArmorMod": 100
+    },
+    {
+        "name": "Greatsword - AoE",
+        "Mind": 85,
+        "Maxd": 100,
+        "Headchance": 30,
+        "Ignore": 25,
+        "ArmorMod": 100
+    },
+    {
+        "name": "Polehammer",
+        "Mind": 50,
+        "Maxd": 75,
+        "Headchance": 30,
+        "Ignore": 50,
+        "ArmorMod": 185,
+        "Hammer10": true
+    },
+    {
+        "name": "Longaxe",
+        "Mind": 70,
+        "Maxd": 95,
+        "Headchance": 30,
+        "Ignore": 30,
+        "ArmorMod": 110
+    },
+    {
+        "name": "Spetum",
+        "Mind": 55,
+        "Maxd": 75,
+        "Headchance": 30,
+        "Ignore": 25,
+        "ArmorMod": 100
+    },
+    {
+        "name": "Pike",
+        "Mind": 60,
+        "Maxd": 80,
+        "Headchance": 30,
+        "Ignore": 30,
+        "ArmorMod": 100
+    },
+    {
+        "name": "Ancient Bladed Pike",
+        "Mind": 55,
+        "Maxd": 80,
+        "Headchance": 30,
+        "Ignore": 30,
+        "ArmorMod": 125
+    },
+    {
+        "name": "Billhook",
+        "Mind": 55,
+        "Maxd": 85,
+        "Headchance": 30,
+        "Ignore": 30,
+        "ArmorMod": 140
+    },
+    {
+        "name": "Warscythe",
+        "Mind": 55,
+        "Maxd": 80,
+        "Headchance": 25,
+        "Ignore": 30,
+        "ArmorMod": 104
+    },
+    {
+        "name": "Warscythe - AoE",
+        "Mind": 55,
+        "Maxd": 80,
+        "Headchance": 25,
+        "Ignore": 25,
+        "ArmorMod": 104
+    },
+    {
+        "name": "Warbow - Quick Shot",
+        "Mind": 50,
+        "Maxd": 70,
+        "Headchance": 25,
+        "Ignore": 35,
+        "ArmorMod": 60
+    },
+    {
+        "name": "Heavy Xbow - Mastery",
+        "Mind": 50,
+        "Maxd": 70,
+        "Headchance": 25,
+        "Ignore": 70,
+        "ArmorMod": 75
+    },
+    {
+        "name": "Handgonne",
+        "Mind": 35,
+        "Maxd": 75,
+        "Headchance": 25,
+        "Ignore": 25,
+        "ArmodMod": 90
+    }
+]

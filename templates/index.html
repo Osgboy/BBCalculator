@@ -1,175 +1,62 @@
 {% load static %}
+{% load extras %}
 <!DOCTYPE html>
 <html lang="en-US">
     <head>
         <title>Batle Brothers Damage Calculator</title>
+        {{ atkPresetJSON|json_script:"atkPresets" }}
+        {{ defPresetJSON|json_script:"defPresets" }}
+        {{ chartMetaJSON|json_script:"chartMeta" }}
         <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
         <script>
+            const chartMeta = JSON.parse(document.getElementById('chartMeta').textContent)
             window.onload = function () {
                 {% if request.HitChance %}
                 const hits = "Swings"
                 {% else %}
                 const hits = "Hits"
                 {% endif %}
-                {% if 'HitsToDeathPercent' in results %}
-                var DeathPercentChart = new CanvasJS.Chart("DeathPercentChart", {
-                    animationEnabled: true,
-                    responsive: true,
-                    title:{
-                        text: hits + " to Die Histogram"
-                    },
-                    axisY:{
-                        title: "Percent",
-                        minimum: 0
-                    },
-                    axisX:{
-                        title: "# of " + hits,
-                        interval: 1
-                    },
-                    data: [{
-                        type: "column",
-                        dataPoints: {{ results.HitsToDeathPercent | safe }}
-                    }]
-                }); 
-                DeathPercentChart.render();
-                {% endif %}
-                {% if 'HitsToInjurePercent' in results %}
-                var InjuryPercentChart = new CanvasJS.Chart("InjuryPercentChart", {
-                    animationEnabled: true,
-                    responsive: true,
-                    title:{
-                        text: hits + " to Injure Histogram"
-                    },
-                    axisY:{
-                        title: "Percent",
-                        minimum: 0
-                    },
-                    axisX:{
-                        title: "# of " + hits,
-                        interval: 1
-                    },
-                    data: [{
-                        type: "column",
-                        dataPoints: {{ results.HitsToInjurePercent | safe }}
-                    }]
-                });
-                InjuryPercentChart.render();
-                {% endif %}
-                {% if 'HitsToHeavyInjuryChancePercent' in results %}
-                var HeavyInjuryPercentChart = new CanvasJS.Chart("HeavyInjuryPercentChart", {
-                    animationEnabled: true,
-                    responsive: true,
-                    title:{
-                        text: "Hits to Heavy Injury Chance Histogram"
-                    },
-                    axisY:{
-                        title: "Percent",
-                        minimum: 0
-                    },
-                    axisX:{
-                        title: "# of Hits",
-                        interval: 1
-                    },
-                    data: [{
-                        type: "column",
-                        dataPoints: {{ results.HitsToHeavyInjuryChancePercent | safe }}
-                    }]
-                });
-                HeavyInjuryPercentChart.render();
-                {% endif %}
-                {% if 'HitsToMoralePercent' in results %}
-                var MoralePercentChart = new CanvasJS.Chart("MoralePercentChart", {
-                    animationEnabled: true,
-                    responsive: true,
-                    title:{
-                        text: hits + " till First Morale Check Histogram"
-                    },
-                    axisY:{
-                        title: "Percent",
-                        minimum: 0
-                    },
-                    axisX:{
-                        title: "# of " + hits,
-                        interval: 1
-                    },
-                    data: [{
-                        type: "column",
-                        dataPoints: {{ results.HitsToMoralePercent | safe }}
-                    }]
-                });
-                MoralePercentChart.render();
-                {% endif %}
-                {% if 'HitsToWaveringPercent' in results %}
-                var HitsToWaveringChart = new CanvasJS.Chart("HitsToWaveringChart", {
-                    animationEnabled: true,
-                    responsive: true,
-                    title:{
-                        text: hits + " to Wavering Histogram"
-                    },
-                    axisY:{
-                        title: "Percent",
-                        interval: 10
-                    },
-                    axisX:{
-                        title: "# of " + hits,
-                        interval: 1,
-                        minimum: 0
-                    },
-                    data: [{
-                        type: "column",
-                        dataPoints: {{ results.HitsToWaveringPercent | safe }}
-                    }]
-                });
-                HitsToWaveringChart.render();
-                {% endif %}
-                {% if 'HitsToBreakingPercent' in results %}
-                var HitsToBreakingChart = new CanvasJS.Chart("HitsToBreakingChart", {
-                    animationEnabled: true,
-                    responsive: true,
-                    title:{
-                        text: hits + " to Breaking Histogram"
-                    },
-                    axisY:{
-                        title: "Percent",
-                        minimum: 0
-                    },
-                    axisX:{
-                        title: "# of " + hits,
-                        interval: 1
-                    },
-                    data: [{
-                        type: "column",
-                        dataPoints: {{ results.HitsToBreakingPercent | safe }}
-                    }]
-                });
-                HitsToBreakingChart.render()
-                {% endif %}
-                {% if 'HitsToFleeingPercent' in results %}
-                var HitsToFleeingChart = new CanvasJS.Chart("HitsToFleeingChart", {
-                    animationEnabled: true,
-                    responsive: true,
-                    title:{
-                        text: hits + " to Fleeing Histogram"
-                    },
-                    axisY:{
-                        title: "Percent",
-                        interval: 10
-                    },
-                    axisX:{
-                        title: "# of " + hits,
-                        interval: 1
-                    },
-                    data: [{
-                        type: "column",
-                        dataPoints: {{ results.HitsToFleeingPercent | safe }}
-                    }]
-                });
-                HitsToFleeingChart.render();
-                {% endif %}
+                {% for k,v in results.ChartData.items %}
+                    {% if k in chartMetaJSON %}
+                    var NewChart = new CanvasJS.Chart(chartMeta.{{k}}.name, {
+                        animationEnabled: true,
+                        responsive: true,
+                        title: {
+                            text: hits + chartMeta.{{k}}.title
+                        },
+                        axisY: {
+                            title: "Percent",
+                            minimum: 0
+                        },
+                        axisX: {
+                            title: "# of " + hits,
+                            interval: 1
+                        },
+                        {% if not battery %}
+                        data: [{
+                            type: "column",
+                            dataPoints: {{ v | safe }}
+                        }]
+                        {% else %}
+                        toolTip: {
+                            shared: true
+                        },
+                        data: [
+                            {% for name, data in v.items %}
+                            {
+                                type: "splineArea",
+                                name: "{{ name }}",
+                                dataPoints: {{ data | safe }}
+                            },
+                            {% endfor %}
+                        ]
+                        {% endif %}
+                    }); 
+                    NewChart.render();
+                    {% endif %}
+                {% endfor %}
             }
         </script>
-        {{ atkPresetJSON|json_script:"atkPresets" }}
-        {{ defPresetJSON|json_script:"defPresets" }}
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Battle Brothers Damge Calculator">
@@ -185,7 +72,7 @@
         <header class="container">
             <hgroup>            
                 <h1><a href="/">Battle Brothers Damage Calculator</a></h1>
-                <p>Version 1.6.4, last updated August 4th, 2024.</p>
+                <p>Version 1.6.4, last updated August 6th, 2024.</p>
             </hgroup>
         </header>
         <main class="container">
@@ -197,6 +84,9 @@
                         <h6>Preset</h6>
                             <select name="AtkPreset" id="AtkPreset">
                                 <option value="None" {% if request.AtkPreset == "None" %} selected {% endif %}>None</option>
+                                <option value="1Handers" class="atkBattery" {% if request.AtkPreset == "1Handers" %} selected {% endif %}>1 Hander Battery (22 weapon variants)</option>
+                                <option value="2Handers" class="atkBattery" {% if request.AtkPreset == "2Handers" %} selected {% endif %}>2 Hander Battery (25 weapon variants)</option>
+                                <option value="AllAtkPresets" class="atkBattery" {% if request.AtkPreset == "AllAtkPresets" %} selected {% endif %}>Attacker preset battery (all of the below presets)</option>
                                 <option value="APreAncientSword" {% if request.AtkPreset == "APreAncientSword" %} selected {% endif %}>Ancient Dead w/ Ancient Sword</option>
                                 <option value="APreBladedPike" {% if request.AtkPreset == "APreBladedPike" %} selected {% endif %}>Ancient Dead w/ Bladed Pike</option>
                                 <option value="APreWarscytheAoE" {% if request.AtkPreset == "APreWarscytheAoE" %} selected {% endif %}>Ancient Dead w/ AoE Warscythe</option>
@@ -270,19 +160,19 @@
                             <summary role="button" class="secondary">Stats</summary>
                             <fieldset class="grid">
                                 <label class="StatLabel" for="Mind">Min Damage <img src="{% static 'icons/stats/damage_dealt.png' %}" alt="Damage dealt icon"></label>
-                                <input class="atk-stat" type="number" name="Mind" id="Mind" min="1" max="999" value={{request.Mind|default:55}} required>
+                                <input class="atk-stat" type="number" name="Mind" id="Mind" min="1" max="999" value={{request.Mind|default:75}} required>
                                 <label class="StatLabel" for="Maxd">Max Damage <img src="{% static 'icons/stats/damage_dealt.png' %}" alt="Damage dealt icon"></label>
-                                <input class="atk-stat" type="number" name="Maxd" id="Maxd" min="1" max="999" value={{request.Maxd|default:80}} required>
+                                <input class="atk-stat" type="number" name="Maxd" id="Maxd" min="1" max="999" value={{request.Maxd|default:95}} required>
                             </fieldset>
                             <fieldset class="grid">
                                 <label class="StatLabel" for="Ignore">Armor Ignore % <img src="{% static 'icons/stats/direct_damage.png' %}" alt="Direct damage icon"></label>
-                                <input class="atk-stat" type="number" name="Ignore" id="Ignore" min="0" max="999" value={{request.Ignore|default:30}} required>
+                                <input class="atk-stat" type="number" name="Ignore" id="Ignore" min="0" max="999" value={{request.Ignore|default:50}} required>
                                 <label class="StatLabel" for="ArmorMod">Armor Damage % <img src="{% static 'icons/stats/armor_damage.png' %}" alt="Armor damage icon"></label>
-                                <input class="atk-stat" type="number" name="ArmorMod" id="ArmorMod" min="0" max="999" value={{request.ArmorMod|default:125}} required>
+                                <input class="atk-stat" type="number" name="ArmorMod" id="ArmorMod" min="1" max="999" value={{request.ArmorMod|default:125}} required>
                             </fieldset>
                             <fieldset class="grid">
                                 <label class="StatLabel" for="Headchance">% Chance to Hit Head <img src="{% static 'icons/stats/headchance.png' %}" alt="Headshot chance icon"></label>
-                                <input class="atk-stat" type="number" name="Headchance" id="Headchance" min="0" max="100" value={{request.Headchance|default:30}} required>
+                                <input class="atk-stat" type="number" name="Headchance" id="Headchance" min="0" max="100" value={{request.Headchance|default:25}} required>
                                 <label class="StatLabel" for="Atk_Resolve">Resolve <img src="{% static 'icons/stats/resolve.png' %}" alt="Resolve icon"></label>
                                 <input class="atk-stat" type="number" name="Atk_Resolve" id="Atk_Resolve" min="0" max="999" value={{request.Atk_Resolve|default:50}} required>
                             </fieldset>
@@ -520,6 +410,8 @@
                         <h6>Preset</h6>
                             <select name="DefPreset" id="DefPreset">
                                 <option value="None" {% if request.DefPreset == "None" %} selected {% endif %}>None</option>
+                                <option value="NimbleBattery" class="defBattery" {% if request.DefPreset == "NimbleBattery" %} selected {% endif %}>Nimble battery (15 nimble variations)</option>
+                                <option value="AllDefPresets" class="defBattery" {% if request.DefPreset == "AllDefPresets" %} selected {% endif %}>Defender preset battery (all of the below presets)</option>
                                 <option value="DPreNimbleBro" {% if request.DefPreset == "DPreNimbleBro" %} selected {% endif %}>120hp, 120/95, Nimble Bro</option>
                                 <option value="DPreNimbleBroBP" {% if request.DefPreset == "DPreNimbleBroBP" %} selected {% endif %}>120hp, 120/95, Nimble, Bone Plates Bro</option>
                                 <option value="DPreForgeBro" {% if request.DefPreset == "DPreForgeBro" %} selected {% endif %}>80hp, 300/300, Forge Bro</option>
@@ -652,21 +544,21 @@
                         <div>
                             <label>
                                 <input type="checkbox" name="DataReturns" id="DeathMean" value="DeathMean" {% if "DeathMean" in DataReturns %} checked {% endif %}>
-                                <samp>{{ results.DeathMean|default:"Returns the average number of hits until death." }}</samp>
+                                <samp>{{ results.DeathMean|linebreaksbr|default:"Returns the average number of hits until death." }}</samp>
                             </label>
                         </div>
                         <div>
                             <label>
-                                <input type="checkbox" name="DataReturns" id="DeathStDev" value="DeathStDev" {% if "DeathStDev" in DataReturns %} checked {% endif %} checked>
-                                <samp>{{ results.DeathStDev|default:"Returns standard deviation of hits until death." }}</samp>
+                                <input type="checkbox" name="DataReturns" id="DeathStDev" value="DeathStDev" {% if "DeathStDev" in DataReturns %} checked {% endif %}>
+                                <samp>{{ results.DeathStDev|linebreaksbr|default:"Returns standard deviation of hits until death." }}</samp>
                             </label>
                         </div>
                         <div>
                             <label>
-                                <input type="checkbox" name="DataReturns" id="DeathPercent" value="DeathPercent" {% if "DeathPercent" in DataReturns %} checked {% endif %} checked>
-                                <samp>{{ results.DeathPercent|default:"Returns % chance of death by each hit." }}</samp>
+                                <input type="checkbox" name="DataReturns" id="DeathPercent" value="DeathPercent" {% if "DeathPercent" in DataReturns %} checked {% endif %}>
+                                <samp>{{ results.DeathPercent|linebreaksbr|default:"Returns % chance of death by each hit." }}</samp>
                             </label>
-                            {% if "DeathPercent" in DataReturns and "HitsToDeathPercent" in results%}
+                            {% if "DeathPercent" in DataReturns and "HitsToDeathPercent" in results.ChartData%}
                             <div class="canvas-container">
                                 <div id="DeathPercentChart" class="canvas"></div>
                             </div>
@@ -674,16 +566,16 @@
                         </div>
                         <div>
                             <label>
-                                <input type="checkbox" name="DataReturns" id="InjuryMean" value="InjuryMean" {% if "InjuryMean" in DataReturns %} checked {% endif %} checked>
-                                <samp>{{ results.InjuryMean|default:"Returns average number of hits until first injury." }}</samp>
+                                <input type="checkbox" name="DataReturns" id="InjuryMean" value="InjuryMean" {% if "InjuryMean" in DataReturns %} checked {% endif %}>
+                                <samp>{{ results.InjuryMean|linebreaksbr|default:"Returns average number of hits until first injury." }}</samp>
                             </label>
                         </div>
                         <div>
                             <label>
                                 <input type="checkbox" name="DataReturns" id="InjuryPercent" value="InjuryPercent" {% if "InjuryPercent" in DataReturns %} checked {% endif %}>
-                                <samp>{{ results.InjuryPercent|default:"Returns % chance of first injury by each hit." }}</samp>
+                                <samp>{{ results.InjuryPercent|linebreaksbr|default:"Returns % chance of first injury by each hit." }}</samp>
                             </label>
-                            {% if "InjuryPercent" in DataReturns and "HitsToInjurePercent" in results%}
+                            {% if "InjuryPercent" in DataReturns and "HitsToInjurePercent" in results.ChartData%}
                             <div class="canvas-container">
                                 <div id="InjuryPercentChart" class="canvas"></div>
                             </div>
@@ -691,16 +583,16 @@
                         </div>
                         <div>
                             <label>
-                                <input type="checkbox" name="DataReturns" id="HeavyInjuryMean" value="HeavyInjuryMean" {% if "HeavyInjuryMean" in DataReturns %} checked {% endif %} checked>
-                                <samp>{{ results.HeavyInjuryMean|default:"Returns average number of hits until chance of first heavy injury (heavy injuries are not guaranteed even when threshold is met)." }}</samp>
+                                <input type="checkbox" name="DataReturns" id="HeavyInjuryMean" value="HeavyInjuryMean" {% if "HeavyInjuryMean" in DataReturns %} checked {% endif %}>
+                                <samp>{{ results.HeavyInjuryMean|linebreaksbr|default:"Returns average number of hits until chance of first heavy injury (heavy injuries are not guaranteed even when threshold is met)." }}</samp>
                             </label>
                         </div>
                         <div>
                             <label>
                                 <input type="checkbox" name="DataReturns" id="HeavyInjuryPercent" value="HeavyInjuryPercent" {% if "HeavyInjuryPercent" in DataReturns %} checked {% endif %}>
-                                <samp>{{ results.HeavyInjuryPercent|default:"Returns % chance of first heavy injury chance by each hit." }}</samp>
+                                <samp>{{ results.HeavyInjuryPercent|linebreaksbr|default:"Returns % chance of first heavy injury chance by each hit." }}</samp>
                             </label>
-                            {% if "HeavyInjuryPercent" in DataReturns and "HitsToHeavyInjuryChancePercent" in results%}
+                            {% if "HeavyInjuryPercent" in DataReturns and "HitsToHeavyInjuryChancePercent" in results.ChartData%}
                             <div class="canvas-container">
                                 <div id="HeavyInjuryPercentChart" class="canvas"></div>
                             </div>
@@ -709,21 +601,21 @@
                         <div>
                             <label>
                                 <input type="checkbox" name="DataReturns" id="MoraleChecksTotal" value="MoraleChecksTotal" {% if "MoraleChecksTotal" in DataReturns %} checked {% endif %}>
-                                <samp>{{ results.MoraleChecksTotal|default:"Returns the total number of morale checks before death." }}</samp>
+                                <samp>{{ results.MoraleChecksTotal|linebreaksbr|default:"Returns the total number of morale checks before death." }}</samp>
                             </label>
                         </div>
                         <div>
                             <label>
                                 <input type="checkbox" name="DataReturns" id="MoraleMean" value="MoraleMean" {% if "MoraleMean" in DataReturns %} checked {% endif %}>
-                                <samp>{{ results.MoraleMean|default:"Returns average number of hits until first morale check." }}</samp>
+                                <samp>{{ results.MoraleMean|linebreaksbr|default:"Returns average number of hits until first morale check." }}</samp>
                             </label>
                         </div>
                         <div>
                             <label>
                                 <input type="checkbox" name="DataReturns" id="MoralePercent" value="MoralePercent" {% if "MoralePercent" in DataReturns %} checked {% endif %}>
-                                <samp>{{ results.MoralePercent|default:"Returns % chance of first morale check by each hit." }}</samp>
+                                <samp>{{ results.MoralePercent|linebreaksbr|default:"Returns % chance of first morale check by each hit." }}</samp>
                             </label>
-                            {% if "MoralePercent" in DataReturns and "HitsToMoralePercent" in results%}
+                            {% if "MoralePercent" in DataReturns and "HitsToMoralePercent" in results.ChartData%}
                             <div class="canvas-container">
                                 <div id="MoralePercentChart" class="canvas"></div>
                             </div>
@@ -732,26 +624,26 @@
                         <div>
                             <label>
                                 <input type="checkbox" name="DataReturns" id="MoraleDropsMean" value="MoraleDropsMean" {% if "MoraleDropsMean" in DataReturns %} checked {% endif %}>
-                                <samp>{{ results.MoraleDropsMean|default:"Returns average number of hits to drop morale to each morale level." }}</samp>
+                                <samp>{{ results.MoraleDropsMean|linebreaksbr|default:"Returns average number of hits to drop morale to each morale level." }}</samp>
                             </label>
                         </div>
                         <div>
                             <label>
                                 <input type="checkbox" name="DataReturns" id="MoraleDropsPercent" value="MoraleDropsPercent" {% if "MoraleDropsPercent" in DataReturns %} checked {% endif %}>
-                                <samp>{{ results.MoraleDropsPercent|default:"Returns % chance of dropping morale to each morale level by each hit." }}</samp>
+                                <samp>{{ results.MoraleDropsPercent|linebreaksbr|default:"Returns % chance of dropping morale to each morale level by each hit." }}</samp>
                             </label>
                             {% if "MoraleDropsPercent" in DataReturns%}
-                                {% if "HitsToWaveringPercent" in results%}
+                                {% if "HitsToWaveringPercent" in results.ChartData%}
                                 <div class="canvas-container">
                                     <div id="HitsToWaveringChart" class="canvas"></div>
                                 </div>
                                 {% endif %}
-                                {% if "HitsToBreakingPercent" in results%}
+                                {% if "HitsToBreakingPercent" in results.ChartData%}
                                 <div class="canvas-container">
                                     <div id="HitsToBreakingChart" class="canvas"></div>
                                 </div>
                                 {% endif %}
-                                {% if "HitsToFleeingPercent" in results%}
+                                {% if "HitsToFleeingPercent" in results.ChartData%}
                                 <div class="canvas-container">
                                     <div id="HitsToFleeingChart" class="canvas"></div>
                                 </div>
@@ -759,16 +651,16 @@
                             {% endif %}
                         </div>
                         <div>
-                            <samp>{{ results.Nimble|default:"Returns % damage modifier from nimble." }}</samp>
+                            <samp>{{ results.Nimble|linebreaksbr|default:"Returns % damage modifier from nimble." }}</samp>
                         </div>
                         <div>
-                            <samp>{{ results.Forge|default:"Returns bonus armor from battleforged." }}</samp>
+                            <samp>{{ results.Forge|linebreaksbr|default:"Returns bonus armor from battleforged." }}</samp>
                         </div>
                         <div>
-                            <samp>{{ results.Ambusher|default:"Returns average number of hits until poisoned (Goblin Ambusher only)." }}</samp>
+                            <samp>{{ results.Ambusher|linebreaksbr|default:"Returns average number of hits until poisoned (Goblin Ambusher only)." }}</samp>
                         </div>
                         <div>
-                            <samp>{{ results.Cleaver|default:"Returns average number of hits until bleeding." }}</samp>
+                            <samp>{{ results.Cleaver|linebreaksbr|default:"Returns average number of hits until bleeding." }}</samp>
                         </div>
                     </div>
                 </details>

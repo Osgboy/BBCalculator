@@ -37,11 +37,11 @@ MoraleDropsPercent = False, #Returns % chance of dropping morale to each morale 
 #Hit Chance: Use a whole number - 50% hit chance put "50" rather than .5
 HitChance = None, #Not enabled by default
 
-#Attacker Stats: #Example is Ancient Bladed Pike, follow that formatting. If you wish to use a attacker Preset, then skip this section.
-Mind = 55,        #Mind = 55
-Maxd = 80,        #Maxd = 80
-Headchance = 30,  #Headchance = 30
-Ignore = 30,      #Ignore = 30
+#Attacker Stats: #Example is 2h mace, follow that formatting. If you wish to use a attacker Preset, then skip this section.
+Mind = 75,        #Mind = 75
+Maxd = 95,        #Maxd = 95
+Headchance = 25,  #Headchance = 25
+Ignore = 50,      #Ignore = 50
 ArmorMod = 125,   #ArmorMod = 125
 Atk_Resolve = 50,        #Only used if Fearsome is selected. 20% of (Resolve -10) is applied as a penalty to defender Resolve during morale checks.
 
@@ -648,6 +648,8 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
             RaceMod = .25
         elif Arrow:
             RaceMod = .1
+        else:
+            RaceMod = 1
     elif Alp:
         if Pierce:
             RaceMod = .5
@@ -661,6 +663,8 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
             RaceMod = .25
         elif Arrow:
             RaceMod = .1
+        else:
+            RaceMod = 1
     elif Ifrit:
         if Pierce:
             RaceMod = .5
@@ -674,6 +678,8 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
             RaceMod = .1
         elif Arrow:
             RaceMod = .1
+        else:
+            RaceMod = 1
     else:
         RaceMod = 1
 
@@ -718,7 +724,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
     print(f"HP = {str(Def_HP)}, Helmet = {str(Def_Helmet)}, Armor = {str(Def_Armor)}")
 
     #Begin the simulation.
-    for _ in range(max(10000, Trials)): #This will run a number of trials as set above by the trials variable.
+    for _ in range(Trials): #This will run a number of trials as set above by the trials variable.
         #Stat initialization:
         hp = Def_HP
         helmet = Def_Helmet
@@ -827,7 +833,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                         Ignore = Flail2HHeadshot
                         
                     #Destroy armor check -- if Destroy Armor special is active do this code block and skip the rest.
-                    if not DArmorMod:
+                    if DArmorMod != 1:
                         hp_roll = 10 #DestroyArmor forces hp damage to = 10.
                         hp -= hp_roll 
                         armor_roll = random.randint(Mind,Maxd) * ArmorMod * DArmorMod * GladMod * IndomMod * DamageMod *  ExecMod
@@ -863,7 +869,8 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                     #If SplitMan is active, do the following code block for the bonus body hit.
                     if SplitMan:
                         if BoneplateMod:
-                            BoneplateMod = 0
+                            BoneplateMod = False
+                            SMhp_roll = 0
                         else:
                             SMhp_roll = random.randint(Mind,Maxd) * .5
                             if body == 0:
@@ -889,10 +896,10 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                         Ignore = Flail2HBodyshot
                     #Bone Plates check -- Attack is negated if Boneplates are online, then turns off Boneplates until next trial.
                     if BoneplateMod:
-                        BoneplateMod = 0
+                        BoneplateMod = False
                         hp_roll = 0
                     else:
-                        if not DArmorMod:
+                        if DArmorMod != 1:
                             hp_roll = 10
                             hp -= hp_roll
                             armor_roll = random.randint(Mind,Maxd) * ArmorMod * DArmorMod * GladMod * IndomMod * DamageMod * ExecMod
@@ -1186,23 +1193,23 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
     StDev = statistics.stdev(hits_until_death)
     hits_until_death.sort()
     HitsToDeathCounter = collections.Counter(hits_until_death)
-    HitsToDeathPercent = [(i,round(HitsToDeathCounter[i]/len(hits_until_death)*100, 2)) for i in HitsToDeathCounter]
+    HitsToDeathPercent = [(round(i, 2),round(HitsToDeathCounter[i]/len(hits_until_death)*100, 2)) for i in HitsToDeathCounter]
     if not injuryImmune:
         if len(hits_until_1st_injury) != 0:
             hits_to_injure = statistics.mean(hits_until_1st_injury)
             hits_until_1st_injury.sort()
             HitsToInjureCounter = collections.Counter(hits_until_1st_injury)
-            HitsToInjurePercent = [(i,round(HitsToInjureCounter[i]/len(hits_until_death)*100, 2)) for i in HitsToInjureCounter]
+            HitsToInjurePercent = [(round(i, 2),round(HitsToInjureCounter[i]/len(hits_until_death)*100, 2)) for i in HitsToInjureCounter]
         if len(hits_until_1st_heavy_injury_chance) != 0:
             hits_to_1st_heavy_injury_chance = statistics.mean(hits_until_1st_heavy_injury_chance)
             hits_until_1st_heavy_injury_chance.sort()
             HitsToHeavyInjuryChanceCounter = collections.Counter(hits_until_1st_heavy_injury_chance)
-            HitsToHeavyInjuryChancePercent = [(i,round(HitsToHeavyInjuryChanceCounter[i]/len(hits_until_death)*100, 2)) for i in HitsToHeavyInjuryChanceCounter]
+            HitsToHeavyInjuryChancePercent = [(round(i, 2),round(HitsToHeavyInjuryChanceCounter[i]/len(hits_until_death)*100, 2)) for i in HitsToHeavyInjuryChanceCounter]
         if len(hits_until_1st_morale) != 0:
             hits_to_morale = statistics.mean(hits_until_1st_morale)
             hits_until_1st_morale.sort()
             HitsToMoraleCounter = collections.Counter(hits_until_1st_morale)
-            HitsToMoralePercent = [(i,round(HitsToMoraleCounter[i]/len(hits_until_death)*100, 2)) for i in HitsToMoraleCounter]
+            HitsToMoralePercent = [(round(i, 2),round(HitsToMoraleCounter[i]/len(hits_until_death)*100, 2)) for i in HitsToMoraleCounter]
     if not moraleImmune:
         if len(Total_Morale_Checks) != 0:
             AvgNumberMoraleChecks = statistics.mean(Total_Morale_Checks)
@@ -1210,17 +1217,17 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
             hits_to_wavering = statistics.mean(hits_until_wavering)
             hits_until_wavering.sort()
             HitsToWaveringCounter = collections.Counter(hits_until_wavering)
-            HitsToWaveringPercent = [(i,round(HitsToWaveringCounter[i]/len(hits_until_death)*100, 2)) for i in HitsToWaveringCounter]
+            HitsToWaveringPercent = [(round(i, 2),round(HitsToWaveringCounter[i]/len(hits_until_death)*100, 2)) for i in HitsToWaveringCounter]
         if len(hits_until_breaking) != 0:
             hits_to_breaking = statistics.mean(hits_until_breaking)
             hits_until_breaking.sort()
             HitsToBreakingCounter = collections.Counter(hits_until_breaking)
-            HitsToBreakingPercent = [(i,round(HitsToBreakingCounter[i]/len(hits_until_death)*100, 2)) for i in HitsToBreakingCounter]
+            HitsToBreakingPercent = [(round(i, 2),round(HitsToBreakingCounter[i]/len(hits_until_death)*100, 2)) for i in HitsToBreakingCounter]
         if len(hits_until_fleeing) != 0:
             hits_to_fleeing = statistics.mean(hits_until_fleeing)
             hits_until_fleeing.sort()
             HitsToFleeingCounter = collections.Counter(hits_until_fleeing)
-            HitsToFleeingPercent = [(i,round(HitsToFleeingCounter[i]/len(hits_until_death)*100, 2)) for i in HitsToFleeingCounter]
+            HitsToFleeingPercent = [(round(i, 2),round(HitsToFleeingCounter[i]/len(hits_until_death)*100, 2)) for i in HitsToFleeingCounter]
         if Fearsome:
             AvgFearsomeProcs = statistics.mean(NumberFearsomeProcs)
     if Forge:
@@ -1234,7 +1241,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
             hits_to_bleed = statistics.mean(hits_until_1st_bleed)
 
     #Results:
-    results = {}
+    results = {'ChartData': {}}
     if HitChance is None:
         hitOrSwing = "hits"
     else:
@@ -1251,7 +1258,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
         string = f"% {hitOrSwing} to die: {str(HitsToDeathPercent)}"
         print(string)
         results['DeathPercent'] = string
-        results['HitsToDeathPercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToDeathPercent]
+        results['ChartData']['HitsToDeathPercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToDeathPercent]
 
     #Injury Data Return
     if injuryImmune or hits_to_injure >= HitsToDeath:
@@ -1271,7 +1278,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
             string = f"% First injury in: {str(HitsToInjurePercent)}"
             print(string)
             results['InjuryPercent'] = string
-            results['HitsToInjurePercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToInjurePercent]
+            results['ChartData']['HitsToInjurePercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToInjurePercent]
     if injuryImmune or hits_to_1st_heavy_injury_chance >= HitsToDeath:
         if HeavyInjuryMean or HeavyInjuryPercent:
             string = "No chance of heavy injury."
@@ -1289,7 +1296,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
             string = f"% First heavy injury chance in: {str(HitsToHeavyInjuryChancePercent)}"
             print(string)
             results['HeavyInjuryPercent'] = string
-            results['HitsToHeavyInjuryChancePercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToHeavyInjuryChancePercent]
+            results['ChartData']['HitsToHeavyInjuryChancePercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToHeavyInjuryChancePercent]
         
     if not moraleImmune:
         #Morale Data Return
@@ -1307,7 +1314,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                 string = f"% First morale check in: {str(HitsToMoralePercent)}"
                 print(string)
                 results['MoralePercent'] = string
-                results['HitsToMoralePercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToMoralePercent]
+                results['ChartData']['HitsToMoralePercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToMoralePercent]
         
         if MoraleDropsMean:
             results['MoraleDropsMean'] = []
@@ -1331,7 +1338,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                 string = f"% Wavering morale (or death) in: {str(HitsToWaveringPercent)}"
                 print(string)
                 results['MoraleDropsPercent'].append(string)
-                results['HitsToWaveringPercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToWaveringPercent]
+                results['ChartData']['HitsToWaveringPercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToWaveringPercent]
         
         #Breaking
         if hits_to_breaking >= HitsToDeath:
@@ -1351,7 +1358,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                 string = f"% Breaking morale (or death) in: {str(HitsToBreakingPercent)}"
                 print(string)
                 results['MoraleDropsPercent'].append(string)
-                results['HitsToBreakingPercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToBreakingPercent]
+                results['ChartData']['HitsToBreakingPercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToBreakingPercent]
         
         #Fleeing
         if hits_to_fleeing >= HitsToDeath:
@@ -1371,7 +1378,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                 string = f"% Fleeing morale (or death) in: {str(HitsToFleeingPercent)}"
                 print(string)
                 results['MoraleDropsPercent'].append(string)
-                results['HitsToFleeingPercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToFleeingPercent]
+                results['ChartData']['HitsToFleeingPercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToFleeingPercent]
 
         if MoraleDropsMean:
             results['MoraleDropsMean'] = '\n'.join(results['MoraleDropsMean'])
@@ -1424,40 +1431,6 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
     print("-----") #Added for readability. If this annoys you then remove this line.
 
     return results
-
-def parse(query: dict) -> dict:
-    kwargs = {}
-    intArgs = (
-        'Trials',
-        'Mind',
-        'Maxd',
-        'Ignore',
-        'ArmorMod',
-        'Headchance',
-        'Atk_Resolve',
-        'Def_HP',
-        'Def_Helmet',
-        'Def_Armor',
-        'Fatigue',
-        'Def_Resolve',
-        'HitChance',
-    )
-    # print('Begin parse ---------------')
-    for k, v in query.lists():
-        # print(f'{type(k)}, {k}')
-        # print(f'{type(v)}, {v}')
-        try:
-            if k in intArgs:
-                kwargs[k] = int(v[0])
-            elif v != 'None':
-                for arg in v:
-                    kwargs[arg] = True
-        except Exception:
-            pass
-    #     print(kwargs)
-    #     print()
-    # print('End parse ---------------')
-    return kwargs
 
 if __name__ == '__main__':
     main()

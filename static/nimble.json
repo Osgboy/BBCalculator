@@ -1,0 +1,92 @@
+[
+    {
+        "name": "40/160/-15",
+        "Def_Helmet": 40,
+        "Def_Armor": 160,
+        "Fatigue": -15
+    },
+    {
+        "name": "120/95/-15",
+        "Def_Helmet": 120,
+        "Def_Armor": 95,
+        "Fatigue": -15
+    },
+    {
+        "name": "160/80/-15",
+        "Def_Helmet": 160,
+        "Def_Armor": 80,
+        "Fatigue": -15
+    },
+    {
+        "name": "190/65/-15",
+        "Def_Helmet": 190,
+        "Def_Armor": 65,
+        "Fatigue": -15
+    },
+    {
+        "name": "140/120/-15",
+        "Def_Helmet": 140,
+        "Def_Armor": 120,
+        "Fatigue": -15
+    },
+    {
+        "name": "90/115/-16",
+        "Def_Helmet": 90,
+        "Def_Armor": 115,
+        "Fatigue": -16
+    },
+    {
+        "name": "120/115/-17",
+        "Def_Helmet": 120,
+        "Def_Armor": 115,
+        "Fatigue": -17
+    },
+    {
+        "name": "160/95/-17",
+        "Def_Helmet": 160,
+        "Def_Armor": 95,
+        "Fatigue": -17
+    },
+    {
+        "name": "225/60/-17",
+        "Def_Helmet": 225,
+        "Def_Armor": 60,
+        "Fatigue": -17
+    },
+    {
+        "name": "160/115/-19",
+        "Def_Helmet": 160,
+        "Def_Armor": 115,
+        "Fatigue": -19
+    },
+    {
+        "name": "120/160/-20",
+        "Def_Helmet": 120,
+        "Def_Armor": 160,
+        "Fatigue": -20
+    },
+    {
+        "name": "190/115/-21",
+        "Def_Helmet": 190,
+        "Def_Armor": 115,
+        "Fatigue": -21
+    },
+    {
+        "name": "160/160/-22",
+        "Def_Helmet": 160,
+        "Def_Armor": 160,
+        "Fatigue": -22
+    },
+    {
+        "name": "225/120/-22",
+        "Def_Helmet": 225,
+        "Def_Armor": 120,
+        "Fatigue": -22
+    },
+    {
+        "name": "190/160/-24",
+        "Def_Helmet": 190,
+        "Def_Armor": 160,
+        "Fatigue": -24
+    }
+]

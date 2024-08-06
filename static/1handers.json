@@ -1,0 +1,206 @@
+[
+    {
+        "name": "Winged Mace",
+        "Mind": 35,
+        "Maxd": 55,
+        "Headchance": 25,
+        "Ignore": 40,
+        "ArmorMod": 110
+    },
+    {
+        "name": "Flail",
+        "Mind": 25,
+        "Maxd": 55,
+        "Headchance": 35,
+        "Ignore": 30,
+        "ArmorMod": 100
+    },
+    {
+        "name": "Flail - Lash Only",
+        "Mind": 25,
+        "Maxd": 55,
+        "Headchance": 100,
+        "Ignore": 30,
+        "ArmorMod": 100
+    },
+    {
+        "name": "3H Flail",
+        "Mind": 30,
+        "Maxd": 75,
+        "Headchance": 35,
+        "Ignore": 30,
+        "ArmorMod": 100,
+        "Flail3Head": true
+    },
+    {
+        "name": "3H Flail - Hail Only",
+        "Mind": 30,
+        "Maxd": 75,
+        "Headchance": 100,
+        "Ignore": 30,
+        "ArmorMod": 100,
+        "Flail3Head": true
+    },
+    {
+        "name": "Warhammer",
+        "Mind": 30,
+        "Maxd": 40,
+        "Headchance": 25,
+        "Ignore": 50,
+        "ArmorMod": 225,
+        "Hammer10": true
+    },
+    {
+        "name": "Warhammer - Destroy Armor Once",
+        "Mind": 30,
+        "Maxd": 40,
+        "Headchance": 25,
+        "Ignore": 50,
+        "ArmorMod": 225,
+        "Hammer10": true,
+        "DestroyArmorMastery": true
+    },
+    {
+        "name": "Fighting Axe",
+        "Mind": 35,
+        "Maxd": 55,
+        "Headchance": 25,
+        "Ignore": 30,
+        "ArmorMod": 130,
+        "Axe1H": true
+    },
+    {
+        "name": "Head Splitter",
+        "Mind": 35,
+        "Maxd": 65,
+        "Headchance": 25,
+        "Ignore": 30,
+        "ArmorMod": 130,
+        "Axe1H": true
+    },
+    {
+        "name": "Military Cleaver",
+        "Mind": 40,
+        "Maxd": 60,
+        "Headchance": 25,
+        "Ignore": 25,
+        "ArmorMod": 90,
+        "BleedDamage": 10,
+        "CleaverMastery": true
+    },
+    {
+        "name": "Military Cleaver - Decap at 50%",
+        "Mind": 40,
+        "Maxd": 60,
+        "Headchance": 25,
+        "Ignore": 25,
+        "ArmorMod": 90,
+        "BleedDamage": 10,
+        "CleaverMastery": true,
+        "SmartDecap50": true
+    },
+    {
+        "name": "Khopesh",
+        "Mind": 35,
+        "Maxd": 55,
+        "Headchance": 25,
+        "Ignore": 25,
+        "ArmorMod": 120,
+        "BleedDamage": 10,
+        "CleaverMastery": true
+    },
+    {
+        "name": "Khopesh - Decap at 50%",
+        "Mind": 35,
+        "Maxd": 55,
+        "Headchance": 25,
+        "Ignore": 25,
+        "ArmorMod": 120,
+        "BleedDamage": 10,
+        "CleaverMastery": true,
+        "SmartDecap50": true
+    },
+    {
+        "name": "Head Chopper",
+        "Mind": 40,
+        "Maxd": 70,
+        "Headchance": 25,
+        "Ignore": 25,
+        "ArmorMod": 110,
+        "BleedDamage": 10,
+        "CleaverMastery": true
+    },
+    {
+        "name": "Head Chopper - Decap at 50%",
+        "Mind": 40,
+        "Maxd": 70,
+        "Headchance": 25,
+        "Ignore": 25,
+        "ArmorMod": 110,
+        "BleedDamage": 10,
+        "CleaverMastery": true,
+        "SmartDecap50": true
+    },
+    {
+        "name": "Noble Sword",
+        "Mind": 45,
+        "Maxd": 50,
+        "Headchance": 25,
+        "Ignore": 20,
+        "ArmorMod": 85
+    },
+    {
+        "name": "Shamshir - Special",
+        "Mind": 45,
+        "Maxd": 50,
+        "Headchance": 25,
+        "Ignore": 20,
+        "ArmorMod": 75,
+        "ShamshirMastery": true
+    },
+    {
+        "name": "Rondel Dagger",
+        "Mind": 20,
+        "Maxd": 40,
+        "Headchance": 25,
+        "Ignore": 20,
+        "ArmorMod": 70
+    },
+    {
+        "name": "Qatal Dagger - Deathblow",
+        "Mind": 30,
+        "Maxd": 45,
+        "Headchance": 25,
+        "Ignore": 20,
+        "ArmorMod": 70,
+        "Deathblow": true
+    },
+    {
+        "name": "Fighting Spear",
+        "Mind": 35,
+        "Maxd": 40,
+        "Headchance": 25,
+        "Ignore": 25,
+        "ArmorMod": 100
+    },
+    {
+        "name": "Heavy Javelins - 2 Range",
+        "Mind": 35,
+        "Maxd": 50,
+        "Headchance": 25,
+        "Ignore": 45,
+        "ArmorMod": 80,
+        "DoubleGrip": false,
+        "R2Throw": true
+    },
+    {
+        "name": "Heavy Axes - 2 Range",
+        "Mind": 30,
+        "Maxd": 50,
+        "Headchance": 30,
+        "Ignore": 25,
+        "ArmorMod": 115,
+        "DoubleGrip": false,
+        "R2Throw": true
+    }
+]
