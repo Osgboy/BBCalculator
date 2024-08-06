@@ -1407,7 +1407,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
             results['Fearsome'] = string
 
     if Nimble:
-        string = f"Nimble %: {str(NimbleMod)}"
+        string = f"Nimble %: {100*NimbleMod:.2f}"
         print(string)
         results['Nimble'] = string
     if Forge:

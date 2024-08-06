@@ -133,6 +133,8 @@ def index(request):
             'DefTraits': request.GET.getlist('DefTraits'),
             'DataReturns': request.GET.getlist('DataReturns'),
         }
+        print('Results')
+        print(results.keys())
         print(results['ChartData'])
         print('Context')
         print(context['request'])

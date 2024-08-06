@@ -1,3 +1,46 @@
+@import url(https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css);
+
+:root:not([data-theme=dark]),
+[data-theme=light] {
+    /* violet 100 600 650*/
+    --attacker-background: #E8DFF2;
+    --attacker-button: #7540BF;
+    --attacker-hover: #6935B3;
+    /* jade 50 500 550*/
+    --defender-background: #CBFCE1;
+    --defender-button: #00895A;
+    --defender-hover: #007A50;
+    /* grey 100 350 400*/
+    --results-background: #E2E2E2;
+    --results-button: #9E9E9E;
+    --results-hover: #919191;
+}
+
+[data-theme=dark] {
+    /* violet 800 850 900 */
+    --attacker-background: #3F1E6D;
+    --attacker-button: #321856;
+    --attacker-hover: #251140;
+    /* jade 800 850 900 */
+    --defender-background: #033823;
+    --defender-button: #042C1B;
+    --defender-hover: #052014;
+    /* grey 800 850 900 */
+    --results-background: #303030;
+    --results-button: #262626;
+    --results-hover: #1B1B1B;
+}
+
+svg {
+    width: 2rem;
+    height: 2rem;
+    color: var(--pico-contrast);
+  }
+
+.container header {
+    padding-top: 3rem;
+}
+
 .StatLabel {
     text-align: right;
     font-weight: bold;
@@ -26,90 +69,46 @@
 }
 
 #AttackerSection {
-    background-color: #E8DFF2;
+    background-color: var(--attacker-background);
 }
 
 #AttackerButton {
-    background-color: #7540BF;
-    border-color: #7540BF;
+    background-color: var(--attacker-button);
+    border-color: var(--attacker-button);
 }
 
 #AttackerButton:hover {
-    background-color: #8352C5;
-    border-color: #8352C5;
+    background-color: var(--attacker-hover);
+    border-color: var(--attacker-hover);
 }
 
 #DefenderSection {
-    background-color: #CBFCE1;
+    background-color: var(--defender-background);
 }
 
 #DefenderButton {
-    background-color: #00895A;
-    border-color: #00895A;
+    background-color: var(--defender-button);
+    border-color: var(--defender-button);
 }
 
 #DefenderButton:hover {
-    background-color: #029764;
-    border-color: #029764;
+    background-color: var(--defender-hover);
+    border-color: var(--defender-hover);
 }
 
 #ResultsSection {
-    background-color: #E2E2E2;
+    background-color: var(--results-background);
 }
 
 #ResultsButton {
-    background-color: #9E9E9E;
-    border-color: #9E9E9E;
+    background-color: var(--results-button);
+    border-color: var(--results-button);
 }
 
 #ResultsButton:hover {
-    background-color: #ABABAB;
-    border-color: #ABABAB;
+    background-color: var(--results-hover);
+    border-color: var(--results-hover);
 }
-
-@media (prefers-color-scheme: dark) {
-    #AttackerSection {
-        background-color: #5E206B;
-    }
-
-    #AttackerButton {
-        background-color: #3D1545;
-        border-color: #3D1545;
-    }
-    
-    #AttackerButton:hover {
-        background-color: #4D1A57;
-        border-color: #4D1A57;
-    }
-
-    #DefenderSection {
-        background-color: #00452B;
-    }
-
-    #DefenderButton {
-        background-color: #042C1B;
-        border-color: #042C1B;
-    }
-    
-    #DefenderButton:hover {
-        background-color: #033823;
-        border-color: #033823;
-    }
-    
-    #ResultsSection {
-        background-color: #3B3B3B;
-    }
-    
-    #ResultsButton {
-        background-color: #262626;
-        border-color: #262626;
-    }
-
-    #ResultsButton:hover {
-        background-color: #303030;
-        border-color: #303030;
-    }
-    }
 
 #CalculateSection {
     padding: 1rem;
