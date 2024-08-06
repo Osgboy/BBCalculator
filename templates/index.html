@@ -32,7 +32,7 @@
                             title: "# of " + hits,
                             interval: 1
                         },
-                        {% if not battery %}
+                        {% if chartType == "default" %}
                         data: [{
                             type: "column",
                             dataPoints: {{ v | safe }}
@@ -44,7 +44,7 @@
                         data: [
                             {% for name, data in v.items %}
                             {
-                                type: "splineArea",
+                                type: "{{ chartType }}",
                                 name: "{{ name }}",
                                 dataPoints: {{ data | safe }}
                             },
@@ -433,7 +433,7 @@
                                 <option value="DPreChosenLight" {% if request.DefPreset == "DPreChosenLight" %} selected {% endif %}>Light Barbarian Chosen</option>
                                 <option value="DPreChosenHeavy" {% if request.DefPreset == "DPreChosenHeavy" %} selected {% endif %}>Heavy Barbarian Chosen</option>
                                 <option value="DPreBarbKing" {% if request.DefPreset == "DPreBarbKing" %} selected {% endif %}>Barbarian King</option>
-                                <option value="DPreBeastmaster" {% if request.DefPreset == "DPreBeastmaster" %} selected {% endif %}>Barbarian DPreBeastmaster</option>
+                                <option value="DPreBeastmaster" {% if request.DefPreset == "DPreBeastmaster" %} selected {% endif %}>Barbarian Beastmaster</option>
                                 <option value="DPreFootmanHeavy" {% if request.DefPreset == "DPreFootmanHeavy" %} selected {% endif %}>Heavy Footman</option>
                                 <option value="DPreBillman" {% if request.DefPreset == "DPreBillman" %} selected {% endif %}>Billman</option>
                                 <option value="DPreArbalester" {% if request.DefPreset == "DPreArbalester" %} selected {% endif %}>Arbalester</option>

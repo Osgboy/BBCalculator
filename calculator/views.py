@@ -90,34 +90,38 @@ def index(request):
     if request.GET:
         parsedRequest = parse(request.GET)
         trialsCap = 1000
-        battery = True
         if request.GET['AtkPreset'] == '1Handers':
             with open(basedir / 'static' / '1handers.json', 'r') as f:
                 parsedRequest['Trials'] = min(trialsCap, parsedRequest['Trials'])
+                chartType = 'splineArea'
                 results = run_battery(json.load(f), parsedRequest)
         elif request.GET['AtkPreset'] == '2Handers':
             with open(basedir / 'static' / '2handers.json', 'r') as f:
                 parsedRequest['Trials'] = min(trialsCap, parsedRequest['Trials'])
+                chartType = 'splineArea'
                 results = run_battery(json.load(f), parsedRequest)
         elif request.GET['AtkPreset'] == 'AllAtkPresets':
             parsedRequest['Trials'] = min(trialsCap, parsedRequest['Trials'])
+            chartType = 'splineArea'
             results = run_battery(atkPresetJSON.values(), parsedRequest)
         elif request.GET['DefPreset'] == 'NimbleBattery':
             with open(basedir / 'static' / 'nimble.json', 'r') as f:
                 parsedRequest['Trials'] = min(trialsCap, parsedRequest['Trials'])
+                chartType = 'stackedColumn'
                 results = run_battery(json.load(f), parsedRequest)
         elif request.GET['DefPreset'] == 'AllDefPresets':
             parsedRequest['Trials'] = min(trialsCap, parsedRequest['Trials'])
+            chartType = 'stackedColumn'
             results = run_battery(defPresetJSON.values(), parsedRequest)
         else:
             results = BBCalc.main(**parsedRequest)
-            battery = False
+            chartType = 'default'
         context = {
             'atkPresetJSON': atkPresetJSON,
             'defPresetJSON': defPresetJSON,
             'chartMetaJSON': chartMetaJSON,
             'blank': False,
-            'battery': battery,
+            'chartType': chartType,
             'results': results,
             'request': request.GET,
             'AtkWeapon': request.GET.getlist('AtkWeapon'),
