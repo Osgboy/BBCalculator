@@ -110,6 +110,19 @@ svg {
     border-color: var(--results-hover);
 }
 
+.result-container {
+    border: 1px solid;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    padding-left: 3px;
+    padding-right: 3px;
+    box-shadow: 3px 3px 3px 0px rgba(from var(--pico-contrast) r g b / 0.5);
+}
+
+.result-container label {
+    margin-bottom: 0;
+}
+
 #CalculateSection {
     padding: 1rem;
 }

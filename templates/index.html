@@ -80,7 +80,7 @@
             </nav>
             <hgroup>            
                 <h1><a href="/">Battle Brothers Damage Calculator</a></h1>
-                <p>Version 1.6.4, last updated August 6th, 2024.</p>
+                <p>Version 1.6.4, last updated August 7th, 2024.</p>
             </hgroup>
         </header>
         <main class="container">
@@ -549,19 +549,19 @@
                 <details id="Results" {% if not blank %} open {% endif %}>
                     <summary id="ResultsButton" class="SectionButton" role="button">Results</summary>
                     <div class="inner-container">
-                        <div>
+                        <div class="result-container">
                             <label>
                                 <input type="checkbox" name="DataReturns" id="DeathMean" value="DeathMean" {% if "DeathMean" in DataReturns %} checked {% endif %}>
                                 <samp>{{ results.DeathMean|linebreaksbr|default:"Returns the average number of hits until death." }}</samp>
                             </label>
                         </div>
-                        <div>
+                        <div class="result-container">
                             <label>
                                 <input type="checkbox" name="DataReturns" id="DeathStDev" value="DeathStDev" {% if "DeathStDev" in DataReturns %} checked {% endif %}>
                                 <samp>{{ results.DeathStDev|linebreaksbr|default:"Returns standard deviation of hits until death." }}</samp>
                             </label>
                         </div>
-                        <div>
+                        <div class="result-container">
                             <label>
                                 <input type="checkbox" name="DataReturns" id="DeathPercent" value="DeathPercent" {% if "DeathPercent" in DataReturns %} checked {% endif %}>
                                 <samp>{{ results.DeathPercent|linebreaksbr|default:"Returns % chance of death by each hit." }}</samp>
@@ -572,13 +572,13 @@
                             </div>
                             {% endif %}
                         </div>
-                        <div>
+                        <div class="result-container">
                             <label>
                                 <input type="checkbox" name="DataReturns" id="InjuryMean" value="InjuryMean" {% if "InjuryMean" in DataReturns %} checked {% endif %}>
                                 <samp>{{ results.InjuryMean|linebreaksbr|default:"Returns average number of hits until first injury." }}</samp>
                             </label>
                         </div>
-                        <div>
+                        <div class="result-container">
                             <label>
                                 <input type="checkbox" name="DataReturns" id="InjuryPercent" value="InjuryPercent" {% if "InjuryPercent" in DataReturns %} checked {% endif %}>
                                 <samp>{{ results.InjuryPercent|linebreaksbr|default:"Returns % chance of first injury by each hit." }}</samp>
@@ -589,13 +589,13 @@
                             </div>
                             {% endif %}
                         </div>
-                        <div>
+                        <div class="result-container">
                             <label>
                                 <input type="checkbox" name="DataReturns" id="HeavyInjuryMean" value="HeavyInjuryMean" {% if "HeavyInjuryMean" in DataReturns %} checked {% endif %}>
                                 <samp>{{ results.HeavyInjuryMean|linebreaksbr|default:"Returns average number of hits until chance of first heavy injury (heavy injuries are not guaranteed even when threshold is met)." }}</samp>
                             </label>
                         </div>
-                        <div>
+                        <div class="result-container">
                             <label>
                                 <input type="checkbox" name="DataReturns" id="HeavyInjuryPercent" value="HeavyInjuryPercent" {% if "HeavyInjuryPercent" in DataReturns %} checked {% endif %}>
                                 <samp>{{ results.HeavyInjuryPercent|linebreaksbr|default:"Returns % chance of first heavy injury chance by each hit." }}</samp>
@@ -606,19 +606,19 @@
                             </div>
                             {% endif %}
                         </div>
-                        <div>
+                        <div class="result-container">
                             <label>
                                 <input type="checkbox" name="DataReturns" id="MoraleChecksTotal" value="MoraleChecksTotal" {% if "MoraleChecksTotal" in DataReturns %} checked {% endif %}>
                                 <samp>{{ results.MoraleChecksTotal|linebreaksbr|default:"Returns the total number of morale checks before death." }}</samp>
                             </label>
                         </div>
-                        <div>
+                        <div class="result-container">
                             <label>
                                 <input type="checkbox" name="DataReturns" id="MoraleMean" value="MoraleMean" {% if "MoraleMean" in DataReturns %} checked {% endif %}>
                                 <samp>{{ results.MoraleMean|linebreaksbr|default:"Returns average number of hits until first morale check." }}</samp>
                             </label>
                         </div>
-                        <div>
+                        <div class="result-container">
                             <label>
                                 <input type="checkbox" name="DataReturns" id="MoralePercent" value="MoralePercent" {% if "MoralePercent" in DataReturns %} checked {% endif %}>
                                 <samp>{{ results.MoralePercent|linebreaksbr|default:"Returns % chance of first morale check by each hit." }}</samp>
@@ -629,13 +629,13 @@
                             </div>
                             {% endif %}
                         </div>
-                        <div>
+                        <div class="result-container">
                             <label>
                                 <input type="checkbox" name="DataReturns" id="MoraleDropsMean" value="MoraleDropsMean" {% if "MoraleDropsMean" in DataReturns %} checked {% endif %}>
                                 <samp>{{ results.MoraleDropsMean|linebreaksbr|default:"Returns average number of hits to drop morale to each morale level." }}</samp>
                             </label>
                         </div>
-                        <div>
+                        <div class="result-container">
                             <label>
                                 <input type="checkbox" name="DataReturns" id="MoraleDropsPercent" value="MoraleDropsPercent" {% if "MoraleDropsPercent" in DataReturns %} checked {% endif %}>
                                 <samp>{{ results.MoraleDropsPercent|linebreaksbr|default:"Returns % chance of dropping morale to each morale level by each hit." }}</samp>
@@ -658,16 +658,16 @@
                                 {% endif %}
                             {% endif %}
                         </div>
-                        <div>
+                        <div class="result-container">
                             <samp>{{ results.Nimble|linebreaksbr|default:"Returns % damage modifier from nimble." }}</samp>
                         </div>
-                        <div>
+                        <div class="result-container">
                             <samp>{{ results.Forge|linebreaksbr|default:"Returns bonus armor from battleforged." }}</samp>
                         </div>
-                        <div>
+                        <div class="result-container">
                             <samp>{{ results.Ambusher|linebreaksbr|default:"Returns average number of hits until poisoned (Goblin Ambusher only)." }}</samp>
                         </div>
-                        <div>
+                        <div class="result-container">
                             <samp>{{ results.Cleaver|linebreaksbr|default:"Returns average number of hits until bleeding." }}</samp>
                         </div>
                     </div>
@@ -688,21 +688,21 @@
         <footer>
             <div class="inner-container">
                 <small>
-                    <div class="column">
+                    <div>
                         <h6>Credits</h6>
                         <ul>
                             <li>Calculator author: turtle225</li>
                             <li>Site author: osgboy</li>
                         </ul>
                     </div>
-                    <div class="column">
+                    <div>
                         <h6>Contact</h6>
                         <ul>
                             <li>turtle225: <a href="mailto:turtl225e@gmail.com">turtl225e@gmail.com</a></li>
                             <li>osgboy: message me <a href="https://old.reddit.com/user/Osgboy">Reddit</a> or on the <a href="https://discord.gg/s4Va2Nxhb4">Overhype</a> or <a href="https://discord.gg/P7PXCBwfwC">Battle Brothers</a> Discord</li>
                         </ul>
                     </div>
-                    <div class="column">
+                    <div>
                         <h6>Special Thanks</h6>
                         <ul>
                             <li>Abel (aka) Villain Joueur: For grabbing the damage formula out of the game code, writing the damage page on the wiki, and for helping me with many questions along the way.</li>
@@ -735,13 +735,13 @@
             document.addEventListener('DOMContentLoaded', () => {
                 if (stored == null) {
                     switchTheme.innerHTML = os_default
-                    switchTheme.setAttribute('data-tooltip', 'os theme')
+                    switchTheme.setAttribute('data-tooltip', 'OS theme')
                     switchTheme.focus()
-                    removeTooltip(3000)
+                    removeTooltip()
                 } else {
                     html.setAttribute('data-theme', isLight? 'light':'dark')
                     switchTheme.innerHTML = isLight? sun : moon
-                    switchTheme.setAttribute('data-tooltip', `theme ${isLight?'light':'dark'}`)
+                    switchTheme.setAttribute('data-tooltip', `${isLight?'light':'dark'} theme`)
                 }
             })
             switchTheme.addEventListener('click', (e)=> {
@@ -749,11 +749,11 @@
                 isLight = !isLight
                 html.setAttribute('data-theme', isLight? 'light':'dark')
                 switchTheme.innerHTML = isLight? sun : moon
-                switchTheme.setAttribute('data-tooltip', `theme ${isLight?'light':'dark'}`)
+                switchTheme.setAttribute('data-tooltip', `${isLight?'Light':'Dark'} theme`)
                 sessionStorage.setItem('theme', isLight? 'light':'dark')
                 removeTooltip()
             })
-            const removeTooltip = (timeInt = 1750) => {
+            const removeTooltip = (timeInt = 1500) => {
                 setTimeout(()=>{
                     switchTheme.blur()
                 },timeInt)
