@@ -30,7 +30,6 @@
                         },
                         axisX: {
                             title: "# of " + hits,
-                            interval: 1
                         },
                         {% if chartType == "default" %}
                         data: [{
@@ -84,7 +83,7 @@
             </hgroup>
         </header>
         <main class="container">
-            <form action="" method="get">
+            <form id="form" action="" method="get">
             <section id="AttackerSection" class="BackgroundSection">
                 <details id="Attacker" {% if blank %} open {% endif %}>
                     <summary id="AttackerButton" class="SectionButton" role="button">Attacker</summary>
@@ -682,7 +681,12 @@
                     <input type="number" name="Trials" id="Trials" min="2" max="10000" value={{request.Trials|default:1000}} required>
                     <input type="submit" value="Calculate">
                 </fieldset>
+                <div id="progress-wrapper">
+                    <progress id="progress" class="invisible" data-battery='false'></progress>
+                    <p id="progress-label" class="invisible"></p>
+                </div>
             </section>
+            <input type="number" name="pID" id="pID" value = {{ pID }}>
             </form>
         </main>
         <footer>
@@ -758,6 +762,29 @@
                     switchTheme.blur()
                 },timeInt)
             }
-          </script>
+        </script>
+        <script>
+            const progressUrl = '{% url "progress_status" pID %}';
+            const form = document.getElementById("form");
+            const progressLabel = document.getElementById("progress-label");
+            
+            form.addEventListener("submit", updateProgress);
+            
+            function updateProgress () {
+                progressBar.classList.remove("invisible")
+                if (progressBar.getAttribute('data-battery') == 'true') {
+                    progressLabel.classList.remove("invisible")
+                    fetch(progressUrl).then(function(response) {
+                        response.json().then(function(data) {
+                            // update the appropriate UI components
+                            progressBar.setAttribute('value', data.progress);
+                            progressBar.setAttribute('max', data.max_progress);
+                            progressLabel.innerHTML = data.progress + " of " + data.max_progress + " processed."
+                            setTimeout(updateProgress, 200);
+                        });
+                    });
+                }
+            }
+        </script>
     </body>
 </html>

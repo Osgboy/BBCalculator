@@ -1,22 +1,15 @@
-const trials = document.getElementById("Trials")
+const trials = document.getElementById("Trials");
+const progressBar = document.getElementById("progress");
 
-const atkPresets = JSON.parse(document.getElementById('atkPresets').textContent)
+const atkPresets = JSON.parse(document.getElementById('atkPresets').textContent);
 const atkPreset = document.getElementById("AtkPreset");
-const atkBattery = document.querySelectorAll(".atkBattery")
+const atkBattery = document.querySelectorAll(".atkBattery");
 const atkStats = document.querySelectorAll(".atk-stat");
-const atkCheckboxes = document.querySelectorAll(".atk-checkbox")
-const atkRaceSelection = document.querySelectorAll(".atk-race-selection")
-const atkRaceNone = document.getElementById("atk-race-none")
 
-const defPresets = JSON.parse(document.getElementById('defPresets').textContent)
+const defPresets = JSON.parse(document.getElementById('defPresets').textContent);
 const defPreset = document.getElementById("DefPreset");
-const defBattery = document.querySelectorAll(".defBattery")
+const defBattery = document.querySelectorAll(".defBattery");
 const defStats = document.querySelectorAll(".def-stat");
-const defCheckboxes = document.querySelectorAll(".def-checkbox")
-const defAttachmentSelection = document.querySelectorAll(".def-attachment-selection")
-const defAttachmentNone = document.getElementById("def-attachment-none")
-const defRaceSelection = document.querySelectorAll(".def-race-selection")
-const defRaceNone = document.getElementById("def-race-none")
 
 atkPreset.addEventListener("change", applyAtkPreset);
 window.addEventListener("load", applyAtkBattery);
@@ -25,6 +18,7 @@ window.addEventListener("load", applyDefBattery);
 
 function applyAtkBattery() {
     if (atkPreset.selectedOptions[0].className == 'atkBattery') {
+        progressBar.setAttribute('data-battery', 'true');
         for (const option of defBattery) {
             option.setAttribute('disabled', '');
         }
@@ -39,7 +33,12 @@ function applyAtkBattery() {
 }
 
 function applyAtkPreset() {
+    const atkCheckboxes = document.querySelectorAll(".atk-checkbox");
+    const atkRaceSelection = document.querySelectorAll(".atk-race-selection");
+    const atkRaceNone = document.getElementById("atk-race-none");
+
     if (!(applyAtkBattery())) {
+        progressBar.setAttribute('data-battery', 'false');
         for (const option of defBattery) {
             option.removeAttribute('disabled', '');
         }
@@ -79,6 +78,7 @@ function applyAtkPreset() {
 
 function applyDefBattery() {
     if (defPreset.selectedOptions[0].className == 'defBattery') {
+        progressBar.setAttribute('data-battery', 'true');
         for (const option of atkBattery) {
             option.setAttribute('disabled', '');
         }
@@ -93,7 +93,14 @@ function applyDefBattery() {
 }
 
 function applyDefPreset() {
+    const defCheckboxes = document.querySelectorAll(".def-checkbox");
+    const defAttachmentSelection = document.querySelectorAll(".def-attachment-selection");
+    const defAttachmentNone = document.getElementById("def-attachment-none");
+    const defRaceSelection = document.querySelectorAll(".def-race-selection");
+    const defRaceNone = document.getElementById("def-race-none");
+
     if (!(applyDefBattery())) {
+        progressBar.setAttribute('data-battery', 'false');
         for (const option of atkBattery) {
             option.removeAttribute('disabled', '');
         }

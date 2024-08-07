@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest
+from .models import Progress
 from collections import defaultdict
 from . import BBCalc
 import json
@@ -26,6 +27,7 @@ def parse(query: dict) -> dict:
         'HitChance',
     )
     for k, v in query.lists():
+        # remove pID
         try:
             if k in intArgs:
                 kwargs[k] = int(v[0])
@@ -62,9 +64,12 @@ def parse(query: dict) -> dict:
         kwargs['Trials'] = 1000
     return kwargs
 
-def run_battery(battery: list, query: dict):
+def run_battery(p, battery: list, query: dict):
+    print(f"Progress ID: {p.id}")
     output = defaultdict(lambda: '')
     output['ChartData'] = defaultdict(lambda: {})
+    p.max_progress = len(battery)
+    p.save()
     for v in battery:
         kwargs = {**query, **v}
         result = BBCalc.main(**kwargs)
@@ -76,8 +81,19 @@ def run_battery(battery: list, query: dict):
                     output['ChartData'][chart][v['name']] = data
             else:
                 output[field] += f"{v['name']}: {value}\n"
+        p.progress += 1
+        p.save()
     output['ChartData'] = dict(output['ChartData'])
     return dict(output)
+
+async def get_progress(request, pID):
+    print(f'Getting progress for: {pID}')
+    p = await Progress.objects.aget(id=pID)
+    progressState = {
+        'progress': p.progress,
+        'max_progress': p.max_progress
+    }
+    return HttpResponse(json.dumps(progressState), content_type='application/json')
 
 def index(request):
     basedir = pathlib.Path(__file__).parent.parent.resolve()
@@ -87,32 +103,35 @@ def index(request):
         defPresetJSON = json.load(f)
     with open(basedir / 'static' / 'chartMeta.json', 'r') as f:
         chartMetaJSON = json.load(f)
+    p = Progress.objects.create(progress=0, max_progress=100)
     if request.GET:
+        pID = request.GET['pID']
+        pOld = Progress.objects.get(id=pID)
         parsedRequest = parse(request.GET)
         trialsCap = 1000
         if request.GET['AtkPreset'] == '1Handers':
             with open(basedir / 'static' / '1handers.json', 'r') as f:
                 parsedRequest['Trials'] = min(trialsCap, parsedRequest['Trials'])
                 chartType = 'splineArea'
-                results = run_battery(json.load(f), parsedRequest)
+                results = run_battery(pOld, json.load(f), parsedRequest)
         elif request.GET['AtkPreset'] == '2Handers':
             with open(basedir / 'static' / '2handers.json', 'r') as f:
                 parsedRequest['Trials'] = min(trialsCap, parsedRequest['Trials'])
                 chartType = 'splineArea'
-                results = run_battery(json.load(f), parsedRequest)
+                results = run_battery(pOld, json.load(f), parsedRequest)
         elif request.GET['AtkPreset'] == 'AllAtkPresets':
             parsedRequest['Trials'] = min(trialsCap, parsedRequest['Trials'])
             chartType = 'splineArea'
-            results = run_battery(atkPresetJSON.values(), parsedRequest)
+            results = run_battery(pOld, atkPresetJSON.values(), parsedRequest)
         elif request.GET['DefPreset'] == 'NimbleBattery':
             with open(basedir / 'static' / 'nimble.json', 'r') as f:
                 parsedRequest['Trials'] = min(trialsCap, parsedRequest['Trials'])
                 chartType = 'stackedColumn'
-                results = run_battery(json.load(f), parsedRequest)
+                results = run_battery(pOld, json.load(f), parsedRequest)
         elif request.GET['DefPreset'] == 'AllDefPresets':
             parsedRequest['Trials'] = min(trialsCap, parsedRequest['Trials'])
             chartType = 'stackedColumn'
-            results = run_battery(defPresetJSON.values(), parsedRequest)
+            results = run_battery(pOld, defPresetJSON.values(), parsedRequest)
         else:
             results = BBCalc.main(**parsedRequest)
             chartType = 'default'
@@ -123,6 +142,7 @@ def index(request):
             'blank': False,
             'chartType': chartType,
             'results': results,
+            'pID': p.id,
             'request': request.GET,
             'AtkWeapon': request.GET.getlist('AtkWeapon'),
             'AtkPerks': request.GET.getlist('AtkPerks'),
@@ -133,9 +153,10 @@ def index(request):
             'DefTraits': request.GET.getlist('DefTraits'),
             'DataReturns': request.GET.getlist('DataReturns'),
         }
+        print(request)
         print('Results')
         print(results.keys())
-        print(results['ChartData'])
+        print(context['pID'])
         print('Context')
         print(context['request'])
         print(context['AtkWeapon'])
@@ -151,7 +172,9 @@ def index(request):
             'atkPresetJSON': atkPresetJSON,
             'defPresetJSON': defPresetJSON,
             'blank': True,
+            'pID': p.id,
             'DataReturns': ['DeathMean', 'DeathStDev', 'DeathPercent', 'InjuryMean', 'HeavyInjuryMean'],
         }
-    #return HttpResponseBadRequest('<p>Calculation computation time exceeded 60 seconds</p>')
+        print(context['pID'])
+    #return HttpResponseBadRequest('<h1>Calculation computation time exceeded 30 seconds</h1>')
     return render(request, 'index.html', context)

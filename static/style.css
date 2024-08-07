@@ -127,6 +127,14 @@ svg {
     padding: 1rem;
 }
 
+.invisible {
+    visibility: hidden;
+}
+
+#pID {
+    display: none;
+}
+
 footer {
     background-color: #13171f;
     color: #c2c7d0;
