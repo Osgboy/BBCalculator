@@ -1,13 +1,12 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseBadRequest
+#from django.http import HttpResponse, HttpResponseBadRequest
 from .models import Progress
 from collections import defaultdict
 from . import BBCalc
 import json
 import pathlib
-import pdb
+#import pdb
 
-# Create your views here.
 
 def parse(query: dict) -> dict:
     kwargs = {}
@@ -41,27 +40,27 @@ def parse(query: dict) -> dict:
     def clamp(x: int, lowerB: int, upperB: int) -> int:
         return max(min(x, upperB), lowerB)
     
-    try:
+    if 'Mind' in kwargs:
         kwargs['Mind'] = max(kwargs['Mind'], 1)
+    if 'Maxd' in kwargs:
         kwargs['Maxd'] = max(kwargs['Mind'], kwargs['Maxd'])
+    if 'Ignore' in kwargs:
         kwargs['Ignore'] = max(kwargs['Ignore'], 0)
+    if 'ArmorMod' in kwargs:
         kwargs['ArmorMod'] = max(kwargs['ArmorMod'], 1)
-    except KeyError:
-        pass
-    try:
+    if 'Def_HP' in kwargs:
         kwargs['Def_HP'] = clamp(kwargs['Def_HP'], 1, 500)
+    if 'Def_Helmet' in kwargs:
         kwargs['Def_Helmet'] = clamp(kwargs['Def_Helmet'], 0, 500)
+    if 'Def_Armor' in kwargs:
         kwargs['Def_Armor'] = clamp(kwargs['Def_Armor'], 0, 500)
-    except KeyError:
-        pass
-    try:
+    if 'HitChance' in kwargs:
         kwargs['HitChance'] = clamp(kwargs['HitChance'], 5, 95)
-    except KeyError:
-        pass
-    try:
+    if 'Trials' in kwargs:
         kwargs['Trials'] = clamp(kwargs['Trials'], 2, 10000)
-    except KeyError:
+    else:
         kwargs['Trials'] = 1000
+
     return kwargs
 
 def run_battery(p, battery: list, query: dict):
