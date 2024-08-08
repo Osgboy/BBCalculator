@@ -44,7 +44,6 @@ svg {
 .StatLabel {
     text-align: right;
     font-weight: bold;
-    line-height: 65px;
 }
 
 .canvas {

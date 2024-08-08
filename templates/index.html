@@ -79,7 +79,7 @@
             </nav>
             <hgroup>            
                 <h1><a href="/">Battle Brothers Damage Calculator</a></h1>
-                <p>Version 1.6.4, last updated August 8th, 2024.</p>
+                <p>Version 1.6.5, last updated August 8th, 2024.</p>
             </hgroup>
         </header>
         <main class="container">
@@ -178,7 +178,7 @@
                                 <input class="atk-stat" type="number" name="ArmorMod" id="ArmorMod" min="1" max="999" value={{request.ArmorMod|default:125}} required>
                             </fieldset>
                             <fieldset class="grid">
-                                <label class="StatLabel" for="Headchance">% Chance to Hit Head <img src="{% static 'icons/stats/headchance.png' %}" alt="Headshot chance icon"></label>
+                                <label class="StatLabel" for="Headchance">Headshot Chance % <img src="{% static 'icons/stats/headchance.png' %}" alt="Headshot chance icon"></label>
                                 <input class="atk-stat" type="number" name="Headchance" id="Headchance" min="0" max="100" value={{request.Headchance|default:25}} required>
                                 <label class="StatLabel" for="Atk_Resolve">Resolve <img src="{% static 'icons/stats/resolve.png' %}" alt="Resolve icon"></label>
                                 <input class="atk-stat" type="number" name="Atk_Resolve" id="Atk_Resolve" min="0" max="999" value={{request.Atk_Resolve|default:50}} required>
@@ -498,9 +498,11 @@
                                 <label class="StatLabel" for="Fatigue" title="Only affects nimble.">Armor Fatigue Penalty <img src="{% static 'icons/stats/fatigue.png' %}" alt="Fatigue icon"></label>
                                 <input class="def-stat" type="number" name="Fatigue" id="Fatigue" min="-50" max="0" value={{request.Fatigue|default:-15}} required>
                             </fieldset>
-                            <fieldset>
+                            <fieldset class="grid">
                                 <label class="StatLabel" for="Def_Resolve" title="Used only if morale drop data returns are enabled.">Resolve <img src="{% static 'icons/stats/resolve.png' %}" alt="Resolve icon"></label>
                                 <input class="def-stat" type="number" name="Def_Resolve" id="Def_Resolve" min="0" max="999" value={{request.Def_Resolve|default:70}} required>
+                                <div></div>
+                                <input type="text" style="visibility: hidden; height: 0; border: 0; margin: 0; padding: 0;">
                             </fieldset>
                         </details>
                         <details>
