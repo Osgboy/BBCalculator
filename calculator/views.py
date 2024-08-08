@@ -86,15 +86,6 @@ def run_battery(p, battery: list, query: dict):
     output['ChartData'] = dict(output['ChartData'])
     return dict(output)
 
-async def get_progress(request, pID):
-    print(f'Getting progress for: {pID}')
-    p = await Progress.objects.aget(id=pID)
-    progressState = {
-        'progress': p.progress,
-        'max_progress': p.max_progress
-    }
-    return HttpResponse(json.dumps(progressState), content_type='application/json')
-
 def index(request):
     basedir = pathlib.Path(__file__).parent.parent.resolve()
     with open(basedir / 'static' / 'atkPresets.json', 'r') as f:

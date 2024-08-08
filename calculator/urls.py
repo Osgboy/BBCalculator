@@ -1,5 +1,5 @@
 from django.urls import path
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse
 from .models import Progress
 import json
 from . import views
