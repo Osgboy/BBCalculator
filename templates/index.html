@@ -677,6 +677,7 @@
                 If left blank, the calculator will assume every swing hits.
                 <input type="number" name="HitChance" id="HitChance" min="5" max="95" value={{request.HitChance|default:"''"}} placeholder="Enter a whole number">
                 <label for="Trials"><h6># of trials</h6></label>
+                Warning: Using a preset battery, low attacker damage, or low hit chance can lead to long computation times.
                 <fieldset role="group">
                     <input type="number" name="Trials" id="Trials" min="2" max="10000" value={{request.Trials|default:1000}} required>
                     <input type="submit" value="Calculate">
@@ -773,15 +774,15 @@
             function updateProgress () {
                 progressBar.classList.remove("invisible")
                 if (progressBar.getAttribute('data-battery') == 'true') {
-                    progressLabel.classList.remove("invisible")
+                    // progressLabel.classList.remove("invisible")
                     fetch(progressUrl).then(function(response) {
                         response.json().then(function(data) {
                             // update the appropriate UI components
-                            progressBar.setAttribute('value', data.progress);
-                            progressBar.setAttribute('max', data.max_progress);
-                            progressLabel.innerHTML = data.progress + " of " + data.max_progress + " processed.";
-                            console.log(progressLabel.innerHTML);
-                            setTimeout(updateProgress, 200);
+                            // progressBar.setAttribute('value', data.progress);
+                            // progressBar.setAttribute('max', data.max_progress);
+                            // progressLabel.innerHTML = data.progress + " of " + data.max_progress + " processed.";
+                            // console.log(progressLabel.innerHTML);
+                            // setTimeout(updateProgress, 200);
                         });
                     });
                 }
