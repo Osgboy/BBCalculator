@@ -79,7 +79,7 @@
             </nav>
             <hgroup>            
                 <h1><a href="/">Battle Brothers Damage Calculator</a></h1>
-                <p>Version 1.6.4, last updated August 7th, 2024.</p>
+                <p>Version 1.6.4, last updated August 8th, 2024.</p>
             </hgroup>
         </header>
         <main class="container">
@@ -717,7 +717,7 @@
                     </div>
                     <hr>
                     <div class="copyright">
-                        Copyright &copy; 2019, turtle225. All rights reserved.
+                        Copyright &copy; 2019-2024, turtle225. All rights reserved.
                     </div>
                 </small>
             </div>
@@ -773,14 +773,15 @@
             function updateProgress () {
                 progressBar.classList.remove("invisible")
                 if (progressBar.getAttribute('data-battery') == 'true') {
-                    progressLabel.classList.remove("invisible")
+                    // progressLabel.classList.remove("invisible")
                     fetch(progressUrl).then(function(response) {
                         response.json().then(function(data) {
                             // update the appropriate UI components
-                            progressBar.setAttribute('value', data.progress);
-                            progressBar.setAttribute('max', data.max_progress);
-                            progressLabel.innerHTML = data.progress + " of " + data.max_progress + " processed."
-                            setTimeout(updateProgress, 200);
+                            // progressBar.setAttribute('value', data.progress);
+                            // progressBar.setAttribute('max', data.max_progress);
+                            // progressLabel.innerHTML = data.progress + " of " + data.max_progress + " processed.";
+                            // console.log(progressLabel.innerHTML);
+                            // setTimeout(updateProgress, 200);
                         });
                     });
                 }
