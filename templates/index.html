@@ -773,15 +773,15 @@
             function updateProgress () {
                 progressBar.classList.remove("invisible")
                 if (progressBar.getAttribute('data-battery') == 'true') {
-                    // progressLabel.classList.remove("invisible")
+                    progressLabel.classList.remove("invisible")
                     fetch(progressUrl).then(function(response) {
                         response.json().then(function(data) {
                             // update the appropriate UI components
-                            // progressBar.setAttribute('value', data.progress);
-                            // progressBar.setAttribute('max', data.max_progress);
-                            // progressLabel.innerHTML = data.progress + " of " + data.max_progress + " processed.";
-                            // console.log(progressLabel.innerHTML);
-                            // setTimeout(updateProgress, 200);
+                            progressBar.setAttribute('value', data.progress);
+                            progressBar.setAttribute('max', data.max_progress);
+                            progressLabel.innerHTML = data.progress + " of " + data.max_progress + " processed.";
+                            console.log(progressLabel.innerHTML);
+                            setTimeout(updateProgress, 200);
                         });
                     });
                 }

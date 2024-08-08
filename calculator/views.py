@@ -1,11 +1,11 @@
 from django.shortcuts import render
-#from django.http import HttpResponse, HttpResponseBadRequest
+# from django.http import HttpResponse, HttpResponseBadRequest
 from .models import Progress
 from collections import defaultdict
 from . import BBCalc
 import json
 import pathlib
-#import pdb
+# import pdb
 
 
 def parse(query: dict) -> dict:
@@ -32,14 +32,14 @@ def parse(query: dict) -> dict:
                 kwargs[k] = int(v[0])
             elif v != 'None':
                 for arg in v:
-                    kwargs[arg] = True # exploitable?
+                    kwargs[arg] = True  # exploitable?
         except Exception:
             pass
 
     # Validation
     def clamp(x: int, lowerB: int, upperB: int) -> int:
         return max(min(x, upperB), lowerB)
-    
+
     if 'Mind' in kwargs:
         kwargs['Mind'] = max(kwargs['Mind'], 1)
     if 'Maxd' in kwargs:
@@ -63,6 +63,7 @@ def parse(query: dict) -> dict:
 
     return kwargs
 
+
 def run_battery(p, battery: list, query: dict):
     print(f"Progress ID: {p.id}")
     output = defaultdict(lambda: '')
@@ -85,6 +86,7 @@ def run_battery(p, battery: list, query: dict):
     output['ChartData'] = dict(output['ChartData'])
     return dict(output)
 
+
 def index(request):
     basedir = pathlib.Path(__file__).parent.parent.resolve()
     with open(basedir / 'static' / 'atkPresets.json', 'r') as f:
@@ -101,12 +103,14 @@ def index(request):
         trialsCap = 1000
         if request.GET['AtkPreset'] == '1Handers':
             with open(basedir / 'static' / '1handers.json', 'r') as f:
-                parsedRequest['Trials'] = min(trialsCap, parsedRequest['Trials'])
+                parsedRequest['Trials'] = min(
+                    trialsCap, parsedRequest['Trials'])
                 chartType = 'splineArea'
                 results = run_battery(pOld, json.load(f), parsedRequest)
         elif request.GET['AtkPreset'] == '2Handers':
             with open(basedir / 'static' / '2handers.json', 'r') as f:
-                parsedRequest['Trials'] = min(trialsCap, parsedRequest['Trials'])
+                parsedRequest['Trials'] = min(
+                    trialsCap, parsedRequest['Trials'])
                 chartType = 'splineArea'
                 results = run_battery(pOld, json.load(f), parsedRequest)
         elif request.GET['AtkPreset'] == 'AllAtkPresets':
@@ -115,7 +119,8 @@ def index(request):
             results = run_battery(pOld, atkPresetJSON.values(), parsedRequest)
         elif request.GET['DefPreset'] == 'NimbleBattery':
             with open(basedir / 'static' / 'nimble.json', 'r') as f:
-                parsedRequest['Trials'] = min(trialsCap, parsedRequest['Trials'])
+                parsedRequest['Trials'] = min(
+                    trialsCap, parsedRequest['Trials'])
                 chartType = 'stackedColumn'
                 results = run_battery(pOld, json.load(f), parsedRequest)
         elif request.GET['DefPreset'] == 'AllDefPresets':
@@ -166,5 +171,5 @@ def index(request):
             'DataReturns': ['DeathMean', 'DeathStDev', 'DeathPercent', 'InjuryMean', 'HeavyInjuryMean'],
         }
         print(context['pID'])
-    #return HttpResponseBadRequest('<h1>Calculation computation time exceeded 30 seconds</h1>')
+    # return HttpResponseBadRequest('<h1>Calculation computation time exceeded 30 seconds</h1>')
     return render(request, 'index.html', context)

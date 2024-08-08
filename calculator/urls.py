@@ -4,8 +4,9 @@ from .models import Progress
 import json
 from . import views
 
-async def get_progress(request, pID):
-    p = await Progress.objects.aget(id=pID)
+
+def get_progress(request, pID):
+    p = Progress.objects.get(id=pID)
     progressState = {
         'progress': p.progress,
         'max_progress': p.max_progress
