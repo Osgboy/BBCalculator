@@ -1,0 +1,38 @@
+[
+    {
+        "name": "60 hp",
+        "Def_HP": 60
+    },
+    {
+        "name": "70 hp",
+        "Def_HP": 70
+    },
+    {
+        "name": "80 hp",
+        "Def_HP": 80
+    },
+    {
+        "name": "90 hp",
+        "Def_HP": 90
+    },
+    {
+        "name": "100 hp",
+        "Def_HP": 100
+    },
+    {
+        "name": "110 hp",
+        "Def_HP": 110
+    },
+    {
+        "name": "120 hp",
+        "Def_HP": 120
+    },
+    {
+        "name": "130 hp",
+        "Def_HP": 130
+    },
+    {
+        "name": "140 hp",
+        "Def_HP": 140
+    }
+]

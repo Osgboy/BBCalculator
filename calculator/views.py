@@ -123,6 +123,12 @@ def index(request):
                     trialsCap, parsedRequest['Trials'])
                 chartType = 'stackedColumn'
                 results = run_battery(pOld, json.load(f), parsedRequest)
+        elif request.GET['DefPreset'] == 'HPBattery':
+            with open(basedir / 'static' / 'hp.json', 'r') as f:
+                parsedRequest['Trials'] = min(
+                    trialsCap, parsedRequest['Trials'])
+                chartType = 'splineArea'
+                results = run_battery(pOld, json.load(f), parsedRequest)
         elif request.GET['DefPreset'] == 'AllDefPresets':
             parsedRequest['Trials'] = min(trialsCap, parsedRequest['Trials'])
             chartType = 'stackedColumn'

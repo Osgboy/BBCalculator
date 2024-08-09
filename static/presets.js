@@ -17,13 +17,19 @@ defPreset.addEventListener("change", applyDefPreset);
 window.addEventListener("load", applyDefBattery);
 
 function applyAtkBattery() {
-    if (atkPreset.selectedOptions[0].className == 'atkBattery') {
+    const selectedPreset = atkPreset.selectedOptions[0];
+
+    if (selectedPreset.className == 'atkBattery') {
         progressBar.setAttribute('data-battery', 'true');
         for (const option of defBattery) {
             option.setAttribute('disabled', '');
         }
         for (const stat of atkStats) {
-            stat.setAttribute('disabled', '');
+            if (!(selectedPreset.value != "AllAtkPresets" && stat.id == "Atk_Resolve")) {
+                stat.setAttribute('disabled', '');
+            } else {
+                stat.removeAttribute('disabled', '');
+            }
         }
         trials.setAttribute('max','1000');
         return true;
@@ -77,13 +83,23 @@ function applyAtkPreset() {
 };
 
 function applyDefBattery() {
-    if (defPreset.selectedOptions[0].className == 'defBattery') {
+    const selectedPreset = defPreset.selectedOptions[0];
+
+    if (selectedPreset.className == 'defBattery') {
         progressBar.setAttribute('data-battery', 'true');
         for (const option of atkBattery) {
             option.setAttribute('disabled', '');
         }
         for (const stat of defStats) {
-            stat.setAttribute('disabled', '');
+            if (
+                selectedPreset.value == "HPBattery" && stat.id == "Def_HP" ||
+                selectedPreset.value == "NimbleBattery" && stat.id != "Def_Resolve" ||
+                selectedPreset.value == "AllDefPresets"
+            ) {
+                stat.setAttribute('disabled', '');
+            } else {
+                stat.removeAttribute('disabled', '');
+            }
         }
         trials.setAttribute('max','1000');
         return true;
@@ -105,7 +121,7 @@ function applyDefPreset() {
             option.removeAttribute('disabled', '');
         }
         for (const stat of defStats) {;
-            stat.removeAttribute('disabled', '')
+            stat.removeAttribute('disabled', '');
         }
         trials.setAttribute('max','10000');
         if (defPreset.value != 'None') {

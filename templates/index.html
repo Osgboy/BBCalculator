@@ -79,7 +79,7 @@
             </nav>
             <hgroup>            
                 <h1><a href="/">Battle Brothers Damage Calculator</a></h1>
-                <p>Version 1.6.5, last updated August 8th, 2024.</p>
+                <p>Version 1.6.5, last updated August 9th, 2024.</p>
             </hgroup>
         </header>
         <main class="container">
@@ -418,6 +418,7 @@
                             <select name="DefPreset" id="DefPreset">
                                 <option value="None" {% if request.DefPreset == "None" %} selected {% endif %}>None</option>
                                 <option value="NimbleBattery" class="defBattery" {% if request.DefPreset == "NimbleBattery" %} selected {% endif %}>Nimble battery (15 nimble variations, remember to turn on nimble)</option>
+                                <option value="HPBattery" class="defBattery" {% if request.DefPreset == "HPBattery" %} selected {% endif %}>HP battery (Raising 10 HP at a time from 60 to 140)</option>
                                 <option value="AllDefPresets" class="defBattery" {% if request.DefPreset == "AllDefPresets" %} selected {% endif %}>Defender preset battery (all of the below presets)</option>
                                 <option value="DPreNimbleBro" {% if request.DefPreset == "DPreNimbleBro" %} selected {% endif %}>120hp, 120/95, Nimble Bro</option>
                                 <option value="DPreNimbleBroBP" {% if request.DefPreset == "DPreNimbleBroBP" %} selected {% endif %}>120hp, 120/95, Nimble, Bone Plates Bro</option>
