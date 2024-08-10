@@ -79,7 +79,7 @@
             </nav>
             <hgroup>            
                 <h1><a href="/">Battle Brothers Damage Calculator</a></h1>
-                <p>Version 1.6.5, last updated August 9th, 2024.</p>
+                <p>Version 1.6.5, last updated August 10th, 2024.</p>
             </hgroup>
         </header>
         <main class="container">
@@ -201,6 +201,14 @@
                             <label for="Flail3Head" title="3Head Flail. Returns number of swings rather than number of hits.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Flail3Head" value="Flail3Head" {% if "Flail3Head" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/cascade.png' %}" alt="Cascade icon"> 3H Flail
+                            </label>
+                            <label for="Flail2HPound" title="Ignore +10% on body hits and +20% on headshots. Applies to 2H Flail Pound attack. Remember to turn on 2H main attack flag.">
+                                <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Flail2HPound" value="Flail2HPound" {% if "Flail2HPound" in AtkWeapon %} checked {% endif %}>
+                                <img src="{% static 'icons/weapon/pound.png' %}" alt="Pound icon"> 2H Flail Pound
+                            </label>
+                            <label for="FlailMastery" title="apply an extra 10% armor ignore on headshots for Pound. Does nothing unless 2H Flail Pound is set.">
+                                <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="FlailMastery" value="FlailMastery" {% if "FlailMastery" in AtkWeapon %} checked {% endif %}>
+                                <img src="{% static 'icons/weapon/flailmastery.png' %}" alt="Flail mastery icon"> Flail Mastery
                             </label>
                             <label for="Hammer10" title="Guarantees at least 10 hp damage, applies to 1H Hammer and Polehammer.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Hammer10" value="Hammer10" {% if "Hammer10" in AtkWeapon %} checked {% endif %}>
@@ -707,7 +715,7 @@
                         <h6>Contact</h6>
                         <ul>
                             <li>turtle225: <a href="mailto:turtl225e@gmail.com">turtl225e@gmail.com</a></li>
-                            <li>osgboy: message me <a href="https://old.reddit.com/user/Osgboy">Reddit</a> or on the <a href="https://discord.gg/s4Va2Nxhb4">Overhype</a> or <a href="https://discord.gg/P7PXCBwfwC">Battle Brothers</a> Discord</li>
+                            <li>osgboy: message me on <a href="https://old.reddit.com/user/Osgboy">Reddit</a> or on the <a href="https://discord.gg/s4Va2Nxhb4">Overhype</a> or <a href="https://discord.gg/P7PXCBwfwC">Battle Brothers</a> Discord</li>
                         </ul>
                     </div>
                     <div>
