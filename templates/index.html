@@ -382,30 +382,30 @@
                                 <img src="{% static 'icons/perks/cripplingstrikes.png' %}" alt="Crippling strikes icon">
                                 <abbr data-placement="right" data-tooltip="Lowers the threshold to inflict injuries by 33%.">Crippling Strikes</abbr>
                             </label>
-                            <label for="Executioner" title="Inflict additional 20% damage against targets that have sustained any injury effects.">
+                            <label for="Executioner" title="Inflict +20% damage against injured targets.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="Executioner" value="Executioner" {% if "Executioner" in AtkPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/executioner.png' %}" alt="Executioner icon">
-                                <abbr data-placement="right" data-tooltip="Inflict additional 20% damage against targets that have sustained any injury effects.">Executioner</abbr>
+                                <abbr data-placement="right" data-tooltip="Inflict +20% damage against injured targets.">Executioner</abbr>
                             </label>
-                            <label for="HeadHunter" title="When you hit the head, gain a Head Hunter stack. With the next attack/hit you are guaranteed to hit the head.">
+                            <label for="HeadHunter" title="When you hit the head, the next hit is guaranteed to hit the head.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="HeadHunter" value="HeadHunter" {% if "HeadHunter" in AtkPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/headhunter.png' %}" alt="Head hunter icon">
-                                <abbr data-placement="right" data-tooltip="When you hit the head, gain a Head Hunter stack. With the next attack/hit you are guaranteed to hit the head.">Head Hunter</abbr>
+                                <abbr data-placement="right" data-tooltip="When you hit the head, the next hit is guaranteed to hit the head.">Head Hunter</abbr>
                             </label>
                             <label for="Duelist" title="With the offhand free, an additional +25% of any damage ignores armor.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="Duelist" value="Duelist" {% if "Duelist" in AtkPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/duelist.png' %}" alt="Duelist icon">
                                 <abbr data-placement="right" data-tooltip="With the offhand free, an additional +25% of any damage ignores armor.">Duelist</abbr>
                             </label>
-                            <label for="KillingFrenzy" title="A kill increases all damage by 25% for 2 turns. Does not stack, but another kill will reset the timer.">
+                            <label for="KillingFrenzy" title="A kill increases all damage by 25% for 2 turns.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="KillingFrenzy" value="KillingFrenzy" {% if "KillingFrenzy" in AtkPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/killingfrenzy.png' %}" alt="Killing frenzy icon">
-                                <abbr data-placement="right" data-tooltip="A kill increases all damage by 25% for 2 turns. Does not stack, but another kill will reset the timer.">Killing Frenzy</abbr>
+                                <abbr data-placement="right" data-tooltip="A kill increases all damage by 25% for 2 turns.">Killing Frenzy</abbr>
                             </label>
-                            <label for="Fearsome" title="Any attack that inflicts at least 1 point of damage to hitpoints triggers a morale check for the opponent, as opposed to only if at or above 15 points of damage. Also applies 20% of the attacker's Resolve-10 as a penalty to the defender's Resolve for damage calculations.">
+                            <label for="Fearsome" title="Any attack that inflicts at least 1 point of damage to hitpoints triggers a morale check for the opponent. Also applies 20% of the attacker's Resolve-10 as a penalty to the defender's Resolve for damage calculations.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="Fearsome" value="Fearsome" {% if "Fearsome" in AtkPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/fearsome.png' %}" alt="Fearsome icon">
-                                <abbr data-placement="right" data-tooltip="Any attack that inflicts at least 1 point of damage to hitpoints triggers a morale check for the opponent, as opposed to only if at or above 15 points of damage. Also applies 20% of the attacker's Resolve-10 as a penalty to the defender's Resolve for damage calculations.">Fearsome</abbr>
+                                <abbr data-placement="right" data-tooltip="Any attack that inflicts at least 1 point of damage to hitpoints triggers a morale check for the opponent. Also applies 20% of the attacker's Resolve-10 as a penalty to the defender's Resolve for damage calculations.">Fearsome</abbr>
                             </label>
                         </details>
                         <details id="AttackerTraits">
@@ -539,7 +539,7 @@
                                 <option class="def-race-selection" value="PossessedUndead" {% if request.DefRace == "PossessedUndead" %} selected {% endif %}>Possessed (Zombie immunities + 25% damage reduction, Necromancer buff)</option>
                                 <option class="def-race-selection" value="FallenBetrayerD" {% if request.DefRace == "FallenBetrayerD" %} selected {% endif %}>Fallen Betrayer (Zombie immunities + 25% armor damage reduction, Watermill)</option>
                             </select>
-                        <details>
+                        <details id="DefenderStats">
                             <summary role="button" class="secondary">Stats</summary>
                             <fieldset class="grid">
                                 <label class="StatLabel" for="Def_HP">Health <img src="{% static 'icons/stats/health.png' %}" alt="Health icon"></label>
@@ -566,42 +566,50 @@
                                 <input type="text" style="visibility: hidden; height: 0; border: 0; margin: 0; padding: 0;">
                             </fieldset>
                         </details>
-                        <details>
+                        <details id="DefenderPerks">
                             <summary role="button" class="secondary">Perks</summary>
-                            <label for="NineLives">
+                            <label for="NineLives" title="Once per battle, upon receiving a killing blow, survive instead with a few hit points left. Also clears any damage over time effects and increases stats when triggered.">
                                 <input class="def-checkbox" type="checkbox" name="DefPerks" id="NineLives" value="NineLives" {% if "NineLives" in DefPerks %} checked {% endif %}>
-                                <img src="{% static 'icons/perks/ninelives.png' %}" alt="9 lives icon"> 9 Lives
+                                <img src="{% static 'icons/perks/ninelives.png' %}" alt="9 lives icon">
+                                <abbr data-placement="right" data-tooltip="Once per battle, upon receiving a killing blow, survive instead with a few hit points left. Also clears any damage over time effects and increases stats when triggered.">9 Lives</abbr>
                             </label>
-                            <label for="Resilient">
+                            <label for="Resilient" title="Any status effect with a finite duration (e.g. Bleeding) has its duration reduced to 1 turn.">
                                 <input class="def-checkbox" type="checkbox" name="DefPerks" id="Resilient" value="Resilient" {% if "Resilient" in DefPerks %} checked {% endif %}>
-                                <img src="{% static 'icons/perks/resilient.png' %}" alt="Resilient icon"> Resilient
+                                <img src="{% static 'icons/perks/resilient.png' %}" alt="Resilient icon">
+                                <abbr data-placement="right" data-tooltip="Any status effect with a finite duration (e.g. Bleeding) has its duration reduced to 1 turn.">Resilient</abbr>
                             </label>
-                            <label for="SteelBrow">
+                            <label for="SteelBrow" title="Hits to the head no longer cause critical damage to this character.">
                                 <input class="def-checkbox" type="checkbox" name="DefPerks" id="SteelBrow" value="SteelBrow" {% if "SteelBrow" in DefPerks %} checked {% endif %}>
-                                <img src="{% static 'icons/perks/steelbrow.png' %}" alt="Steel brow icon"> Steel Brow
+                                <img src="{% static 'icons/perks/steelbrow.png' %}" alt="Steel brow icon">
+                                <abbr data-placement="right" data-tooltip="Hits to the head no longer cause critical damage to this character.">Steel Brow</abbr>
                             </label>
-                            <label for="Nimble">
+                            <label for="Nimble" title="Hitpoint damage taken is reduced by up to 60%, but lowered exponentially by the total penalty to Maximum Fatigue from body and head armor above 15.">
                                 <input class="def-checkbox" type="checkbox" name="DefPerks" id="Nimble" value="Nimble" {% if "Nimble" in DefPerks %} checked {% endif %}>
-                                <img src="{% static 'icons/perks/nimble.png' %}" alt="Nimble icon"> Nimble
+                                <img src="{% static 'icons/perks/nimble.png' %}" alt="Nimble icon">
+                                <abbr data-placement="right" data-tooltip="Hitpoint damage taken is reduced by up to 60%, but lowered exponentially by the total penalty to Maximum Fatigue from body and head armor above 15.">Nimble</abbr>
                             </label>
-                            <label for="Forge">
+                            <label for="Forge" title="Armor damage taken is reduced by a percentage equal to 5% of the current total armor value of both body and head armor.">
                                 <input class="def-checkbox" type="checkbox" name="DefPerks" id="Forge" value="Forge" {% if "Forge" in DefPerks %} checked {% endif %}>
-                                <img src="{% static 'icons/perks/battleforged.png' %}" alt="Battleforged icon"> Battleforged
+                                <img src="{% static 'icons/perks/battleforged.png' %}" alt="Battleforged icon">
+                                <abbr data-placement="right" data-tooltip="Armor damage taken is reduced by a percentage equal to 5% of the current total armor value of both body and head armor.">Battleforged</abbr>
                             </label>
-                            <label for="Indomitable">
+                            <label for="Indomitable" title="Grants 50% damage reduction.">
                                 <input class="def-checkbox" type="checkbox" name="DefPerks" id="Indomitable" value="Indomitable" {% if "Indomitable" in DefPerks %} checked {% endif %}>
-                                <img src="{% static 'icons/perks/indomitable.png' %}" alt="Indomitable icon"> Indomitable
+                                <img src="{% static 'icons/perks/indomitable.png' %}" alt="Indomitable icon">
+                                <abbr data-placement="right" data-tooltip="Grants 50% damage reduction.">Indomitable</abbr>
                             </label>
                         </details>
-                        <details>
+                        <details id="DefenderTraits">
                             <summary role="button" class="secondary">Traits</summary>
-                            <label for="Ironjaw">
+                            <label for="Ironjaw" title="Increases injury threshold by 25%.">
                                 <input type="checkbox" name="DefTraits" id="Ironjaw" value="Ironjaw" {% if "Ironjaw" in DefTraits %} checked {% endif %}>
-                                <img src="{% static 'icons/traits/ironjaw.png' %}" alt="Iron jaw icon"> Iron Jaw
+                                <img src="{% static 'icons/traits/ironjaw.png' %}" alt="Iron jaw icon">
+                                <abbr data-placement="right" data-tooltip="Increases injury threshold by 25%.">Iron Jaw</abbr>
                             </label>
-                            <label for="GloriousEndurance">
+                            <label for="GloriousEndurance" title="Gains 5% damage reduction with every hit taken, up to a limit of 25%.">
                                 <input type="checkbox" name="DefTraits" id="GloriousEndurance" value="GloriousEndurance" {% if "GloriousEndurance" in DefTraits %} checked {% endif %}>
-                                <img src="{% static 'icons/traits/gloriousendurance.png' %}" alt="Glorious endurance icon"> Glorious Endurance (Bear)
+                                <img src="{% static 'icons/traits/gloriousendurance.png' %}" alt="Glorious endurance icon">
+                                <abbr data-placement="right" data-tooltip="Gains 5% damage reduction with every hit taken, up to a limit of 25%.">Glorious Endurance (Bear)</abbr>
                             </label>
                         </details>
                     </div>

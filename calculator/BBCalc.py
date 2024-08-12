@@ -16,6 +16,7 @@ import math
 #If you wish to use a defender preset, skip the sections related to defender settings and go to the defender preset section.
 
 def main(
+*,
 Trials = 10000, #Number of trials to run through. More trials leads to more accurate results but longer compute times.
 
 #Data Returns: Set these values to 1 if you want more data returned, and 0 if you want less data returned.
@@ -720,8 +721,10 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
     hits_until_1st_poison = [] #This list will hold how many hits until first poisoning against Ambushers (only displays if Ambusher is checked).
     hits_until_1st_bleed = [] #This list will hold how many hits until first bleed against cleavers (only displays if CleaverBleed or CleaverMastery is checked).
 
-    print("-----") #Added for readability. If this annoys you then remove this line.
-    print(f"HP = {str(Def_HP)}, Helmet = {str(Def_Helmet)}, Armor = {str(Def_Armor)}")
+    if __name__ == "__main__":
+        print("-----") #Added for readability. If this annoys you then remove this line.
+    if __name__ == "__main__":
+        print(f"HP = {str(Def_HP)}, Helmet = {str(Def_Helmet)}, Armor = {str(Def_Armor)}")
 
     #Begin the simulation.
     for _ in range(Trials): #This will run a number of trials as set above by the trials variable.
@@ -1248,15 +1251,18 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
         hitOrSwing = "swings"
     if DeathMean:
         string = f"Death in {HitsToDeath:.2f} {hitOrSwing} on average."
-        print(string)
+        if __name__ == "__main__":
+            print(string)
         results['DeathMean'] = string
     if DeathStDev:
         string = f"StDev: {StDev:.2f}"
-        print(string)
+        if __name__ == "__main__":
+            print(string)
         results['DeathStDev'] = string
     if DeathPercent:
         string = f"% {hitOrSwing} to die: {str(HitsToDeathPercent)}"
-        print(string)
+        if __name__ == "__main__":
+            print(string)
         results['DeathPercent'] = string
         results['ChartData']['HitsToDeathPercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToDeathPercent]
 
@@ -1264,7 +1270,8 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
     if injuryImmune or hits_to_injure >= HitsToDeath:
         if InjuryMean or InjuryPercent:
             string = "No chance of injury."
-            print(string)
+            if __name__ == "__main__":
+                print(string)
             if InjuryMean:
                 results['InjuryMean'] = string
             if InjuryPercent:
@@ -1272,17 +1279,20 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
     else:        
         if InjuryMean:
             string = f"First injury in {hits_to_injure:.2f} {hitOrSwing} on average."
-            print(string)
+            if __name__ == "__main__":
+                print(string)
             results['InjuryMean'] = string
         if InjuryPercent:
             string = f"% First injury in: {str(HitsToInjurePercent)}"
-            print(string)
+            if __name__ == "__main__":
+                print(string)
             results['InjuryPercent'] = string
             results['ChartData']['HitsToInjurePercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToInjurePercent]
     if injuryImmune or hits_to_1st_heavy_injury_chance >= HitsToDeath:
         if HeavyInjuryMean or HeavyInjuryPercent:
             string = "No chance of heavy injury."
-            print(string)
+            if __name__ == "__main__":
+                print(string)
             if HeavyInjuryMean:
                 results['HeavyInjuryMean'] = string
             if HeavyInjuryPercent:
@@ -1290,11 +1300,13 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
     else:
         if HeavyInjuryMean:
             string = f"Chance of first heavy injury in {hits_to_1st_heavy_injury_chance:.2f} {hitOrSwing} on average."
-            print(string)
+            if __name__ == "__main__":
+                print(string)
             results['HeavyInjuryMean'] = string
         if HeavyInjuryPercent:
             string = f"% First heavy injury chance in: {str(HitsToHeavyInjuryChancePercent)}"
-            print(string)
+            if __name__ == "__main__":
+                print(string)
             results['HeavyInjuryPercent'] = string
             results['ChartData']['HitsToHeavyInjuryChancePercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToHeavyInjuryChancePercent]
         
@@ -1303,16 +1315,19 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
         if MoraleChecksTotal:
             if len(Total_Morale_Checks) != 0:
                 string = f"{AvgNumberMoraleChecks:.2f} morale checks before death on average."
-                print(string)
+                if __name__ == "__main__":
+                    print(string)
                 results['MoraleChecksTotal'] = string
         if len(hits_until_1st_morale) != 0:
             if MoraleMean:
                 string = f"First morale check in {hits_to_morale:.2f} {hitOrSwing} on average."
-                print(string)
+                if __name__ == "__main__":
+                    print(string)
                 results['MoraleMean'] = string
             if MoralePercent:
                 string = f"% First morale check in: {str(HitsToMoralePercent)}"
-                print(string)
+                if __name__ == "__main__":
+                    print(string)
                 results['MoralePercent'] = string
                 results['ChartData']['HitsToMoralePercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToMoralePercent]
         
@@ -1324,7 +1339,8 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
         if hits_to_wavering >= HitsToDeath:
             if MoraleDropsMean or MoraleDropsPercent:
                 string = "Cannot fall to Wavering morale prior to death."
-                print(string)
+                if __name__ == "__main__":
+                    print(string)
                 if MoraleDropsMean:
                     results['MoraleDropsMean'].append(string)
                 if MoraleDropsPercent:
@@ -1332,11 +1348,13 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
         else:
             if MoraleDropsMean:
                 string = f"Wavering morale (or death) in {hits_to_wavering:.2f} {hitOrSwing} on average."
-                print(string)
+                if __name__ == "__main__":
+                    print(string)
                 results['MoraleDropsMean'].append(string)
             if MoraleDropsPercent:
                 string = f"% Wavering morale (or death) in: {str(HitsToWaveringPercent)}"
-                print(string)
+                if __name__ == "__main__":
+                    print(string)
                 results['MoraleDropsPercent'].append(string)
                 results['ChartData']['HitsToWaveringPercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToWaveringPercent]
         
@@ -1344,7 +1362,8 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
         if hits_to_breaking >= HitsToDeath:
             if MoraleDropsMean or MoraleDropsPercent:
                 string = "Cannot fall to Breaking morale prior to death."
-                print(string)
+                if __name__ == "__main__":
+                    print(string)
                 if MoraleDropsMean:
                     results['MoraleDropsMean'].append(string)
                 if MoraleDropsPercent:
@@ -1352,11 +1371,13 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
         else:
             if MoraleDropsMean:
                 string = f"Breaking morale (or death) in {hits_to_breaking:.2f} {hitOrSwing} on average."
-                print(string)
+                if __name__ == "__main__":
+                    print(string)
                 results['MoraleDropsMean'].append(string)
             if MoraleDropsPercent:
                 string = f"% Breaking morale (or death) in: {str(HitsToBreakingPercent)}"
-                print(string)
+                if __name__ == "__main__":
+                    print(string)
                 results['MoraleDropsPercent'].append(string)
                 results['ChartData']['HitsToBreakingPercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToBreakingPercent]
         
@@ -1364,7 +1385,8 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
         if hits_to_fleeing >= HitsToDeath:
             if MoraleDropsMean or MoraleDropsPercent:
                 string = "Cannot fall to Fleeing morale prior to death."
-                print(string)
+                if __name__ == "__main__":
+                    print(string)
                 if MoraleDropsMean:
                     results['MoraleDropsMean'].append(string)
                 if MoraleDropsPercent:
@@ -1372,11 +1394,13 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
         else:
             if MoraleDropsMean:
                 string = f"Fleeing morale (or death) in {hits_to_fleeing:.2f} {hitOrSwing} on average."
-                print(string)
+                if __name__ == "__main__":
+                    print(string)
                 results['MoraleDropsMean'].append(string)
             if MoraleDropsPercent:
                 string = f"% Fleeing morale (or death) in: {str(HitsToFleeingPercent)}"
-                print(string)
+                if __name__ == "__main__":
+                    print(string)
                 results['MoraleDropsPercent'].append(string)
                 results['ChartData']['HitsToFleeingPercent'] = [{'x':pair[0], 'y':pair[1]} for pair in HitsToFleeingPercent]
 
@@ -1388,11 +1412,13 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
         #Fearsome
         if Fearsome:
             string = f"{AvgFearsomeProcs:.2f} extra morale checks from Fearsome's 1-14 damage effect on average."
-            print(string)
+            if __name__ == "__main__":
+                print(string)
             results['Fearsome'] = string
     else:
         string = "Immune to morale."
-        print(string)
+        if __name__ == "__main__":
+            print(string)
         if MoraleChecksTotal:
             results['MoraleChecksTotal'] = string
         if MoraleMean:
@@ -1408,27 +1434,32 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
 
     if Nimble:
         string = f"Nimble %: {100*NimbleMod:.2f}"
-        print(string)
+        if __name__ == "__main__":
+            print(string)
         results['Nimble'] = string
     if Forge:
         string = f"{AvgForgeArmor:.2f} bonus armor from Forge on average."
-        print(string)
+        if __name__ == "__main__":
+            print(string)
         results['Forge'] = string
     if Ambusher:
         if len(hits_until_1st_poison) != 0:
             string = f"First poison in {hits_to_posion:.2f} {hitOrSwing} on average."
-            print(string)
+            if __name__ == "__main__":
+                print(string)
             results['Ambusher'] = string
         else:
             results['Ambusher'] = "No poison applied."
     if CleaverBleed or CleaverMastery:
         if len(hits_until_1st_bleed) != 0:
             string = f"First bleed in {hits_to_bleed:.2f} {hitOrSwing} on average."
-            print(string)
+            if __name__ == "__main__":
+                print(string)
             results['Cleaver'] = string
         else:
             results['Cleaver'] = "No bleed applied."
-    print("-----") #Added for readability. If this annoys you then remove this line.
+    if __name__ == "__main__":
+        print("-----") #Added for readability. If this annoys you then remove this line.
 
     return results
 

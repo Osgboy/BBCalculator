@@ -26,11 +26,10 @@ def parse(query: dict) -> dict:
         'HitChance',
     )
     for k, v in query.lists():
-        # remove pID
         try:
             if k in intArgs:
                 kwargs[k] = int(v[0])
-            elif v != 'None':
+            elif v[0] not in ('None', 'pID'): # not really necessary
                 for arg in v:
                     kwargs[arg] = True  # exploitable?
         except Exception:
@@ -154,19 +153,11 @@ def index(request):
             'DefTraits': request.GET.getlist('DefTraits'),
             'DataReturns': request.GET.getlist('DataReturns'),
         }
-        print(request)
         print('Results')
         print(results.keys())
         print(context['pID'])
         print('Context')
         print(context['request'])
-        print(context['AtkWeapon'])
-        print(context['AtkPerks'])
-        print(context['AtkTraits'])
-        print(context['AtkInjuries'])
-        print(context['AtkStatus'])
-        print(context['DefPerks'])
-        print(context['DefTraits'])
         print('-----------------------------------')
     else:
         context = {
