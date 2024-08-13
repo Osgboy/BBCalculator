@@ -72,14 +72,14 @@
                 <ul>
                     <li><a href="https://www.bbplanner.xyz/">Perk Planner</a></li>
                     <li><a href="https://battlebrothers.fandom.com/wiki/Battle_Brothers_Wiki">Wiki</a></li>
-                    <li><a href="https://battlebrothersgame.com/">Forums</a></li>
+                    <li><a href="https://battlebrothersgame.com/forums/">Forums</a></li>
                     <li><a href="https://old.reddit.com/r/BattleBrothers/">Reddit</a></li>
                     <li><a href="#" id="theme_switcher"></a></li>
                 </ul>
             </nav>
             <hgroup>            
                 <h1><a href="/">Battle Brothers Damage Calculator</a></h1>
-                <p>Version 1.6.5, last updated August 12th, 2024.</p>
+                <p>Version 1.6.5, last updated August 13th, 2024.</p>
             </hgroup>
         </header>
         <main class="container">
@@ -796,7 +796,7 @@
         </footer>
         <script src="{% static 'presets.js' %}"></script>
         <script>
-            let stored = sessionStorage.getItem('theme')
+            let stored = localStorage.getItem('theme')
             if (stored == 'dark') {
                 var isLight = false;
             } else {
@@ -836,7 +836,6 @@
             }
         </script>
         <script>
-            // const progressUrl = '{% url "progress_status" pID %}';
             const form = document.getElementById("form");
             const progressLabel = document.getElementById("progress-label");
             
@@ -846,7 +845,7 @@
                 progressBar.classList.remove("invisible")
                 if (progressBar.getAttribute('data-battery') == 'true') {
                     progressLabel.classList.remove("invisible")
-                    fetch("/?" + new URLSearchParams({
+                    {% comment %} fetch("/?" + new URLSearchParams({
                         pID: {{ pID }}
                     }),
                     {
@@ -864,7 +863,7 @@
                             console.log(progressLabel.innerHTML);
                             setTimeout(updateProgress, 200);
                         });
-                    });
+                    }); {% endcomment %}
                 }
             }
         </script>
