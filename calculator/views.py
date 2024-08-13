@@ -1,5 +1,5 @@
 from django.shortcuts import render
-# from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse#, HttpResponseBadRequest
 from .models import Progress
 from collections import defaultdict
 from . import BBCalc
@@ -87,6 +87,15 @@ def run_battery(p, battery: list, query: dict):
 
 
 def index(request):
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        pID = int(request.GET['pID'])
+        p = Progress.objects.get(id=pID)
+        progressState = {
+            'progress': p.progress,
+            'max_progress': p.max_progress
+        }
+        print(f'Task: {pID} with progress of {p.progress}/{p.max_progress}')
+        return HttpResponse(json.dumps(progressState), content_type='application/json')
     basedir = pathlib.Path(__file__).parent.parent.resolve()
     with open(basedir / 'static' / 'atkPresets.json', 'r') as f:
         atkPresetJSON = json.load(f)
