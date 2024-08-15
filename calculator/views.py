@@ -164,9 +164,9 @@ def index(request):
         }
         print('Results')
         print(results.keys())
-        print(context['pID'])
         print('Context')
-        print(context['request'])
+        for k, v in context['request'].items():
+            print(f"{k}: {v}")
         print('-----------------------------------')
     else:
         context = {
@@ -174,7 +174,7 @@ def index(request):
             'defPresetJSON': defPresetJSON,
             'blank': True,
             'pID': p.id,
-            'DataReturns': ['DeathMean', 'DeathStDev', 'DeathPercent', 'InjuryMean', 'HeavyInjuryMean'],
+            'DataReturns': ['DeathMean', 'DeathStDev', 'DeathPercent', 'InjuryMean'],
         }
         print(context['pID'])
     # return HttpResponseBadRequest('<h1>Calculation computation time exceeded 30 seconds</h1>')

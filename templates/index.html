@@ -79,7 +79,7 @@
             </nav>
             <hgroup>            
                 <h1><a href="/">Battle Brothers Damage Calculator</a></h1>
-                <p>Version 1.6.5, last updated August 13th, 2024.</p>
+                <p>Version 1.6.5, last updated August 15th, 2024.</p>
             </hgroup>
         </header>
         <main class="container">
@@ -89,6 +89,7 @@
                     <summary id="AttackerButton" class="SectionButton" role="button">Attacker</summary>
                     <div class="inner-container">
                         <h6>Preset</h6>
+                            <small>Warning: Batteries can be combined with all other settings, which may lead to unintended behavior. (e.g. 2H Battery + Cleaver Mastery will treat every weapon as if it inflicts bleed)</small>
                             <select name="AtkPreset" id="AtkPreset">
                                 <option value="None" {% if request.AtkPreset == "None" %} selected {% endif %}>None</option>
                                 <option value="1Handers" class="atkBattery" {% if request.AtkPreset == "1Handers" %} selected {% endif %}>1 Hander Battery (22 weapon variants, remember to turn on double grip + duelist)</option>
@@ -469,6 +470,7 @@
                     <summary id="DefenderButton" class="SectionButton" role="button">Defender</summary>
                     <div class="inner-container">
                         <h6>Preset</h6>
+                            <small>Warning: Batteries can be combined with all other settings, which may lead to unintended behavior. (e.g. Defender Battery + Nimble will give every enemy nimble)</small>
                             <select name="DefPreset" id="DefPreset">
                                 <option value="None" {% if request.DefPreset == "None" %} selected {% endif %}>None</option>
                                 <option value="NimbleBattery" class="defBattery" {% if request.DefPreset == "NimbleBattery" %} selected {% endif %}>Nimble battery (15 nimble variations, remember to turn on nimble)</option>
@@ -745,10 +747,10 @@
             </section>
             <section id="CalculateSection">
                 <label for="HitChance"><h6>Hit chance</h6></label>
-                If left blank, the calculator will assume every swing hits.
+                <small>If left blank, the calculator will assume every swing hits.</small>
                 <input type="number" name="HitChance" id="HitChance" min="5" max="95" value={{request.HitChance|default:"''"}} placeholder="Enter a number from 5 to 95">
                 <label for="Trials"><h6># of trials</h6></label>
-                Warning: Using a preset battery, low attacker damage, or low hit chance can lead to long computation times.
+                <small>Warning: Using a preset battery, low attacker damage, or low hit chance can lead to long computation times.</small>
                 <fieldset role="group">
                     <input type="number" name="Trials" id="Trials" min="2" max="10000" value={{request.Trials|default:1000}} required>
                     <input type="submit" value="Calculate">
