@@ -798,7 +798,7 @@
         </footer>
         <script src="{% static 'presets.js' %}"></script>
         <script>
-            let stored = localStorage.getItem('theme')
+            let stored = sessionStorage.getItem('theme')
             if (stored == 'dark') {
                 var isLight = false;
             } else {
