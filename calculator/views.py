@@ -165,7 +165,7 @@ def index(request):
         print('Results')
         print(results.keys())
         print('Context')
-        for k, v in context['request'].items():
+        for k, v in context['request'].lists():
             print(f"{k}: {v}")
         print('-----------------------------------')
     else:
