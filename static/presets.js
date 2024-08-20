@@ -93,7 +93,7 @@ function applyDefBattery() {
         for (const stat of defStats) {
             if (
                 selectedPreset.value == "HPBattery" && stat.id == "Def_HP" ||
-                selectedPreset.value == "NimbleBattery" && stat.id != "Def_Resolve" ||
+                selectedPreset.value == "NimbleBattery" && stat.id != "Def_HP" && stat.id != "Def_Resolve" ||
                 selectedPreset.value == "AllDefPresets"
             ) {
                 stat.setAttribute('disabled', '');
