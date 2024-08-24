@@ -137,7 +137,7 @@
     },
     "DPreReaverHeavy": {
         "name": "Heavy Barbarian Reaver",
-        "Def_HP": 80,
+        "Def_HP": 120,
         "Def_Helmet": 145,
         "Def_Armor": 95,
         "Def_Resolve": 80,
@@ -211,7 +211,7 @@
     },
     "DPreKnight": {
         "name": "Knight",
-        "Def_HP": 125,
+        "Def_HP": 135,
         "Def_Helmet": 300,
         "Def_Armor": 300,
         "Def_Resolve": 90,
@@ -225,7 +225,8 @@
         "Def_Resolve": 80,
         "Fatigue": -18,
         "Nimble": true,
-        "SteelBrow": true
+        "SteelBrow": true,
+        "Resilient": true
     },
     "DPreZweiHeavy": {
         "name": "Heavy Zweihander",
@@ -238,7 +239,7 @@
     },
     "DPreRaiderHeavy": {
         "name": "Heavy Brigand Raider",
-        "Def_HP": 70,
+        "Def_HP": 75,
         "Def_Helmet": 140,
         "Def_Armor": 115,
         "Def_Resolve": 55
@@ -254,7 +255,7 @@
         "name": "Heavy Brigand Leader",
         "Def_HP": 100,
         "Def_Helmet": 250,
-        "Def_Armor": 230,
+        "Def_Armor": 210,
         "Def_Resolve": 70,
         "NineLives": true
     },
@@ -287,10 +288,10 @@
     "DPreSwordmaster": {
         "name": "Swordmaster",
         "Def_HP": 70,
-        "Def_Helmet": 70,
+        "Def_Helmet": 80,
         "Def_Armor": 115,
         "Def_Resolve": 90,
-        "Fatigue": -15,
+        "Fatigue": -16,
         "Nimble": true,
         "SteelBrow": true
     },
@@ -322,7 +323,7 @@
     },
     "DPreOfficer": {
         "name": "Officer",
-        "Def_HP": 100,
+        "Def_HP": 110,
         "Def_Helmet": 290,
         "Def_Armor": 290,
         "Def_Resolve": 80,

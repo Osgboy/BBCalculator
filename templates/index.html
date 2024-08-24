@@ -79,7 +79,7 @@
             </nav>
             <hgroup>            
                 <h1><a href="/">Battle Brothers Damage Calculator</a></h1>
-                <p>Version 1.6.5, last updated August 15th, 2024.</p>
+                <p>Version 1.6.6, last updated August 24th, 2024.</p>
             </hgroup>
         </header>
         <main class="container">
@@ -563,7 +563,7 @@
                                     <abbr data-tooltip="Used only if morale drop data returns are enabled.">Resolve </abbr>
                                     <img src="{% static 'icons/stats/resolve.png' %}" alt="Resolve icon">
                                 </label>
-                                <input class="def-stat" type="number" name="Def_Resolve" id="Def_Resolve" min="0" max="999" value={{request.Def_Resolve|default:70}} required>
+                                <input class="def-stat" type="number" name="Def_Resolve" id="Def_Resolve" min="0" max="999" value={{request.Def_Resolve|default:55}} required>
                                 <div></div>
                                 <input type="text" style="visibility: hidden; height: 0; border: 0; margin: 0; padding: 0;">
                             </fieldset>
@@ -770,6 +770,9 @@
                         <h6>Credits</h6>
                         <ul>
                             <li>Calculator author: turtle225</li>
+                                <ul>
+                                    <li>Original calculator <a href="https://github.com/turtle225/Battle-Brothers-Damage-Calculator">Github repository</a></li>
+                                </ul>
                             <li>Site author: osgboy</li>
                         </ul>
                     </div>

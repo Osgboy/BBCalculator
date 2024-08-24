@@ -198,7 +198,7 @@
         "Mind": 30,
         "Maxd": 50,
         "Headchance": 30,
-        "Ignore": 25,
+        "Ignore": 30,
         "ArmorMod": 115,
         "DoubleGrip": false,
         "R2Throw": true

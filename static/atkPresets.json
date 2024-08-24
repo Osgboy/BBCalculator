@@ -268,7 +268,7 @@
       "Maxd": 70,
       "Headchance": 25,
       "Ignore": 35,
-      "ArmorMod": 65,
+      "ArmorMod": 60,
       "CripplingStrikes": true,
       "Executioner": true,
       "MasterArcher": true,
@@ -341,7 +341,7 @@
       "Maxd": 140,
       "Headchance": 25,
       "Ignore": 35,
-      "ArmorMod": 140,
+      "ArmorMod": 150,
       "Fearsome": true,
       "Atk_Resolve": 180
     },

@@ -51,7 +51,7 @@ Def_HP = 100,
 Def_Helmet = 120,
 Def_Armor = 95, 
 Fatigue = -15,           #Fatigue value only effects Nimble.
-Def_Resolve = 70,        #Used only if morale drop data returns are enabled.
+Def_Resolve = 55,        #Used only if morale drop data returns are enabled.
 
 #DEFENDER FLAGS: Set these values to 1 if they apply and 0 otherwise. If you select a Preset then leave these on 0.
 #Perks:
@@ -173,268 +173,11 @@ Ifrit = False,               #Takes only 10% damage from bows and fire lances' i
 PossessedUndead = False,     #25% damage reduction. Necromancer buff.
 FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers.
 
-#Attacker Preset: Set these values to 1 if you wish to use a attacker preset, and 0 otherwise.
-#A preset will atutomatically set attacker stats and attacker perks.
-#Attacker presets do not include the late game day related buffs that some races get.
-#Does not disable perks that shouldn't be active. For example, don't activate Duelist and then check the Chosen Preset.
-# APreAncientSword = False,    #Ancient Dead: 38-43, 20% Ignore, 80% Armor, Fearsome.
-# APreBladedPike = False,      #Ancient Dead: 55-80, 30% Ignore, 125% Armor, 30% Head, Fearsome.
-# APreWarscytheAoE = False,    #Ancient Dead: 55-80, 25% Ignore, 104% Armor, Fearsome.
-# APreCryptCleaver = False,    #Ancient Dead: 60-80, 25% Ignore, 120% Armor, Fearsome, Cleaver Mastery.
-# APreKhopesh = False,         #Necrosavant: 35-55, 25% Ignore, 120% Armor, HeadHunter, Crippling, Double Grip, CleaverBleed.
-# APreFHGreatAxe = False,      #Fallen Hero: 80-100, 40 %Ignore, 150% Armor, Fearsome, Split Man.
-# APreBerserkChain = False,    #Orc Berserker: 50-100, 30% Ignore, 125% Armor, 40% Head, TwoHander20, Flail2HPound, FlailMastery, Berserker.
-# APreHeadSplitter = False,    #Orc Young/Warrior: 35-65, 30% Ignore, 130% Armor, 1HAxe, Warrior.
-# APreHeadChopper = False,     #Orc Young/Warrior: 40-70, 25% Ignore, 110% Armor, Cleaver Mastery, Warrior.
-# APreMansplitter = False,     #Orc Warlord: 90-120, 40% Ignore, 160% Armor, Split Man, Fearsome, Warlord.
-# APreReinBoondock = False,    #Goblin Ambusher: 30-50, 35% Ignore, 60% Armor, Ambusher.
-# APreSpikedImpaler = False,   #Goblin Overseer: 50-70, 50% Ignore, 75% Armor, Overseer, Xbow Mastery.
-# APre2HSpikedMace = False,    #Chosen: 50-70, 60% Ignore, 115% Armor, Crippling, Executioner, TwoHander20.
-# APre2HSkullHammer = False,   #Chosen: 45-65, 60% Ignore, 180% Armor, Crippling, Executioner, TwoHander20.
-# APreHeavyRustyAxe = False,   #Chosen: 75-90, 50% Ignore, 150% Armor, Crippling, Executioner, Split Man.
-# APreRustyWarblade = False,   #Chosen: 60-80, 35% Ignore, 110% Armor, Crippling, Executioner, Cleaver Mastery.
-# APreBillhook = False,        #Billman: 55-85, 30% Ignore, 140% Armor, 30% Head.
-# APreHeavyXbow = False,       #Arbalester: 50-70, 50% Ignore, 75% Armor, XbowMastery.
-# APreFightingAxe = False,     #Knight: 35-55, 30% Ignore, 130% Armor, 1HAxe, Crippling, Executioner.
-# APreWingedMace = False,      #Sergeant: 35-55, 40% Ignore, 110% Armor, Duelist, Double Grip
-# APreGreatsword = False,      #Zweihander: 85-100, 25% Ignore, 100% Armor, 30% Head, TwoHander20.
-# APreFlailDGrip = False,      #Raider: 25-55, 30% Ignore, 100% Armor, 35% Head, Double Grip, Executioner.
-# APreLongAxe = False,         #Raider: 70-95, 30% Ignore, 110% Armor, 30% Head, Executioner. 
-# APreMedXbow = False,         #Marksman: 40-60, 50% Ignore, 70% Armor, Xbow Mastery.
-# APreNobleSword = False,      #Swordmaster: 45-50, 20% Ignore, 85% Armor, Duelist, Double Grip, Crippling, Executioner.
-# APreWarbow = False,          #Master Archer: 50-70, 35% Ignore, 65% Armor, Crippling, Executioner, HeadHunter, Master Archer. 
-# APrePoleMace = False,        #Conscript: 60-75, 40% Ignore, 120% Armor, 30% Head.
-# APreHandgonne = False,       #Gunner: 35-75, 25% Ignore, 90% Armor, Fearsome.
-# APre2HScimitar = False,      #Officer: 65-85, 25% Ignore, 110% Armor, Crippling, Executioner, Cleaver Mastery.
-# APreQatal = False,           #Assassin: 30-45, 20% Ignore, 70% Armor, Duelist, Double Grip, Executioner.
-# APreFDirewolf = False,       #Frenzied Direwolf: 30-50, 20% Ignore, 70% Armor, Executioner, Frenzied Direwolf.
-# APreNachTier3 = False,       #Tier 3 Nachzehrer: 55-80, 10% Ignore, 75% Armor.
-# APreLindwurm = False,        #Lindwurm Head: 80-140, 35% Ignore, 140% Armor, Fearsome.
-# APreUnhold = False,          #Unhold: 40-80, 40% Ignore, 80% Armor, Crippling.
-# APreSchrat = False,          #Schrat: 70-100, 50% Ignore, 80% Armor, Crippling.
-
-# #Defender Preset: Set these values to 1 if you wish to use a defender preset, and 0 otherwise.
-# #A preset will automatically set defender stats and defender perks.
-# #Does not disable perks that shouldn't be active. For example, don't activate Nimble and then check the Orc Warrior Preset.
-# DPreNimbleBro = False,       # 120hp, 120/95, Nimble (A generic Nimble line with just Nimble).
-# DPreNimbleBroBP = False,     # 120hp, 120/80 Nimble, Bone Plates.
-# DPreForgeBro = False,        # 80hp, 300/300, Forge (A generic Forge line with just Forge).
-# DPreForgeBroAFP = False,     # 80hp, 300/300, Forge, Additional Fur Padding.
-# DPreAncientLegion = False,   # 55hp, 130/135, Forge, SteelBrow, Undead. (Manually apply Skeleton flag if necessary).
-# DPreHonorGuard = False,      # 65hp, 180/210, Forge, SteelBrow, Undead. (Manually apply Skeleton flag if necessary).
-# DPreArmGangerHeavy = False,  # 130hp, 140/115, Forge, Undead.
-# DPreFHeroHeavy = False,      # 180hp, 255/260, Forge, Undead.
-# DPreYoungHeavy = False,      # 125hp, 120/120.
-# DPreBerserkerHeavy = False,  # 250hp, 120/110, Resilient.
-# DPreWarriorLight = False,    # 200hp, 240/280, Resilient.
-# DPreWarriorHeavy = False,    # 200hp, 360/400, Resilient.
-# DPreWarlord = False,         # 300hp, 500/500.
-# DPreSkirmisherHeavy = False, # 40hp, 90/90.
-# DPreAmbusher = False,        # 40hp, 25/35.
-# DPreShaman = False,          # 70hp, 35/45.
-# DPreOverseer = False,        # 70hp, 120/180.
-# DPreReaverHeavy = False,     # 80hp, 145/95, Resilient.
-# DPreChosenLight = False,     # 130hp, 145/140, Forge, Resilient.
-# DPreChosenHeavy = False,     # 130hp, 190/230, Forge, Resilient.
-# DPreBarbKing = False,        # 150hp, 250/270, Forge, Resilient.
-# DPreBeastmaster = False,     # 70hp, 130/95, Resilient.
-# DPreFootmanHeavy = False,    # 70hp, 215/150, Forge.
-# DPreBillman = False,         # 70hp, 80/130, Forge.
-# DPreArbalester = False,      # 60hp, 80/65.
-# DPreBannerHeavy = False,     # 80hp, 215/150, SteelBrow.
-# DPreKnight = False,          # 125hp, 300/300, Forge. 
-# DPreSergeant = False,        # 100hp, 0/150, Nimble, SteelBrow. (-18 Fat)
-# DPreZweiHeavy = False,       # 90hp, 160/240, Forge, SteelBrow. 
-# DPreRaiderHeavy = False,     # 70hp, 140/115.
-# DPreMarkman = False,         # 60hp, 45/70.
-# DPreLeaderHeavy = False,     # 100hp, 250/230, NineLives.
-# DPreMercenaryHeavy = False,  # 90hp, 230/260, Forge.
-# DPreMercRange = False,       # 65hp, 115/115, Nimble. (-18 Fat)
-# DPreHedgeKnight = False,     # 150hp, 300/300, Forge, Resilient.
-# DPreSwordmaster = False,     # 70hp, 70/115, Nimble, SteelBrow. (-15 Fat)
-# DPreMasterArcher = False,    # 80hp, 30/115, Nimble, SteelBrow. (-12 Fat)
-# DPreOutlawHeavy = False,     # 75hp, 125/105.
-# DPreConscript = False,       # 55hp, 105/110, Nimble. (-16 Fat)
-# DPreOfficer = False,         # 100hp, 290/290, Forge.
-# DPreAssassinHeavy = False,   # 80hp, 140/120, Nimble. (-15 Fat)
-
 **kwargs
 ):
 # ------------------------------------------------------------------------
 #IMPORTANT --- ALL BELOW FIELDS SHOULD NOT BE MODIFIED. --- IMPORTANT
 #DO NOT MODIFY BELOW FIELDS UNLESS YOU KNOW WHAT YOU ARE DOING.
-
-#Attacker presets:
-    # if APreAncientSword:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, Atk_Resolve = 38, 43, 25, 20, 80, True, 80
-    # if APreBladedPike:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, Atk_Resolve = 55, 80, 30, 30, 125, True, 80
-    # if APreWarscytheAoE:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, Atk_Resolve = 55, 80, 25, 25, 104, True, 100
-    # if APreCryptCleaver: 
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, Atk_Resolve, CleaverMastery = 60, 80, 25, 25, 120, True, 100, True
-    # if APreKhopesh:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, HeadHunter, CripplingStrikes, DoubleGrip, CleaverBleed = 35, 55, 25, 25, 120, True, True, True, True
-    # if APreFHGreatAxe:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, Atk_Resolve, SplitMan = 80, 100, 25, 40, 150, True, 100, True
-    # if APreBerserkChain:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, TwoHander20, Flail2HPound, FlailMastery, Berserker = 50, 100, 40, 30, 125, True, True, True, True
-    # if APreHeadSplitter:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, Axe1H, Warrior = 35, 65, 25, 30, 130, True, True
-    # if APreHeadChopper:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, CleaverMastery, Warrior = 40, 70, 25, 25, 110, True, True
-    # if APreMansplitter:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, SplitMan, Fearsome, Atk_Resolve, Warlord = 90, 120, 25, 40, 160, True, True, 90, True
-    # if APreReinBoondock:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, Ambusher = 30, 50, 25, 35, 60, True
-    # if APreSpikedImpaler:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, Overseer, XbowMastery = 50, 70, 25, 50, 75, True, True
-    # if APre2HSpikedMace:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, CripplingStrikes, Executioner, TwoHander20 = 50, 70, 25, 60, 115, True, True, True
-    # if APre2HSkullHammer:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, CripplingStrikes, Executioner, TwoHander20 = 45, 65, 25, 60, 180, True, True, True
-    # if APreHeavyRustyAxe:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, CripplingStrikes, Executioner, SplitMan = 75, 90, 25, 50, 150, True, True, True
-    # if APreRustyWarblade:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, CripplingStrikes, Executioner, CleaverMastery = 60, 80, 25, 35, 110, True, True, True
-    # if APreBillhook:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod = 55, 85, 30, 30, 140
-    # if APreHeavyXbow:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, XbowMastery = 50, 70, 25, 50, 75, True
-    # if APreFightingAxe:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, Axe1H, CripplingStrikes, Executioner = 35, 55, 25, 30, 130, True, True, True
-    # if APreWingedMace:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, Duelist, DoubleGrip = 35, 55, 25, 40, 110, True, True
-    # if APreGreatsword:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, TwoHander20 = 85, 100, 30, 25, 100, True
-    # if APreFlailDGrip:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, Executioner, DoubleGrip = 25, 55, 35, 30, 100, True, True
-    # if APreLongAxe:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, Executioner = 70, 95, 30, 30, 110, True
-    # if APreMedXbow:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, XbowMastery = 40, 60, 25, 50, 70, True
-    # if APreNobleSword:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, Duelist, DoubleGrip, CripplingStrikes, Executioner = 45, 50, 25, 20, 85, True, True, True, True
-    # if APreWarbow:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, CripplingStrikes, Executioner, MasterArcher, HeadHunter = 50, 70, 25, 35, 65, True, True, True, True
-    # if APrePoleMace:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod = 60, 75, 30, 40, 120
-    # if APreHandgonne:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, Atk_Resolve = 35, 75, 25, 25, 90, True, 70
-    # if APre2HScimitar:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, CleaverMastery, CripplingStrikes, Executioner = 65, 85, 25, 25, 110, True, True, True
-    # if APreQatal:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, Duelist, DoubleGrip, Executioner = 30, 45, 25, 20, 70, True, True, True
-    # if APreFDirewolf:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, Executioner, FrenziedDirewolf = 30, 50, 25, 20, 70, True, True
-    # if APreNachTier3:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod = 55, 80, 25, 10, 75
-    # if APreLindwurm:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, Atk_Resolve = 80, 140, 25, 35, 140, True, 180
-    # if APreUnhold:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, CripplingStrikes = 40, 80, 25, 40, 80, True
-    # if APreSchrat:
-    #     Mind, Maxd, Headchance, Ignore, ArmorMod, CripplingStrikes = 70, 100, 25, 50, 80, True
-
-    # #Defender presets:
-    # if DPreNimbleBro:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Fatigue, Nimble = 120, 120, 95, 50, -15, True
-    # if DPreNimbleBroBP:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Fatigue, Nimble, Boneplate = 120, 120, 80, 50, -13, True, True
-    # if DPreForgeBro:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Forge = 80, 300, 300, 50, True
-    # if DPreForgeBroAFP:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Forge, AdFurPad = 80, 300, 300, 50, True, True
-    # if DPreAncientLegion:
-    #     Def_HP, Def_Helmet, Def_Armor, Forge, SteelBrow, Undead = 55, 130, 135, True, True, True
-    # if DPreHonorGuard:
-    #     Def_HP, Def_Helmet, Def_Armor, Forge, SteelBrow, Undead = 65, 180, 210, True, True, True
-    # if DPreArmGangerHeavy:
-    #     Def_HP, Def_Helmet, Def_Armor, Forge, Undead = 130, 140, 115, True, True
-    # if DPreFHeroHeavy ==  1:
-    #     Def_HP, Def_Helmet, Def_Armor, Forge, Undead = 180, 255, 260, True, True
-    # if DPreYoungHeavy:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve = 125, 120, 120, 65
-    # if DPreBerserkerHeavy:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Resilient = 250, 120, 110, 90, True
-    # if DPreWarriorLight:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Resilient = 200, 240, 280, 75, True
-    # if DPreWarriorHeavy:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Resilient = 200, 360, 400, 75, True
-    # if DPreWarlord:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve = 300, 500, 500, 90
-    # if DPreSkirmisherHeavy:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve = 40, 90, 90, 55
-    # if DPreAmbusher:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve = 40, 25, 35, 45
-    # if DPreShaman:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve = 70, 35, 45, 70
-    # if DPreOverseer:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve = 70, 120, 180, 70
-    # if DPreReaverHeavy:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Resilient = 80, 145, 95, 80, True
-    # if DPreChosenLight:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Forge, Resilient = 130, 145, 140, 90, True, True
-    # if DPreChosenHeavy:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Forge, Resilient = 130, 190, 230, 90, True, True
-    # if DPreBarbKing:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Forge, Resilient = 150, 250, 270, 110, True, True
-    # if DPreBeastmaster:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Resilient = 70, 130, 95, 90, True
-    # if DPreFootmanHeavy:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Forge = 70, 215, 150, 60,  True
-    # if DPreBillman:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Forge = 70, 80, 130, 60, True
-    # if DPreArbalester:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve = 60, 80, 65, 60
-    # if DPreBannerHeavy:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, SteelBrow = 80, 215, 150, 80, True
-    # if DPreKnight:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Forge = 125, 300, 300, 90, True
-    # if DPreSergeant:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Fatigue, Nimble, SteelBrow = 100, 0, 150, 80, -18, True, True
-    # if DPreZweiHeavy:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Forge, SteelBrow = 90, 160, 240, 70, True, True
-    # if DPreRaiderHeavy:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve = 70, 140, 115, 55
-    # if DPreMarkman:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve = 60, 45, 70, 50
-    # if DPreLeaderHeavy:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, NineLives = 100, 250, 230, 70, True
-    # if DPreMercenaryHeavy:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Forge = 90, 230, 260, 70, True
-    # if DPreMercRange:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Fatigue, Nimble = 65, 115, 115, 70, -18, True
-    # if DPreHedgeKnight:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Forge, Resilient = 150, 300, 300, 90, True, True
-    # if DPreSwordmaster:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Fatigue, Nimble, SteelBrow = 70, 70, 115, 90, -15, True, True
-    # if DPreMasterArcher:   
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Fatigue, Nimble, SteelBrow = 80, 30, 115, 70, -12, True, True
-    # if DPreOutlawHeavy:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve = 75, 125, 105, 60
-    # if DPreConscript:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Fatigue, Nimble = 55, 105, 110, 70, -16, True
-    # if DPreOfficer:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Forge = 100, 290, 290, 80, True
-    # if DPreAssassinHeavy:
-    #     Def_HP, Def_Helmet, Def_Armor, Def_Resolve, Fatigue, Nimble = 80, 140, 120, 85, -15, True
-
-    #Error Handling
-    # if Mind <= 0 or Maxd <= 0:
-    #     sys.exit("Damage must be positive.")
-    # if Mind > Maxd:
-    #     sys.exit("Min damage must be <= Max damage.")
-    # if Ignore < 0:
-    #     sys.exit("Ignore must be positive.")
-    # if ArmorMod <= 0:
-    #     sys.exit("Armor damage must be positive.")
-    # if Def_HP <= 0 or Def_Helmet < 0 or Def_Armor < 0:
-    #     sys.exit("Hp and armor must be positive or 0.")
-    # if Def_HP > 500 or Def_Helmet > 500 or Def_Armor > 500:
-    #     sys.exit("Hp and armor must be <= 500.")
-    # if Trials < 2:
-    #     sys.exit("Trials must be >= 2.")
 
     #Base damage modifiers:
     if TwoHander20:
@@ -871,7 +614,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                             hp = math.ceil(hp - hp_roll)
                     #If SplitMan is active, do the following code block for the bonus body hit.
                     if SplitMan:
-                        if BoneplateMod:
+                        if BoneplateMod and not Puncture:
                             BoneplateMod = False
                             SMhp_roll = 0
                         else:
@@ -898,7 +641,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                     if Flail2HPound:
                         Ignore = Flail2HBodyshot
                     #Bone Plates check -- Attack is negated if Boneplates are online, then turns off Boneplates until next trial.
-                    if BoneplateMod:
+                    if BoneplateMod and not Puncture:
                         BoneplateMod = False
                         hp_roll = 0
                     else:
