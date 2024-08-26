@@ -1,6 +1,6 @@
 from django.shortcuts import render
 # from django.http import HttpResponse, HttpResponseBadRequest
-from .models import Progress
+# from .models import Progress
 from collections import defaultdict
 from . import BBCalc
 import json
@@ -31,22 +31,22 @@ def parse(query: dict) -> dict:
                 kwargs[k] = int(v[0])
             elif v[0] not in ('None', 'pID'): # not really necessary
                 for arg in v:
-                    kwargs[arg] = True  # exploitable?
+                    kwargs[arg] = True
         except Exception:
             pass
 
     # Validation
-    def clamp(x: int, lowerB: int, upperB: int) -> int:
-        return max(min(x, upperB), lowerB)
+    def clamp(x: int, lowerBound: int, upperBound: int) -> int:
+        return max(min(x, upperBound), lowerBound)
 
     if 'Mind' in kwargs:
-        kwargs['Mind'] = max(kwargs['Mind'], 1)
+        kwargs['Mind'] = clamp(kwargs['Mind'], 1, 999)
     if 'Maxd' in kwargs:
-        kwargs['Maxd'] = max(kwargs['Mind'], kwargs['Maxd'])
+        kwargs['Maxd'] = clamp(kwargs['Maxd'], kwargs['Mind'], 999)
     if 'Ignore' in kwargs:
-        kwargs['Ignore'] = max(kwargs['Ignore'], 0)
+        kwargs['Ignore'] = clamp(kwargs['Ignore'], 0, 999)
     if 'ArmorMod' in kwargs:
-        kwargs['ArmorMod'] = max(kwargs['ArmorMod'], 1)
+        kwargs['ArmorMod'] = clamp(kwargs['ArmorMod'], 1, 999)
     if 'Def_HP' in kwargs:
         kwargs['Def_HP'] = clamp(kwargs['Def_HP'], 1, 500)
     if 'Def_Helmet' in kwargs:
@@ -63,12 +63,12 @@ def parse(query: dict) -> dict:
     return kwargs
 
 
-def run_battery(p, battery: list, query: dict):
-    print(f"Progress ID: {p.id}")
+def run_battery(battery: list, query: dict):
+    # print(f"Progress ID: {p.id}")
     output = defaultdict(lambda: '')
     output['ChartData'] = defaultdict(lambda: {})
-    p.max_progress = len(battery)
-    p.save()
+    # p.max_progress = len(battery)
+    # p.save()
     for v in battery:
         kwargs = {**query, **v}
         result = BBCalc.main(**kwargs)
@@ -80,8 +80,8 @@ def run_battery(p, battery: list, query: dict):
                     output['ChartData'][chart][v['name']] = data
             else:
                 output[field] += f"{v['name']}: {value}\n"
-        p.progress += 1
-        p.save()
+        # p.progress += 1
+        # p.save()
     output['ChartData'] = dict(output['ChartData'])
     return dict(output)
 
@@ -103,10 +103,10 @@ def index(request):
         defPresetJSON = json.load(f)
     with open(basedir / 'static' / 'chartMeta.json', 'r') as f:
         chartMetaJSON = json.load(f)
-    p = Progress.objects.create(progress=0, max_progress=100)
+    # p = Progress.objects.create(progress=0, max_progress=100)
     if request.GET:
-        pID = request.GET['pID']
-        pOld = Progress.objects.get(id=pID)
+        # pID = request.GET['pID']
+        # pOld = Progress.objects.get(id=pID)
         parsedRequest = parse(request.GET)
         trialsCap = 1000
         if request.GET['AtkPreset'] == '1Handers':
@@ -114,33 +114,33 @@ def index(request):
                 parsedRequest['Trials'] = min(
                     trialsCap, parsedRequest['Trials'])
                 chartType = 'splineArea'
-                results = run_battery(pOld, json.load(f), parsedRequest)
+                results = run_battery(json.load(f), parsedRequest)
         elif request.GET['AtkPreset'] == '2Handers':
             with open(basedir / 'static' / '2handers.json', 'r') as f:
                 parsedRequest['Trials'] = min(
                     trialsCap, parsedRequest['Trials'])
                 chartType = 'splineArea'
-                results = run_battery(pOld, json.load(f), parsedRequest)
+                results = run_battery(json.load(f), parsedRequest)
         elif request.GET['AtkPreset'] == 'AllAtkPresets':
             parsedRequest['Trials'] = min(trialsCap, parsedRequest['Trials'])
             chartType = 'splineArea'
-            results = run_battery(pOld, atkPresetJSON.values(), parsedRequest)
+            results = run_battery(atkPresetJSON.values(), parsedRequest)
         elif request.GET['DefPreset'] == 'NimbleBattery':
             with open(basedir / 'static' / 'nimble.json', 'r') as f:
                 parsedRequest['Trials'] = min(
                     trialsCap, parsedRequest['Trials'])
                 chartType = 'splineArea'
-                results = run_battery(pOld, json.load(f), parsedRequest)
+                results = run_battery(json.load(f), parsedRequest)
         elif request.GET['DefPreset'] == 'HPBattery':
             with open(basedir / 'static' / 'hp.json', 'r') as f:
                 parsedRequest['Trials'] = min(
                     trialsCap, parsedRequest['Trials'])
                 chartType = 'splineArea'
-                results = run_battery(pOld, json.load(f), parsedRequest)
+                results = run_battery(json.load(f), parsedRequest)
         elif request.GET['DefPreset'] == 'AllDefPresets':
             parsedRequest['Trials'] = min(trialsCap, parsedRequest['Trials'])
             chartType = 'stackedColumn'
-            results = run_battery(pOld, defPresetJSON.values(), parsedRequest)
+            results = run_battery(defPresetJSON.values(), parsedRequest)
         else:
             results = BBCalc.main(**parsedRequest)
             chartType = 'default'
@@ -151,7 +151,7 @@ def index(request):
             'blank': False,
             'chartType': chartType,
             'results': results,
-            'pID': p.id,
+            # 'pID': p.id,
             'request': request.GET,
             'AtkWeapon': request.GET.getlist('AtkWeapon'),
             'AtkPerks': request.GET.getlist('AtkPerks'),
@@ -173,9 +173,9 @@ def index(request):
             'atkPresetJSON': atkPresetJSON,
             'defPresetJSON': defPresetJSON,
             'blank': True,
-            'pID': p.id,
+            # 'pID': p.id,
             'DataReturns': ['DeathMean', 'DeathStDev', 'DeathPercent', 'InjuryMean'],
         }
-        print(context['pID'])
+        # print(context['pID'])
     # return HttpResponseBadRequest('<h1>Calculation computation time exceeded 30 seconds</h1>')
     return render(request, 'index.html', context)

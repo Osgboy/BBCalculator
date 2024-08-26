@@ -5,15 +5,11 @@ import collections
 import math
 # import sys
 
-#Battle Brothers Damage Calculator Version 1.6.4:
+#Battle Brothers Damage Calculator Version 1.6.6:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 #The calculator expects you to make smart decisions, such as not giving Xbow Mastery to a Hammer. 
 #Written in Python 3.7, earlier versions of Python 3 should work, but Python 2 will not.
 #If you wish to cancel an ongoing calculation, use ctrl + c.
-
-#Attacker and Defender presets are provided further down.
-#If you wish to use an attacker preset, skip the sections related to attacker settings and go to the attacker preset section.
-#If you wish to use a defender preset, skip the sections related to defender settings and go to the defender preset section.
 
 def main(
 *,
@@ -1215,6 +1211,7 @@ if __name__ == '__main__':
 #Copyright 2019, turtle225. All rights reserved.
 #Special Thanks:
 #-- Abel (aka) Villain Joueur: For grabbing the damage formula out of the game code, writing the damage page on the wiki, and for helping me with many questions along the way.
+#-- Osgboy: For making a web-app gui version of the calculator making it much more user friendly and accessible to people. Located here: https://osgboy.pythonanywhere.com/
 #-- Wall (aka) Wlira: For helping me with some questions along the way and having an existing calculator for me to test against.
 #-- You: If you are using the calculator, thank you! If you find any bugs or have feedback/questions/suggestions, you can usually find me on the Steam forums or send me an email.
 #-- Overhype: For making an amazing game for us to play.
@@ -1311,3 +1308,20 @@ if __name__ == '__main__':
 #-- Fixed a bug with Forge + Split Man interaction where having low armor with Forge was giving much better survivability than it should have been against Split man.
 #Version 1.6.4 (6/27/2023)
 #-- Added a tracker that returns the average hits until first bleed proc for cleaver tests.
+#Version 1.6.5 (8/7/2024)
+#-- Fixed a error/break when Split Man, Boneplates, and Morale Checks were all enabled. (Thank you to Osgboy for pointing this out).
+#Version 1.6.6 (8/22/2024)
+#-- Fixed some presets that were incorrect due to either human error on my part, or it became outdated from a change in the game that I had missed. See below.
+#-- Defender presets:
+#---- Raider: HP Updated to 75 (was 70).
+#---- Reaver: HP Updated to 120 (was 80).
+#---- Knight: HP updated to 135 (was 125).
+#---- Officer: HP updated to 110 (was 100).
+#---- Sergeant: Added Resilient perk.
+#---- Brigand Leader: Body armor changed from 230 to 210. (Leaders cannot spawn with 230 body armor so switching to Reinforced Hauberk at 210).
+#---- SwordMaster: helmet changed from 70 to 80. Total fatigue (for Nimble) to 16 from 15. (Swordmasters cannot spawn with 70/-3 Duelist Hat so switching to Mail Coif at 80/-4).
+#-- Attacker presets:
+#---- Warcythe: Armor% changed to 105% (was 104%). Used in Ancient Dead preset. (Note - Ingame tooltip incorrectly displays 104%).
+#---- Warbow: Armor% changed to 60% (was 65%). Used in Master Archer preset.
+#---- Lindwurm: armor% changed to 150% (was 140%). Used in Lindwurm preset.
+#-- Fixed an oversight where BonePlates attachment was blocking a hit against Puncture tests when it shouldn't be able to.
