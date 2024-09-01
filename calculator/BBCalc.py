@@ -691,6 +691,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                                 hp = math.ceil(hp - SMhp_roll)
             else: #This block is run if attack misses.
                 hp_roll = 0
+                SMhp_roll = 0
                 if FastAdaptation == 1: #If Fast Adaptation is selected, gain a stack.
                     FastAdMod += 10
 

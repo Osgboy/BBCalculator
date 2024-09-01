@@ -375,10 +375,10 @@
                         </details>
                         <details id="AttackerPerks">
                             <summary role="button" class="secondary">Perks</summary>
-                            <label for="FastAdaptation" title="Gain an additional stacking +10% chance to hit with each attack that misses an opponent. Bonus is reset upon landing a hit.">
+                            <label for="FastAdaptation" title="Gain a stacking +10% chance to hit with each missed attack. Bonus is reset upon landing a hit.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="FastAdaptation" value="FastAdaptation" {% if "FastAdaptation" in AtkPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/fastadaptation.png' %}" alt="Fast adaptation icon">
-                                <abbr data-placement="right" data-tooltip="Gain an additional stacking +10% chance to hit with each attack that misses an opponent. Bonus is reset upon landing a hit.">Fast Adaptation (use only with hit chance)</abbr>
+                                <abbr data-placement="right" data-tooltip="Gain a stacking +10% chance to hit with each missed attack. Bonus is reset upon landing a hit.">Fast Adaptation (use only with hit chance)</abbr>
                             </label>
                             <label for="CripplingStrikes" title="Lowers the threshold to inflict injuries by 33%.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="CripplingStrikes" value="CripplingStrikes" {% if "CripplingStrikes" in AtkPerks %} checked {% endif %}>
@@ -405,10 +405,10 @@
                                 <img src="{% static 'icons/perks/killingfrenzy.png' %}" alt="Killing frenzy icon">
                                 <abbr data-placement="right" data-tooltip="A kill increases all damage by 25% for 2 turns.">Killing Frenzy</abbr>
                             </label>
-                            <label for="Fearsome" title="Any attack that inflicts at least 1 point of damage to hitpoints triggers a morale check for the opponent. Also applies 20% of the attacker's Resolve-10 as a penalty to the defender's Resolve for damage calculations.">
+                            <label for="Fearsome" title="Inflicting at least 1 point of HP damage triggers a morale check for the opponent. Also reduces defender's Resolve by 20% of the attacker's Resolve-10.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="Fearsome" value="Fearsome" {% if "Fearsome" in AtkPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/fearsome.png' %}" alt="Fearsome icon">
-                                <abbr data-placement="right" data-tooltip="Any attack that inflicts at least 1 point of damage to hitpoints triggers a morale check for the opponent. Also applies 20% of the attacker's Resolve-10 as a penalty to the defender's Resolve for damage calculations.">Fearsome</abbr>
+                                <abbr data-placement="right" data-tooltip="Inflicting at least 1 point of HP damage triggers a morale check for the opponent. Also reduces defender's Resolve by 20% of the attacker's Resolve-10.">Fearsome</abbr>
                             </label>
                         </details>
                         <details id="AttackerTraits">
@@ -587,10 +587,10 @@
                                 <img src="{% static 'icons/perks/steelbrow.png' %}" alt="Steel brow icon">
                                 <abbr data-placement="right" data-tooltip="Hits to the head no longer cause critical damage to this character.">Steel Brow</abbr>
                             </label>
-                            <label for="Nimble" title="Hitpoint damage taken is reduced by up to 60%, but lowered exponentially by the total penalty to Maximum Fatigue from body and head armor above 15.">
+                            <label for="Nimble" title="HP damage taken is reduced by up to 60%, but lowered exponentially by the total armor penalty to Maximum Fatigue above 15.">
                                 <input class="def-checkbox" type="checkbox" name="DefPerks" id="Nimble" value="Nimble" {% if "Nimble" in DefPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/nimble.png' %}" alt="Nimble icon">
-                                <abbr data-placement="right" data-tooltip="Hitpoint damage taken is reduced by up to 60%, but lowered exponentially by the total penalty to Maximum Fatigue from body and head armor above 15.">Nimble</abbr>
+                                <abbr data-placement="right" data-tooltip="HP damage taken is reduced by up to 60%, but lowered exponentially by the total armor penalty to Maximum Fatigue above 15.">Nimble</abbr>
                             </label>
                             <label for="Forge" title="Armor damage taken is reduced by a percentage equal to 5% of the current total armor value of both body and head armor.">
                                 <input class="def-checkbox" type="checkbox" name="DefPerks" id="Forge" value="Forge" {% if "Forge" in DefPerks %} checked {% endif %}>
