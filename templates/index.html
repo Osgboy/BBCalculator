@@ -405,10 +405,10 @@
                                 <img src="{% static 'icons/perks/killingfrenzy.png' %}" alt="Killing frenzy icon">
                                 <abbr data-placement="right" data-tooltip="A kill increases all damage by 25% for 2 turns.">Killing Frenzy</abbr>
                             </label>
-                            <label for="Fearsome" title="Inflicting at least 1 point of HP damage triggers a morale check for the opponent. Also reduces defender's Resolve by 20% of the attacker's Resolve-10.">
+                            <label for="Fearsome" title="Inflicting at least 1 point of HP damage triggers a morale check for the opponent. Also reduces defender's Resolve by 20%*(attacker's Resolve-10).">
                                 <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="Fearsome" value="Fearsome" {% if "Fearsome" in AtkPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/fearsome.png' %}" alt="Fearsome icon">
-                                <abbr data-placement="right" data-tooltip="Inflicting at least 1 point of HP damage triggers a morale check for the opponent. Also reduces defender's Resolve by 20% of the attacker's Resolve-10.">Fearsome</abbr>
+                                <abbr data-placement="right" data-tooltip="Inflicting at least 1 point of HP damage triggers a morale check for the opponent. Also reduces defender's Resolve by 20%*(attacker's Resolve-10).">Fearsome</abbr>
                             </label>
                         </details>
                         <details id="AttackerTraits">
@@ -572,10 +572,10 @@
                         </details>
                         <details id="DefenderPerks">
                             <summary role="button" class="secondary">Perks</summary>
-                            <label for="NineLives" title="Once per battle, upon receiving a killing blow, survive instead with a few hit points left. Also clears any damage over time effects and increases stats when triggered.">
+                            <label for="NineLives" title="Once per battle, upon receiving a killing blow, survive instead with a few hit points left and clear any damage over time effects.">
                                 <input class="def-checkbox" type="checkbox" name="DefPerks" id="NineLives" value="NineLives" {% if "NineLives" in DefPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/ninelives.png' %}" alt="9 lives icon">
-                                <abbr data-placement="right" data-tooltip="Once per battle, upon receiving a killing blow, survive instead with a few hit points left. Also clears any damage over time effects and increases stats when triggered.">9 Lives</abbr>
+                                <abbr data-placement="right" data-tooltip="Once per battle, upon receiving a killing blow, survive instead with a few hit points left and clear any damage over time effects.">9 Lives</abbr>
                             </label>
                             <label for="Resilient" title="Any status effect with a finite duration (e.g. Bleeding) has its duration reduced to 1 turn.">
                                 <input class="def-checkbox" type="checkbox" name="DefPerks" id="Resilient" value="Resilient" {% if "Resilient" in DefPerks %} checked {% endif %}>
@@ -777,6 +777,9 @@
                                 </ul>
                             </li>
                             <li>Site author: Osgboy</li>
+                                <ul>
+                                    <li>Site <a href="https://github.com/Osgboy/BBCalculator">Github respository</a></li>
+                                </ul>
                         </ul>
                     </div>
                     <div>
