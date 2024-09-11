@@ -776,6 +776,7 @@
                     {% if k in chartMetaJSON %}
                     var NewChart = new CanvasJS.Chart(chartMeta.{{k}}.name, {
                         animationEnabled: true,
+                        exportEnabled: true,
                         responsive: true,
                         title: {
                             text: hits + chartMeta.{{k}}.title
