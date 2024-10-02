@@ -14,6 +14,8 @@
     --results-background: #E2E2E2;
     --results-button: #9E9E9E;
     --results-hover: #919191;
+    /* red 100*/
+    --error-background: #F8DCD6;
 }
 
 [data-theme=dark] {
@@ -29,6 +31,8 @@
     --results-background: #303030;
     --results-button: #262626;
     --results-hover: #1B1B1B;
+    /* red 750*/
+    --error-background: #72170F;
 }
 
 svg {
@@ -52,7 +56,7 @@ svg {
 }
 
 .canvas-container {
-    padding: 1rem;;
+    padding: 1rem;
 }
 
 .inner-container {
@@ -126,8 +130,26 @@ svg {
     padding: 1rem;
 }
 
+#error {
+    border-left: 2px solid;
+    border-color: red;
+    border-radius: 0.5rem;
+    background-color: var(--error-background);
+    padding: 1rem;
+    > h2::before {
+        content: var(--pico-icon-invalid);
+    }
+    > samp {
+        white-space: pre-line;
+    }
+}
+
 .invisible {
     visibility: hidden;
+}
+
+.no-display {
+    display: none;
 }
 
 #pID {

@@ -33,7 +33,7 @@
             </nav>
             <hgroup>            
                 <h1><a href="/">Battle Brothers Damage Calculator</a></h1>
-                <p>Version 1.6.6, last updated September 11th, 2024.</p>
+                <p>Version 1.6.6, last updated October 2nd, 2024.</p>
             </hgroup>
         </header>
         <main class="container">
@@ -144,182 +144,182 @@
                         </details>
                         <details id="AttackerWeapon">
                             <summary role="button" class="secondary">Weapon</summary>
-                            <label for="DoubleGrip" title="Only valid with 1handers.&#10;Puncture tests should not be given Double Grip.">
+                            <label title="Only valid with 1handers.&#10;Puncture tests should not be given Double Grip.">
                                 <input class="atk-checkbox" class="atk-checkbox" type="checkbox" name="AtkWeapon" id="DoubleGrip" value="DoubleGrip" {% if "DoubleGrip" in AtkWeapon%} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/doublegrip.png' %}" alt="Double grip icon">
                                 <abbr data-placement="right" data-tooltip="Only valid with 1handers.&#10;Puncture tests should not be given Double Grip.">Double Grip</abbr>
                             </label>
-                            <label for="TwoHander20" title="Applies to the single target 2Hander attacks Cudgel (Mace), Pound (Flail), Smite (Hammer), Overhead Strike (Long/Greatsword).">
+                            <label title="Applies to the single target 2Hander attacks Cudgel (Mace), Pound (Flail), Smite (Hammer), Overhead Strike (Long/Greatsword).">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="TwoHander20" value="TwoHander20" {% if "TwoHander20" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/overheadstrike.png' %}" alt="Overhead strike icon">
                                 <abbr data-placement="right" data-tooltip="+20 damage. Applies to the single target 2Hander attacks Cudgel (Mace), Pound (Flail), Smite (Hammer), Overhead Strike (Long/Greatsword).">2H Main Attack</abbr>
                             </label>
-                            <label for="FlailLash" title="Guarantees headshot. Also apply to 3Head Hail special.">
+                            <label title="Guarantees headshot. Also apply to 3Head Hail special.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="FlailLash" value="FlailLash" {% if "FlailLash" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/lash.png' %}" alt="Lash icon">
                                 <abbr data-placement="right" data-tooltip="Guarantees headshot. Also apply to 3Head Hail special.">Flail Lash</abbr>
                             </label>
-                            <label for="Flail3Head" title="Returns number of swings rather than number of hits.">
+                            <label title="Returns number of swings rather than number of hits.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Flail3Head" value="Flail3Head" {% if "Flail3Head" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/cascade.png' %}" alt="Cascade icon">
                                 <abbr data-placement="right" data-tooltip="Returns number of swings rather than number of hits.">3H Flail</abbr>
                             </label>
-                            <label for="Flail2HPound" title="Ignore +10% on body hits and +20% on headshots. Applies to 2H Flail Pound attack. Remember to turn on 2H main attack flag.">
+                            <label title="Ignore +10% on body hits and +20% on headshots. Applies to 2H Flail Pound attack. Remember to turn on 2H main attack flag.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Flail2HPound" value="Flail2HPound" {% if "Flail2HPound" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/pound.png' %}" alt="Pound icon">
                                 <abbr data-placement="right" data-tooltip="Ignore +10% on body hits and +20% on headshots. Applies to 2H Flail Pound attack. Remember to turn on 2H main attack flag.">2H Flail Pound</abbr>
                             </label>
-                            <label for="FlailMastery" title="Apply an extra 10% armor ignore on headshots for Pound. Does nothing unless 2H Flail Pound is set.">
+                            <label title="Apply an extra 10% armor ignore on headshots for Pound. Does nothing unless 2H Flail Pound is set.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="FlailMastery" value="FlailMastery" {% if "FlailMastery" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/flailmastery.png' %}" alt="Flail mastery icon">
                                 <abbr data-placement="right" data-tooltip="Apply an extra 10% armor ignore on headshots for Pound. Does nothing unless 2H Flail Pound is set.">Flail Mastery</abbr>
                             </label>
-                            <label for="Hammer10" title="Guarantees at least 10 hp damage, applies to 1H Hammer and Polehammer.">
+                            <label title="Guarantees at least 10 hp damage, applies to 1H Hammer and Polehammer.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Hammer10" value="Hammer10" {% if "Hammer10" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/batter.png' %}" alt="Batter icon">
                                 <abbr data-placement="right" data-tooltip="Guarantees at least 10 hp damage, applies to 1H Hammer and Polehammer.">Hammer Batter</abbr>
                             </label>
-                            <label for="DestroyArmor" title="Will use Destroy Armor once and then switch to normal attacks.">
+                            <label title="Will use Destroy Armor once and then switch to normal attacks.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="DestroyArmor" value="DestroyArmor" {% if "DestroyArmor" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/destroyarmor1.png' %}" alt="Destroy armor icon">
                                 <abbr data-placement="right" data-tooltip="Will use Destroy Armor once and then switch to normal attacks.">Destroy Armor</abbr>
                             </label>
-                            <label for="DestroyArmorMastery" title="Hammer Mastery. Will use Destroy Armor once and then switch to normal attacks.">
+                            <label title="Hammer Mastery. Will use Destroy Armor once and then switch to normal attacks.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="DestroyArmorMastery" value="DestroyArmorMastery" {% if "DestroyArmorMastery" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/hammermastery.png' %}" alt="Hammer mastery icon">
                                 <abbr data-placement="right" data-tooltip="Hammer Mastery. Will use Destroy Armor once and then switch to normal attacks.">Destroy Armor Mastery</abbr>
                             </label>
-                            <label for="DestroyArmorTwice" title="Uses Destroy Armor 2 times instead of 1. Does nothing unless DestroyArmor or DestroyArmorMastery are set.">
+                            <label title="Uses Destroy Armor 2 times instead of 1. Does nothing unless DestroyArmor or DestroyArmorMastery are set.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="DestroyArmorTwice" value="DestroyArmorTwice" {% if "DestroyArmorTwice" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/destroyarmor2.png' %}" alt="Destroy armor icon">
                                 <abbr data-placement="right" data-tooltip="Uses Destroy Armor 2 times instead of 1. Does nothing unless DestroyArmor or DestroyArmorMastery are set.">Destroy Armor Twice</abbr>
                             </label>
-                            <label for="Axe1H" title="Applies bonus damage to Headshots. Negated by Steel Brow.">
+                            <label title="Applies bonus damage to Headshots. Negated by Steel Brow.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Axe1H" value="Axe1H" {% if "Axe1H" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/chop.png' %}" alt="Chop icon">
                                 <abbr data-placement="right" data-tooltip="Applies bonus damage to Headshots. Negated by Steel Brow.">1H Axe</abbr>
                             </label>
-                            <label for="SplitMan" title="Applies to single target 2HAxe except for Longaxe.">
+                            <label title="Applies to single target 2HAxe except for Longaxe.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="SplitMan" value="SplitMan" {% if "SplitMan" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/splitman.png' %}" alt="Split man icon">
                                 <abbr data-placement="right" data-tooltip="Applies to single target 2HAxe except for Longaxe.">Split Man</abbr>
                             </label>
-                            <label for="AoE2HAxe" title="Applies to Round Swing and Split in Two (Bardiche), reduces Ignore by 10%.">
+                            <label title="Applies to Round Swing and Split in Two (Bardiche), reduces Ignore by 10%.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="AoE2HAxe" value="AoE2HAxe" {% if "AoE2HAxe" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/roundswing.png' %}" alt="Round swing icon">
                                 <abbr data-placement="right" data-tooltip="Applies to Round Swing and Split in Two (Bardiche), reduces Ignore by 10%.">2H Axe AoE</abbr>
                             </label>
-                            <label for="CleaverBleed" title="5 bleed damage per bleed tick.">
+                            <label title="5 bleed damage per bleed tick.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="CleaverBleed" value="CleaverBleed" {% if "CleaverBleed" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/cleave.png' %}" alt="Cleave icon">
                                 <abbr data-placement="right" data-tooltip="5 bleed damage per bleed tick.">Cleaver Bleed</abbr>
                             </label>
-                            <label for="CleaverMastery" title="10 bleed damage per bleed tick.">
+                            <label title="10 bleed damage per bleed tick.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="CleaverMastery" value="CleaverMastery" {% if "CleaverMastery" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/cleavermastery.png' %}" alt="Cleaver mastery icon">
                                 <abbr data-placement="right" data-tooltip="10 bleed damage per bleed tick.">Cleaver Mastery</abbr>
                             </label>
-                            <label for="Decapitate" title="Cleaver Decapitate. Will use Decapitate for all attacks.">
+                            <label title="Cleaver Decapitate. Will use Decapitate for all attacks.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Decapitate" value="Decapitate" {% if "Decapitate" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/decapitate.png' %}" alt="Decapitate icon">
                                 <abbr data-placement="right" data-tooltip="Cleaver Decapitate. Will use Decapitate for all attacks.">Decapitate</abbr>
                             </label>
-                            <label for="SmartDecap50" title="Switches from normal Cleaver attacks to Decapitate once opposing hp is &lt;= 50%.">
+                            <label title="Switches from normal Cleaver attacks to Decapitate once opposing hp is &lt;= 50%.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="SmartDecap50" value="SmartDecap50" {% if "SmartDecap50" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/decapitate.png' %}" alt="Decapitate icon">
                                 <abbr data-placement="right" data-tooltip="Switches from normal Cleaver attacks to Decapitate once opposing hp is &lt;= 50%.">Decapitate &lt;50% HP</abbr>
                             </label>
-                            <label for="SmartDecap33" title="Switches from normal Cleaver attacks to Decapitate once opposing hp is &lt;= 33.33%">
+                            <label title="Switches from normal Cleaver attacks to Decapitate once opposing hp is &lt;= 33.33%">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="SmartDecap33" value="SmartDecap33" {% if "SmartDecap33" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/decapitate.png' %}" alt="Decapitate icon">
                                 <abbr data-placement="right" data-tooltip="Switches from normal Cleaver attacks to Decapitate once opposing hp is &lt;= 33.33%">Decapitate &lt;33% HP</abbr>
                             </label>
-                            <label for="Shamshir" title="Lowers injury threshold by 33%.">
+                            <label title="Lowers injury threshold by 33%.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Shamshir" value="Shamshir" {% if "Shamshir" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/gash.png' %}" alt="Gash icon">
                                 <abbr data-placement="right" data-tooltip="Lowers injury threshold by 33%.">Shamshir Gash</abbr>
                             </label>
-                            <label for="ShamshirMastery" title="Sword Mastery with Gash, 50% reduction to injury threshold instead of 33%. Overrides Shamshir flag.">
+                            <label title="Sword Mastery with Gash, 50% reduction to injury threshold instead of 33%. Overrides Shamshir flag.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="ShamshirMastery" value="ShamshirMastery" {% if "ShamshirMastery" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/swordmastery.png' %}" alt="Sword mastery icon">
                                 <abbr data-placement="right" data-tooltip="Sword Mastery with Gash, 50% reduction to injury threshold instead of 33%. Overrides Shamshir flag.">Shamshir Mastery</abbr>
                             </label>
-                            <label for="Sword2HSplit" title="Ignore +5%. Applies to Greatsword Split attack. Does not apply to Overhead or Swing.">
+                            <label title="Ignore +5%. Applies to Greatsword Split attack. Does not apply to Overhead or Swing.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Sword2HSplit" value="Sword2HSplit" {% if "Sword2HSplit" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/split.png' %}" alt="Split icon">
                                 <abbr data-placement="right" data-tooltip="Ignore +5%. Applies to Greatsword Split attack. Does not apply to Overhead or Swing.">Greatsword Split</abbr>
                             </label>
-                            <label for="Puncture" title="Dagger Puncture. Do not apply Double Grip.">
+                            <label title="Dagger Puncture. Do not apply Double Grip.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Puncture" value="Puncture" {% if "Puncture" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/puncture.png' %}" alt="Puncture icon">
                                 <abbr data-placement="right" data-tooltip="Dagger Puncture. Do not apply Double Grip.">Puncture</abbr>
                             </label>
-                            <label for="Deathblow" title="Qatal special. Ignore +20%. Damage x1.33. Assumes target is always setup for Deathblow.">
+                            <label title="Qatal special. Ignore +20%. Damage x1.33. Assumes target is always setup for Deathblow.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Deathblow" value="Deathblow" {% if "Deathblow" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/deathblow.png' %}" alt="Deathblow icon">
                                 <abbr data-placement="right" data-tooltip="Qatal special. Ignore +20%. Damage x1.33. Assumes target is always setup for Deathblow.">Deathblow</abbr>
                             </label>
-                            <label for="Spearwall" title="-50% damage.">
+                            <label title="-50% damage.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Spearwall" value="Spearwall" {% if "Spearwall" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/spearwall.png' %}" alt="Spearwall icon">
                                 <abbr data-placement="right" data-tooltip="-50% damage.">Spearwall</abbr>
                             </label>
-                            <label for="AimedShot" title="+10% damage for Bows. +5% Armor Ignore.">
+                            <label title="+10% damage for Bows. +5% Armor Ignore.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="AimedShot" value="AimedShot" {% if "AimedShot" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/aimedshot.png' %}" alt="Aimed shot icon">
                                 <abbr data-placement="right" data-tooltip="+10% damage for Bows. +5% Armor Ignore.">Aimed Shot</abbr>
                             </label>
-                            <label for="XbowMastery" title="+20% Armor Ignore.">
+                            <label title="+20% Armor Ignore.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="XbowMastery" value="XbowMastery" {% if "XbowMastery" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/crossbowmastery.png' %}" alt="Crossbow mastery icon">
                                 <abbr data-placement="right" data-tooltip="+20% Armor Ignore.">Crossbow Mastery</abbr>
                             </label>
-                            <label for="R2Throw" title="+30% damage.">
+                            <label title="+30% damage.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="R2Throw" value="R2Throw" {% if "R2Throw" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/throwingmastery.png' %}" alt="Throwing mastery icon">
                                 <abbr data-placement="right" data-tooltip="+30% damage.">Throwing Mastery (range 2)</abbr>
                             </label>
-                            <label for="R3Throw" title="+20% damage.">
+                            <label title="+20% damage.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="R3Throw" value="R3Throw" {% if "R3Throw" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/throwingmastery.png' %}" alt="Throwing mastery icon">
                                 <abbr data-placement="right" data-tooltip="+20% damage.">Throwing Mastery (range 3)</abbr>
                             </label>
-                            <label for="Scatter" title="Ranged attacks that hit an unintended target deal 75% damage.">
+                            <label title="Ranged attacks that hit an unintended target deal 75% damage.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Scatter" value="Scatter" {% if "Scatter" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/quickshot.png' %}" alt="Quick shot icon">
                                 <abbr data-placement="right" data-tooltip="Ranged attacks that hit an unintended target deal 75% damage.">Scatter</abbr>
                             </label>
-                            <label for="Pierce" title="-50% health damage for Daggers, Spears, and Pikes vs. Ancient Dead, Alps, and Ifrits.">
+                            <label title="-50% health damage for Daggers, Spears, and Pikes vs. Ancient Dead, Alps, and Ifrits.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Pierce" value="Pierce" {% if "Pierce" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/impale.png' %}" alt="Impale icon">
                                 <abbr data-placement="right" data-tooltip="-50% health damage for Daggers, Spears, and Pikes vs. Ancient Dead, Alps, and Ifrits.">Piercing</abbr>
                             </label>
-                            <label for="DogBite" title="-66% health damage vs. Alps.">
+                            <label title="-66% health damage vs. Alps.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="DogBite" value="DogBite" {% if "DogBite" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/dogbite.png' %}" alt="Dog bite icon">
                                 <abbr data-placement="right" data-tooltip="-66% health damage vs. Alps.">Dog bite</abbr>
                             </label>
-                            <label for="XbowOrSling" title="-66% health damage vs. Ancient Dead, Alps, and Ifrits.">
+                            <label title="-66% health damage vs. Ancient Dead, Alps, and Ifrits.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="XbowOrSling" value="XbowOrSling" {% if "XbowOrSling" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/shootbolt.png' %}" alt="Shoot bolt icon">
                                 <abbr data-placement="right" data-tooltip="-66% health damage vs. Ancient Dead, Alps, and Ifrits.">Xbow or Sling</abbr>
                             </label>
-                            <label for="Handgonne" title="-66% health damage vs. Ancient Dead, -50% vs. Alps, and -75% vs. Ifrits.">
+                            <label title="-66% health damage vs. Ancient Dead, -50% vs. Alps, and -75% vs. Ifrits.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Handgonne" value="Handgonne" {% if "Handgonne" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/firehandgonne.png' %}" alt="Fire handgonne icon">
                                 <abbr data-placement="right" data-tooltip="-66% health damage vs. Ancient Dead, -50% vs. Alps, and -75% vs. Ifrits.">Handgonne</abbr>
                             </label>
-                            <label for="Javelin" title="-75% health damage vs. Ancient Dead, Alps, and Ifrits.">
+                            <label title="-75% health damage vs. Ancient Dead, Alps, and Ifrits.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Javelin" value="Javelin" {% if "Javelin" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/throwjavelin.png' %}" alt="Throw javelin icon">
                                 <abbr data-placement="right" data-tooltip="-75% health damage vs. Ancient Dead, Alps, and Ifrits.">Javelin</abbr>
                             </label>
-                            <label for="Ignite" title="-75% health damage vs. Ancient Dead, -90% vs. Ifrits.">
+                            <label title="-75% health damage vs. Ancient Dead, -90% vs. Ifrits.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Ignite" value="Ignite" {% if "Ignite" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/ignite.png' %}" alt="Ignite icon">
                                 <abbr data-placement="right" data-tooltip="-75% health damage vs. Ancient Dead, -90% vs. Ifrits.">Ignite</abbr>
                             </label>
-                            <label for="Arrow" title="-90% health damage vs. Ancient Dead, Alps, and Ifrits.">
+                            <label title="-90% health damage vs. Ancient Dead, Alps, and Ifrits.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Arrow" value="Arrow" {% if "Arrow" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/quickshot.png' %}" alt="Quick shot icon">
                                 <abbr data-placement="right" data-tooltip="-90% health damage vs. Ancient Dead, Alps, and Ifrits.">Bow</abbr>
@@ -327,37 +327,37 @@
                         </details>
                         <details id="AttackerPerks">
                             <summary role="button" class="secondary">Perks</summary>
-                            <label for="FastAdaptation" title="Gain a stacking +10% chance to hit with each missed attack. Bonus is reset upon landing a hit.">
+                            <label title="Gain a stacking +10% chance to hit with each missed attack. Bonus is reset upon landing a hit.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="FastAdaptation" value="FastAdaptation" {% if "FastAdaptation" in AtkPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/fastadaptation.png' %}" alt="Fast adaptation icon">
                                 <abbr data-placement="right" data-tooltip="Gain a stacking +10% chance to hit with each missed attack. Bonus is reset upon landing a hit.">Fast Adaptation (use only with hit chance)</abbr>
                             </label>
-                            <label for="CripplingStrikes" title="Lowers the threshold to inflict injuries by 33%.">
+                            <label title="Lowers the threshold to inflict injuries by 33%.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="CripplingStrikes" value="CripplingStrikes" {% if "CripplingStrikes" in AtkPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/cripplingstrikes.png' %}" alt="Crippling strikes icon">
                                 <abbr data-placement="right" data-tooltip="Lowers the threshold to inflict injuries by 33%.">Crippling Strikes</abbr>
                             </label>
-                            <label for="Executioner" title="Inflict +20% damage against injured targets.">
+                            <label title="Inflict +20% damage against injured targets.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="Executioner" value="Executioner" {% if "Executioner" in AtkPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/executioner.png' %}" alt="Executioner icon">
                                 <abbr data-placement="right" data-tooltip="Inflict +20% damage against injured targets.">Executioner</abbr>
                             </label>
-                            <label for="HeadHunter" title="When you hit the head, the next hit is guaranteed to hit the head.">
+                            <label title="When you hit the head, the next hit is guaranteed to hit the head.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="HeadHunter" value="HeadHunter" {% if "HeadHunter" in AtkPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/headhunter.png' %}" alt="Head hunter icon">
                                 <abbr data-placement="right" data-tooltip="When you hit the head, the next hit is guaranteed to hit the head.">Head Hunter</abbr>
                             </label>
-                            <label for="Duelist" title="With the offhand free, an additional +25% of any damage ignores armor.">
+                            <label title="With the offhand free, an additional +25% of any damage ignores armor.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="Duelist" value="Duelist" {% if "Duelist" in AtkPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/duelist.png' %}" alt="Duelist icon">
                                 <abbr data-placement="right" data-tooltip="With the offhand free, an additional +25% of any damage ignores armor.">Duelist</abbr>
                             </label>
-                            <label for="KillingFrenzy" title="A kill increases all damage by 25% for 2 turns.">
+                            <label title="A kill increases all damage by 25% for 2 turns.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="KillingFrenzy" value="KillingFrenzy" {% if "KillingFrenzy" in AtkPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/killingfrenzy.png' %}" alt="Killing frenzy icon">
                                 <abbr data-placement="right" data-tooltip="A kill increases all damage by 25% for 2 turns.">Killing Frenzy</abbr>
                             </label>
-                            <label for="Fearsome" title="Inflicting at least 1 point of HP damage triggers a morale check for the opponent. Also reduces defender's Resolve by 20%*(attacker's Resolve-10).">
+                            <label title="Inflicting at least 1 point of HP damage triggers a morale check for the opponent. Also reduces defender's Resolve by 20%*(attacker's Resolve-10).">
                                 <input class="atk-checkbox" type="checkbox" name="AtkPerks" id="Fearsome" value="Fearsome" {% if "Fearsome" in AtkPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/fearsome.png' %}" alt="Fearsome icon">
                                 <abbr data-placement="right" data-tooltip="Inflicting at least 1 point of HP damage triggers a morale check for the opponent. Also reduces defender's Resolve by 20%*(attacker's Resolve-10).">Fearsome</abbr>
@@ -365,53 +365,53 @@
                         </details>
                         <details id="AttackerTraits">
                             <summary role="button" class="secondary">Traits</summary>
-                            <label for="Brute">
+                            <label>
                                 <input type="checkbox" name="AtkTraits" id="Brute" value="Brute" {% if "Brute" in AtkTraits %} checked {% endif %}>
                                 <img src="{% static 'icons/traits/brute.png' %}" alt="Brute icon"> Brute (+15% headshot damage)
                             </label>
-                            <label for="Drunkard">
+                            <label>
                                 <input type="checkbox" name="AtkTraits" id="Drunkard" value="Drunkard" {% if "Drunkard" in AtkTraits %} checked {% endif %}>
                                 <img src="{% static 'icons/traits/drunkard.png' %}" alt="Drunkard icon"> Drunkard (+10% damage)
                             </label>
-                            <label for="Huge">
+                            <label>
                                 <input type="checkbox" name="AtkTraits" id="Huge" value="Huge" {% if "Huge" in AtkTraits %} checked {% endif %}>
                                 <img src="{% static 'icons/traits/huge.png' %}" alt="Huge icon"> Huge (+10% damage)
                             </label>
-                            <label for="Tiny">
+                            <label>
                                 <input type="checkbox" name="AtkTraits" id="Tiny" value="Tiny" {% if "Tiny" in AtkTraits %} checked {% endif %}>
                                 <img src="{% static 'icons/traits/tiny.png' %}" alt="Tiny icon"> Tiny (-15% damage)
                             </label>
                         </details>
                         <details id="AttackerInjuries">
                             <summary role="button" class="secondary">Injuries</summary>
-                            <label for="BrokenArm">
+                            <label>
                                 <input type="checkbox" name="AtkInjuries" id="BrokenArm" value="BrokenArm" {% if "BrokenArm" in AtkInjuries %} checked {% endif %}>
                                 <img src="{% static 'icons/injuries/brokenarm.png' %}" alt="Broken arm icon"> Broken Arm (-50% damage)
                             </label>
-                            <label for="SplitShoulder">
+                            <label>
                                 <input type="checkbox" name="AtkInjuries" id="SplitShoulder" value="SplitShoulder" {% if "SplitShoulder" in AtkInjuries %} checked {% endif %}>
                                 <img src="{% static 'icons/injuries/splitshoulder.png' %}" alt="Split shoulder icon"> Split Shoulder (-50% damage)
                             </label>
-                            <label for="CutArmSinew">
+                            <label>
                                 <input type="checkbox" name="AtkInjuries" id="CutArmSinew" value="CutArmSinew" {% if "CutArmSinew" in AtkInjuries %} checked {% endif %}>
                                 <img src="{% static 'icons/injuries/cutarmsinew.png' %}" alt="Cut arm sinew icon"> Cut Arm Sinew (-40% damage)
                             </label>
-                            <label for="InjuredShoulder">
+                            <label>
                                 <input type="checkbox" name="AtkInjuries" id="InjuredShoulder" value="InjuredShoulder" {% if "InjuredShoulder" in AtkInjuries %} checked {% endif %}>
                                 <img src="{% static 'icons/injuries/injuredshoulder.png' %}" alt="Injured shoulder icon"> Injured Shoulder (-25% damage)
                             </label>
                         </details>
                         <details id="AttackerStatus">
                             <summary role="button" class="secondary">Status Effects</summary>
-                            <label for="Dazed">
+                            <label>
                                 <input type="checkbox" name="AtkStatus" id="Dazed" value="Dazed" {% if "Dazed" in AtkStatus %} checked {% endif %}>
                                 <img src="{% static 'icons/status/dazed.png' %}" alt="Dazed icon"> Dazed (-25% damage)
                             </label>
-                            <label for="Distracted">
+                            <label>
                                 <input type="checkbox" name="AtkStatus" id="Distracted" value="Distracted" {% if "Distracted" in AtkStatus %} checked {% endif %}>
                                 <img src="{% static 'icons/status/distracted.png' %}" alt="Distracted icon"> Distracted (-35% damage, from Nomads)
                             </label>
-                            <label for="Mushrooms">
+                            <label>
                                 <input type="checkbox" name="AtkStatus" id="Mushrooms" value="Mushrooms" {% if "Mushrooms" in AtkStatus %} checked {% endif %}>
                                 <img src="{% static 'icons/status/mushrooms.png' %}" alt="Strange mushrooms icon"> Strange Mushrooms (+25% damage)
                             </label>
@@ -524,32 +524,32 @@
                         </details>
                         <details id="DefenderPerks">
                             <summary role="button" class="secondary">Perks</summary>
-                            <label for="NineLives" title="Once per battle, upon receiving a killing blow, survive instead with a few hit points left and clear any damage over time effects.">
+                            <label title="Once per battle, upon receiving a killing blow, survive instead with a few hit points left and clear any damage over time effects.">
                                 <input class="def-checkbox" type="checkbox" name="DefPerks" id="NineLives" value="NineLives" {% if "NineLives" in DefPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/ninelives.png' %}" alt="9 lives icon">
                                 <abbr data-placement="right" data-tooltip="Once per battle, upon receiving a killing blow, survive instead with a few hit points left and clear any damage over time effects.">9 Lives</abbr>
                             </label>
-                            <label for="Resilient" title="Any status effect with a finite duration (e.g. Bleeding) has its duration reduced to 1 turn.">
+                            <label title="Any status effect with a finite duration (e.g. Bleeding) has its duration reduced to 1 turn.">
                                 <input class="def-checkbox" type="checkbox" name="DefPerks" id="Resilient" value="Resilient" {% if "Resilient" in DefPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/resilient.png' %}" alt="Resilient icon">
                                 <abbr data-placement="right" data-tooltip="Any status effect with a finite duration (e.g. Bleeding) has its duration reduced to 1 turn.">Resilient</abbr>
                             </label>
-                            <label for="SteelBrow" title="Hits to the head no longer cause critical damage to this character.">
+                            <label title="Hits to the head no longer cause critical damage to this character.">
                                 <input class="def-checkbox" type="checkbox" name="DefPerks" id="SteelBrow" value="SteelBrow" {% if "SteelBrow" in DefPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/steelbrow.png' %}" alt="Steel brow icon">
                                 <abbr data-placement="right" data-tooltip="Hits to the head no longer cause critical damage to this character.">Steel Brow</abbr>
                             </label>
-                            <label for="Nimble" title="HP damage taken is reduced by up to 60%, but lowered exponentially by the total armor penalty to Maximum Fatigue above 15.">
+                            <label title="HP damage taken is reduced by up to 60%, but lowered exponentially by the total armor penalty to Maximum Fatigue above 15.">
                                 <input class="def-checkbox" type="checkbox" name="DefPerks" id="Nimble" value="Nimble" {% if "Nimble" in DefPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/nimble.png' %}" alt="Nimble icon">
                                 <abbr data-placement="right" data-tooltip="HP damage taken is reduced by up to 60%, but lowered exponentially by the total armor penalty to Maximum Fatigue above 15.">Nimble</abbr>
                             </label>
-                            <label for="Forge" title="Armor damage taken is reduced by a percentage equal to 5% of the current total armor value of both body and head armor.">
+                            <label title="Armor damage taken is reduced by a percentage equal to 5% of the current total armor value of both body and head armor.">
                                 <input class="def-checkbox" type="checkbox" name="DefPerks" id="Forge" value="Forge" {% if "Forge" in DefPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/battleforged.png' %}" alt="Battleforged icon">
                                 <abbr data-placement="right" data-tooltip="Armor damage taken is reduced by a percentage equal to 5% of the current total armor value of both body and head armor.">Battleforged</abbr>
                             </label>
-                            <label for="Indomitable" title="Grants 50% damage reduction.">
+                            <label title="Grants 50% damage reduction.">
                                 <input class="def-checkbox" type="checkbox" name="DefPerks" id="Indomitable" value="Indomitable" {% if "Indomitable" in DefPerks %} checked {% endif %}>
                                 <img src="{% static 'icons/perks/indomitable.png' %}" alt="Indomitable icon">
                                 <abbr data-placement="right" data-tooltip="Grants 50% damage reduction.">Indomitable</abbr>
@@ -557,16 +557,56 @@
                         </details>
                         <details id="DefenderTraits">
                             <summary role="button" class="secondary">Traits</summary>
-                            <label for="Ironjaw" title="Increases injury threshold by 25%.">
+                            <label title="Increases injury threshold by 25%.">
                                 <input type="checkbox" name="DefTraits" id="Ironjaw" value="Ironjaw" {% if "Ironjaw" in DefTraits %} checked {% endif %}>
                                 <img src="{% static 'icons/traits/ironjaw.png' %}" alt="Iron jaw icon">
                                 <abbr data-placement="right" data-tooltip="Increases injury threshold by 25%.">Iron Jaw</abbr>
                             </label>
-                            <label for="GloriousEndurance" title="Gains 5% damage reduction with every hit taken, up to a limit of 25%.">
+                            <label title="Gains 5% damage reduction with every hit taken, up to a limit of 25%.">
                                 <input type="checkbox" name="DefTraits" id="GloriousEndurance" value="GloriousEndurance" {% if "GloriousEndurance" in DefTraits %} checked {% endif %}>
-                                <img src="{% static 'icons/traits/gloriousendurance.png' %}" alt="Glorious endurance icon">
+                                <img src="{% static 'icons/traits/gloriousendurance.png' %}" alt="Glorious endurance icon" height="56" width="56">
                                 <abbr data-placement="right" data-tooltip="Gains 5% damage reduction with every hit taken, up to a limit of 25%.">Glorious Endurance (Bear)</abbr>
                             </label>
+                            <label>
+                                <input type="checkbox" name="DefTraits" id="IjirokToggle" value="IjirokToggle" {% if "IjirokToggle" in DefTraits %} checked {% endif %}>
+                                <img src="{% static 'icons/ijirok.png' %}" alt="Helmet of the Ijirok icon" height="56" width="56"> Ijirok Armor Healing
+                            </label>
+                            <ul>
+                                <li>
+                                    Healing amount
+                                    <ul>
+                                        <li>
+                                            <label title="Heals 10 HP at the start of player turn.">
+                                                <input class="Ijirok" type="radio" name="IjirokHeal" id="IjirokHeal10" value="IjirokHeal10" {% if "IjirokHeal10" in IjirokHeal or not IjirokHeal%} checked {% endif %} required>
+                                                <abbr data-placement="right" data-tooltip="Heals 10 HP at the start of player turn.">Ijirok Armor (1 piece)</abbr>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label title="Heals 20 HP at the start of player turn.">
+                                                <input class="Ijirok" type="radio" name="IjirokHeal" id="IjirokHeal20" value="IjirokHeal20" {% if "IjirokHeal20" in IjirokHeal %} checked {% endif %} required>
+                                                <abbr data-placement="right" data-tooltip="Heals 20 HP at the start of player turn.">Ijirok Armor (2 pieces)</abbr>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    Healing interval
+                                    <ul>
+                                        <li>
+                                            <label title="Better simulating 5/6 AP enemies/weapons">
+                                                <input class="Ijirok" type="radio" name="IjirokTurnHeal" id="Ijirok1TurnHeal" value="Ijirok1TurnHeal" {% if "Ijirok1TurnHeal" in IjirokTurnHeal or not IjirokTurnHeal%} checked {% endif %} required>
+                                                <abbr data-placement="right" data-tooltip="Better simulating 5/6 AP enemies/weapons">Heal after every attack</abbr>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label title="Better simulating 4 AP enemies/weapons, or being attacked by multiple enemies per turn.">
+                                                <input class="Ijirok" type="radio" name="IjirokTurnHeal" id="Ijirok2TurnHeal" value="Ijirok2TurnHeal" {% if "Ijirok2TurnHeal" in IjirokTurnHeal %} checked {% endif %} required>
+                                                <abbr data-placement="right" data-tooltip="Better simulating 4 AP enemies/weapons, or being attacked by multiple enemies per turn.">Heal after every other attack</abbr>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
                         </details>
                     </div>
                 </details>
@@ -691,6 +731,9 @@
                             <samp>{{ results.Forge|linebreaksbr|default:"Returns bonus armor from battleforged." }}</samp>
                         </div>
                         <div class="result-container">
+                            <samp>{{ results.Ijirok|linebreaksbr|default:"Returns HP healed by Ijirok armor." }}</samp>
+                        </div>
+                        <div class="result-container">
                             <samp>{{ results.Ambusher|linebreaksbr|default:"Returns average number of hits until poisoned (Goblin Ambusher only)." }}</samp>
                         </div>
                         <div class="result-container">
@@ -700,11 +743,15 @@
                 </details>
             </section>
             <section id="CalculateSection">
-                <label for="HitChance"><h6>Hit chance</h6></label>
-                <small>If left blank, the calculator will assume every swing hits.</small>
-                <input type="number" name="HitChance" id="HitChance" min="5" max="95" value={{request.HitChance|default:"''"}} placeholder="Enter a number from 5 to 95">
-                <label for="Trials"><h6># of trials</h6></label>
-                <small>Warning: Using a preset battery, low attacker damage, or low hit chance can lead to long computation times.</small>
+                <label>
+                    <h6>Hit chance</h6>
+                    <small>If left blank, the calculator will assume every swing hits.</small>
+                    <input type="number" name="HitChance" id="HitChance" min="5" max="95" value={{request.HitChance|default:"''"}} placeholder="Enter a number from 5 to 95">
+                </label>
+                <label for="Trials">
+                    <h6># of trials</h6>
+                    <small>Warning: Using a preset battery, low attacker damage, or low hit chance can lead to long computation times.</small>
+                </label>
                 <fieldset role="group">
                     <input type="number" name="Trials" id="Trials" min="2" max="10000" value={{request.Trials|default:1000}} placeholder="Enter a number from 2 to 10,000" required>
                     <input type="submit" value="Calculate">
@@ -712,6 +759,11 @@
                 <div id="progress-wrapper">
                     <progress id="progress" class="invisible" data-battery='false'></progress>
                     <p id="progress-label" class="invisible"></p>
+                </div>
+                <div id="error" class="{% if not exception %}no-display{% endif %}">
+                    <h2> Error!</h2>
+                    <p>The calculator encountered the following error(s) during computation:</p>
+                    <samp> {{ exception }} </samp>
                 </div>
             </section>
             <!-- <input type="number" name="pID" id="pID" value = {{ pID }}> -->

@@ -70,6 +70,12 @@ SerpentSkin = False,         #Only select in Handgonne tests. +30 armor, -2 Fati
 #Traits:
 Ironjaw = False,             #Reduces injury susceptibility.
 GloriousEndurance = False,   #The Bear's unique trait. Reduces damage by 5% each time you are hit, up to a 25% max reduction.
+#Ijirok Armor:          #Choose one between Heal10/Heal20 and one between 1 or 2 Turn Heal interval. 
+#Note: Ijirok tests are biased in favor of the armor in 1v1 sandbox calculator tests compared to normal game conditions.
+IjirokHeal10 = False,        #Ijirok armor passive for one piece. Heals 10 HP at start of player turn.
+IjirokHeal20 = False,        #Ijorok armor passive for both pieces. Heals 20 HP at start of player turn.
+Ijirok1TurnHeal = False,     #Applies Ijirok healing after every attack.
+Ijirok2TurnHeal = False,     #Applies Ijirok healing after every other attack, better simulating 4AP enemies/weapons, or being attacked by multiple enemies per turn.
 
 #ATTACKER FLAGS: Set these values to 1 if they apply and 0 otherwise. If you select a Preset then leave these on 0.
 #Weapons:
@@ -437,6 +443,12 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
     else:
         moraleImmune = False
 
+    #Ijirok:
+    if IjirokHeal10:
+        IjirokHealing = 10
+    if IjirokHeal20:
+        IjirokHealing = 20
+
     #Bleeding damage:
     BleedDamage = 0
     if CleaverBleed:
@@ -457,6 +469,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
     hits_until_fleeing = [] #this list will hold how many hits until morale falls to fleeing for each iteration.
     NumberFearsomeProcs = [] #This list will hold number of Fearsome procs for each iteration (only displays if Fearsome is checked).
     Forge_bonus_armor = [] #This list will hold the amount of extra armor provided by Forge for each iteration (only displays if Forge is checked).
+    Total_Ijirok_Healing = [] #This list will hold the amount of total Ijirok healing from the Ijirok armor for each iteration (only displays if Ijirok switches are checked).
     hits_until_1st_poison = [] #This list will hold how many hits until first poisoning against Ambushers (only displays if Ambusher is checked).
     hits_until_1st_bleed = [] #This list will hold how many hits until first bleed against cleavers (only displays if CleaverBleed or CleaverMastery is checked).
 
@@ -498,6 +511,8 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
         ForgeSaved = 0                      #Tracker to add the amount of armor gained from Forge for each iteration.
         Poison = 0                          #Tracker for when first poisoning occurs against Ambushers.
         Bleed = 0                           #Tracker for when first bleeding occurs against cleavers.
+        IjirokTotalHeal = 0                 #Tracker for amount of Ijirok healing received.
+
 
         count = 0 #Number of hits until death. Starts at 0 and goes up after each attack.
         Hits = 0 #Used for Glorious Endurance. Starts at 0 and goes up after each hit.
@@ -695,7 +710,9 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                 if FastAdaptation == 1: #If Fast Adaptation is selected, gain a stack.
                     FastAdMod += 10
 
-            count += 1 #Add +1 to the number of hits taken. 
+            count += 1 #Add +1 to the number of hits taken.
+            if count > 500:
+                raise CalculatorException("Defender is surviving over 500 attacks, please adjust testing parameters.")
 
             #Injury check:
             if not injuryImmune and (hp > 0 or NineLivesMod):
@@ -858,6 +875,15 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                         FirstMoraleCheck = True
                         hits_until_1st_morale.append(count)
                     
+            #Ijirok armor check:
+            if (hp > 0 or NineLivesMod) and (IjirokHeal10 or IjirokHeal20):
+                if Ijirok1TurnHeal or (Ijirok2TurnHeal and count % 2 == 0):
+                    hp = hp + IjirokHealing                     #Applying Healing
+                    IjirokTotalHeal += IjirokHealing            #Tracking HP Healed for later analysis.
+                    if hp > Def_HP:                             #Block to ensure HP doesn't exceed max.
+                        IjirokTotalHeal -= (hp - Def_HP)
+                        hp = Def_HP
+
             #Bleeding check:
             if (CleaverBleed or CleaverMastery) and not DOTImmune:
                 #If damage taken >= 6 and Decapitate isn't in play, then apply a 2 turn bleed stack.
@@ -897,6 +923,8 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                 else:
                     if Forge:
                         Forge_bonus_armor.append(ForgeSaved)
+                    if (IjirokHeal10 or IjirokHeal20) and (Ijirok1TurnHeal or Ijirok2TurnHeal):
+                        Total_Ijirok_Healing.append(IjirokTotalHeal)
                     if Flail3Head:
                         hits_until_death.append(count/3)
                     else:
@@ -976,6 +1004,9 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
     if Forge:
         if len(Forge_bonus_armor) != 0:
             AvgForgeArmor = statistics.mean(Forge_bonus_armor)
+    if (IjirokHeal10 or IjirokHeal20) and (Ijirok1TurnHeal or Ijirok2TurnHeal):
+        if len(Total_Ijirok_Healing) != 0:
+            AvgIjirokHealing = statistics.mean(Total_Ijirok_Healing)
     if Ambusher:
         if len(hits_until_1st_poison) != 0:
             hits_to_posion = statistics.mean(hits_until_1st_poison)
@@ -1182,6 +1213,11 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
         if __name__ == "__main__":
             print(string)
         results['Forge'] = string
+    if (IjirokHeal10 or IjirokHeal20) and (Ijirok1TurnHeal or Ijirok2TurnHeal):
+        string = f"{AvgIjirokHealing:.2f} HP healed by Ijirok armor on average."
+        if __name__ == "__main__":
+            print(string)
+        results['Ijirok'] = string
     if Ambusher:
         if len(hits_until_1st_poison) != 0:
             string = f"First poison in {hits_to_posion:.2f} {hitOrSwing} on average."
@@ -1202,6 +1238,9 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
         print("-----") #Added for readability. If this annoys you then remove this line.
 
     return results
+
+class CalculatorException(Exception):
+    pass
 
 if __name__ == '__main__':
     main()

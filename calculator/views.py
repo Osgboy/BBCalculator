@@ -67,23 +67,27 @@ def run_battery(battery: list, query: dict):
     # print(f"Progress ID: {p.id}")
     output = defaultdict(lambda: '')
     output['ChartData'] = defaultdict(lambda: {})
+    exceptions = []
     # p.max_progress = len(battery)
     # p.save()
     for v in battery:
         kwargs = {**query, **v}
-        result = BBCalc.main(**kwargs)
-        for field, value in result.items():
-            if field == 'ChartData':
-                for chart, data in value.items():
-                    # for dataPoint in data:
-                    #     dataPoint['y'] /= len(battery)
-                    output['ChartData'][chart][v['name']] = data
-            else:
-                output[field] += f"{v['name']}: {value}\n"
+        try:
+            result = BBCalc.main(**kwargs)
+            for field, value in result.items():
+                if field == 'ChartData':
+                    for chart, data in value.items():
+                        # for dataPoint in data:
+                        #     dataPoint['y'] /= len(battery)
+                        output['ChartData'][chart][v['name']] = data
+                else:
+                    output[field] += f"{v['name']}: {value}\n"
+        except Exception as e:
+            exceptions.append(f"{v['name']}: {e}")
         # p.progress += 1
         # p.save()
     output['ChartData'] = dict(output['ChartData'])
-    return dict(output)
+    return dict(output), '\n'.join(exceptions)
 
 
 def index(request):
@@ -114,35 +118,44 @@ def index(request):
                 parsedRequest['Trials'] = min(
                     trialsCap, parsedRequest['Trials'])
                 chartType = 'splineArea'
-                results = run_battery(json.load(f), parsedRequest)
+                results, calcException = run_battery(json.load(f), parsedRequest)
         elif request.GET['AtkPreset'] == '2Handers':
             with open(basedir / 'static' / '2handers.json', 'r') as f:
                 parsedRequest['Trials'] = min(
                     trialsCap, parsedRequest['Trials'])
                 chartType = 'splineArea'
-                results = run_battery(json.load(f), parsedRequest)
+                results, calcException = run_battery(json.load(f), parsedRequest)
         elif request.GET['AtkPreset'] == 'AllAtkPresets':
             parsedRequest['Trials'] = min(trialsCap, parsedRequest['Trials'])
             chartType = 'splineArea'
-            results = run_battery(atkPresetJSON.values(), parsedRequest)
+            results, calcException = run_battery(atkPresetJSON.values(), parsedRequest)
         elif request.GET['DefPreset'] == 'NimbleBattery':
             with open(basedir / 'static' / 'nimble.json', 'r') as f:
                 parsedRequest['Trials'] = min(
                     trialsCap, parsedRequest['Trials'])
                 chartType = 'splineArea'
-                results = run_battery(json.load(f), parsedRequest)
+                results, calcException = run_battery(json.load(f), parsedRequest)
         elif request.GET['DefPreset'] == 'HPBattery':
             with open(basedir / 'static' / 'hp.json', 'r') as f:
                 parsedRequest['Trials'] = min(
                     trialsCap, parsedRequest['Trials'])
                 chartType = 'splineArea'
-                results = run_battery(json.load(f), parsedRequest)
+                results, calcException = run_battery(json.load(f), parsedRequest)
         elif request.GET['DefPreset'] == 'AllDefPresets':
             parsedRequest['Trials'] = min(trialsCap, parsedRequest['Trials'])
             chartType = 'stackedColumn'
-            results = run_battery(defPresetJSON.values(), parsedRequest)
+            results, calcException = run_battery(defPresetJSON.values(), parsedRequest)
         else:
-            results = BBCalc.main(**parsedRequest)
+            try:
+                results = BBCalc.main(**parsedRequest)
+                calcException = None
+                print('Results')
+                print(results.keys())
+            except Exception as e:
+                results = None
+                calcException = str(e)
+                print('Calculator Error!')
+                print(calcException)
             chartType = 'default'
         context = {
             'atkPresetJSON': atkPresetJSON,
@@ -151,6 +164,7 @@ def index(request):
             'blank': False,
             'chartType': chartType,
             'results': results,
+            'exception': calcException,
             # 'pID': p.id,
             'request': request.GET,
             'AtkWeapon': request.GET.getlist('AtkWeapon'),
@@ -162,8 +176,6 @@ def index(request):
             'DefTraits': request.GET.getlist('DefTraits'),
             'DataReturns': request.GET.getlist('DataReturns'),
         }
-        print('Results')
-        print(results.keys())
         print('Context')
         for k, v in context['request'].lists():
             print(f"{k}: {v}")
