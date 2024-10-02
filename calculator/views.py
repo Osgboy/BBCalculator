@@ -174,6 +174,8 @@ def index(request):
             'AtkStatus': request.GET.getlist('AtkStatus'),
             'DefPerks': request.GET.getlist('DefPerks'),
             'DefTraits': request.GET.getlist('DefTraits'),
+            'IjirokHeal': request.GET.getlist('IjirokHeal'),
+            'IjirokTurnHeal': request.GET.getlist('IjirokTurnHeal'),
             'DataReturns': request.GET.getlist('DataReturns'),
         }
         print('Context')
