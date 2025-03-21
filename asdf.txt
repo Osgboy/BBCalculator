@@ -1,0 +1,3 @@
+turn off debug mode
+python manage.py runserver
+python manage.py collectstatic

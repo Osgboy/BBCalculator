@@ -496,9 +496,14 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
             NineLivesMod = True
         else:
             NineLivesMod = False
-        Injury = 0                          #Tracker for when first injury occurs.
+        if SplitMan:
+            SplitManHeadFollowUp = False
+            SplitManBodyFollowUp = False
+        if GloriousEndurance:               #The Bear Gladiator trait.
+            GloriousEnduranceStacks = 0
+        Injury = False                      #Tracker for when first injury occurs.
         HeavyInjuryChance = 0               #Tracker for when when first chance of heavy injury occurs.
-        UseHeadShotInjuryFormula = 0        #Tracker to use headshot injury formula on headshots.
+        UseHeadShotInjuryFormula = False    #Tracker to use headshot injury formula on headshots.
         FirstMoraleCheck = 0                #Tracker for when first morale check occurs.
         MoraleChecks = 0                    #Tracker to hold the number of morale checks each iteration.
         Wavering = 0                        #Tracker for when morale drops to Wavering.
@@ -515,7 +520,6 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
 
 
         count = 0 #Number of hits until death. Starts at 0 and goes up after each attack.
-        Hits = 0 #Used for Glorious Endurance. Starts at 0 and goes up after each hit.
 
         while hp > 0: #Continue looping until death.
             #Check various modifiers that change over the course of one's life. These will be re-checked after each attack.
@@ -528,7 +532,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                 DecapMod = 2 - hp / Def_HP
             else:
                 DecapMod = 1
-            #Destory Armor:
+            #Destroy Armor:
             if DestroyArmor and count == 0:
                 DArmorMod = 1.5
             elif DestroyArmor and count == 1 and DestroyArmorTwice:
@@ -548,12 +552,13 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                 ForgeMod = 1
             #Gladiator - The Bear - Glorious Endurance:
             if GloriousEndurance:
-                if SplitMan:
-                    GladMod = 1 - (.05 * (Hits * 2))
-                else:
-                    GladMod = 1 - (.05 * Hits)
-                if GladMod < .75:
-                    GladMod = .75
+                GladMod = max(1 - (.05 * GloriousEnduranceStacks),.75)
+                # if SplitMan:
+                #     GladMod = 1 - (.05 * (Hits * 2))
+                # else:
+                #     GladMod = 1 - (.05 * Hits)
+                # if GladMod < .75:
+                #     GladMod = .75
             else:
                 GladMod = 1
             #Executioner:
@@ -568,23 +573,29 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                 else:
                     Headshotchance = Headchance
 
+            count += 1 #Add +1 to the number of hits taken.
+            if count > 500:
+                raise CalculatorException("Defender is surviving over 500 attacks, please adjust testing parameters.")
+
             HitChanceCheck = random.randint(1,100) #Random roll to determine hit chance check.
             if HitChance is None or HitChanceCheck <= (min(95,HitChance + FastAdMod)): #If hit chance roll is lower or equal to hit chance, hit is successful.
                 FastAdMod = 0 #Reset FastAd because of successful hit.
-                Hits += 1 #Used for Glorious Endurance.
 
                 #Begin damage rolls:
                 hp_roll = random.randint(Mind,Maxd) #Random roll to determine unmodified hp damage.
                 head_roll = random.randint(1,100) #Random roll to determine if hit is a headshot.
                 if head_roll <= Headshotchance: #If headshot, do the following code blocks.
                     #Headshot injuries use a different formula. This flag will signal later when Injury is checked.
-                    UseHeadShotInjuryFormula = 1
+                    UseHeadShotInjuryFormula = True
                     #HeadHunter check -- Lose current stack if you had one. Gain stack if you didn't.
                     if HeadHunter:
                         if not HHStack:
                             HHStack = True
                         elif HHStack:
                             HHStack = False
+                    #Split Man Flag -- If SplitMan is being used, this will trigger a follow up body hit later in the code.
+                    if SplitMan:
+                        SplitManBodyFollowUp = True
                     #2H Flail Check -- Have a higher armor ignoring% on Pound for headshots compared to bodyshots.
                     if Flail2HPound:
                         Ignore = Flail2HHeadshot
@@ -623,34 +634,14 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                             if Hammer10:
                                 hp_roll = max(hp_roll,10)
                             hp = math.ceil(hp - hp_roll)
-                    #If SplitMan is active, do the following code block for the bonus body hit.
-                    if SplitMan:
-                        if BoneplateMod and not Puncture:
-                            BoneplateMod = False
-                            SMhp_roll = 0
-                        else:
-                            SMhp_roll = random.randint(Mind,Maxd) * .5
-                            if body == 0:
-                                SMhp_roll = SMhp_roll * NimbleMod * GladMod * IndomMod * AttachMod
-                                hp = math.ceil(hp - SMhp_roll)
-                            else:
-                                SMarmor_roll = random.randint(Mind,Maxd) * .5 * ArmorMod * GladMod * IndomMod * AttachMod
-                                ForgeSaved += SMarmor_roll - SMarmor_roll * ForgeMod
-                                SMarmor_roll = min(body,(SMarmor_roll * ForgeMod))
-                                body -= SMarmor_roll
-                                if body > 0:
-                                    SMhp_roll = max(0,(SMhp_roll * Ignore * NimbleMod * AdFurPadMod * GladMod * IndomMod * AttachMod - (body * 0.1)))
-                                    body = math.ceil(body)
-                                    hp = math.ceil(hp - SMhp_roll)
-                                else:
-                                    OverflowDamage = max(0,(SMhp_roll * (1 - Ignore * AdFurPadMod) * NimbleMod * GladMod * IndomMod * AttachMod - SMarmor_roll))
-                                    SMhp_roll = SMhp_roll * Ignore * NimbleMod * AdFurPadMod * GladMod * IndomMod * AttachMod + OverflowDamage
-                                    hp = math.ceil(hp - SMhp_roll)
                             
                 else: #If not a headshot, do the following. 
                     #2H Flail Check -- Have a higher armor ignoring% on Pound for headshots compared to bodyshots.
                     if Flail2HPound:
                         Ignore = Flail2HBodyshot
+                    #Split Man Flag -- If SplitMan is being used, this will trigger a follow up head hit later in the code.
+                    if SplitMan:
+                        SplitManHeadFollowUp = True
                     #Bone Plates check -- Attack is negated if Boneplates are online, then turns off Boneplates until next trial.
                     if BoneplateMod and not Puncture:
                         BoneplateMod = False
@@ -685,82 +676,188 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                                 if Hammer10:
                                     hp_roll = max(hp_roll,10)
                                 hp = math.ceil(hp - hp_roll)
-                    #If SplitMan is active, do the following code block for the bonus head hit.
-                    if SplitMan:
+                    
+                #Gladiator - Bear trait. Add a stack:
+                if GloriousEndurance:
+                    GloriousEnduranceStacks += 1
+                    
+                #Injury check:
+                if not injuryImmune and (hp > 0 or NineLivesMod):
+                    InjuryThreshold = 1
+                    if UseHeadShotInjuryFormula:
+                        InjuryThreshold *= 1.25
+                    if Ironjaw:
+                        InjuryThreshold *= 1.25
+                    if CripplingStrikes:
+                        InjuryThreshold *= .66
+                    if ShamshirMastery:
+                        InjuryThreshold *= 0.5
+                    elif Shamshir:
+                        InjuryThreshold *= .66
+                    if not Injury:
+                        if math.floor(hp_roll) >= Def_HP * InjuryThreshold * 0.25:
+                            Injury = True
+                            if Flail3Head:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
+                    #Heavy injury check: Heavy injuries are not guaranteed even when conditions are met, so this is only checking for chance of heavy injury.
+                    if not HeavyInjuryChance:
+                        if math.floor(hp_roll) >= Def_HP * InjuryThreshold * 0.5:
+                            HeavyInjuryChance = 1
+                            if Flail3Head:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
+
+                #SplitMan secondary hits: The following code block accounts for the extra hit for SplitMan
+                if SplitMan:
+                    #Before calculating damage for the second hit, we need to re-evaluate the value of Forge, Bear trait, and Executioner if they are in play, to account for damage taken by the first hit.
+                    #Battleforged:
+                    if Forge:
+                        ForgeMod = 1 - ((helmet + body) *.0005)
+                    else:
+                        ForgeMod = 1
+                    #Gladiator - The Bear - Glorious Endurance:
+                    if GloriousEndurance:
+                        GladMod = max(1 - (.05 * GloriousEnduranceStacks),.75)
+                    else:
+                        GladMod = 1
+                    #Executioner:
+                    if Injury and Executioner:
+                        ExecMod = 1.2
+                    else:
+                        ExecMod = 1
+
+                    #If SplitMan is active, do the following code block for the bonus body hit if the original hit was a headshot.
+                    if SplitManBodyFollowUp:
+                        SplitManBodyFollowUp = False
+                        if BoneplateMod:
+                            BoneplateMod = False
+                            SMhp_roll = 0
+                        else:
+                            SMhp_roll = random.randint(Mind,Maxd) * .5
+                            if body == 0:
+                                SMhp_roll = SMhp_roll * NimbleMod * GladMod * IndomMod * AttachMod * DamageMod * ExecMod
+                                hp = math.ceil(hp - SMhp_roll)
+                            else:
+                                SMarmor_roll = random.randint(Mind,Maxd) * .5 * ArmorMod * GladMod * IndomMod * AttachMod * DamageMod * ExecMod
+                                ForgeSaved += SMarmor_roll - SMarmor_roll * ForgeMod
+                                SMarmor_roll = min(body,(SMarmor_roll * ForgeMod))
+                                body -= SMarmor_roll
+                                if body > 0:
+                                    SMhp_roll = max(0,(SMhp_roll * Ignore * NimbleMod * AdFurPadMod * GladMod * IndomMod * AttachMod * DamageMod * ExecMod - (body * 0.1)))
+                                    body = math.ceil(body)
+                                    hp = math.ceil(hp - SMhp_roll)
+                                else:
+                                    OverflowDamage = max(0,(SMhp_roll * (1 - Ignore * AdFurPadMod) * NimbleMod * GladMod * IndomMod * AttachMod * DamageMod * ExecMod - SMarmor_roll))
+                                    SMhp_roll = SMhp_roll * Ignore * NimbleMod * AdFurPadMod * GladMod * IndomMod * AttachMod * DamageMod * ExecMod + OverflowDamage
+                                    hp = math.ceil(hp - SMhp_roll)
+                    #If SplitMan is active, do the following code block for the bonus head hit if the original hit was a body hit.
+                    if SplitManHeadFollowUp:
+                        SplitManHeadFollowUp = False
                         SMhp_roll = random.randint(Mind,Maxd) * .5
                         if helmet == 0:
-                            SMhp_roll = SMhp_roll * NimbleMod * GladMod * IndomMod
+                            SMhp_roll = SMhp_roll * NimbleMod * GladMod * IndomMod * DamageMod * ExecMod
                             hp = math.ceil(hp - SMhp_roll)
                         else:
-                            SMarmor_roll = random.randint(Mind,Maxd) * .5 * ArmorMod * GladMod * IndomMod
+                            SMarmor_roll = random.randint(Mind,Maxd) * .5 * ArmorMod * GladMod * IndomMod * DamageMod * ExecMod
                             ForgeSaved += SMarmor_roll - SMarmor_roll * ForgeMod
                             SMarmor_roll = min(helmet,(SMarmor_roll * ForgeMod))
                             helmet -= SMarmor_roll
                             if helmet > 0:
-                                SMhp_roll = max(0,(SMhp_roll * Ignore * NimbleMod * GladMod * IndomMod - (helmet * 0.1)))
+                                SMhp_roll = max(0,(SMhp_roll * Ignore * NimbleMod * GladMod * IndomMod * DamageMod * ExecMod - (helmet * 0.1)))
                                 helmet = math.ceil(helmet)
                                 hp = math.ceil(hp - SMhp_roll)
                             else:
-                                OverflowDamage = max(0,(SMhp_roll * (1 - Ignore) * NimbleMod * GladMod * IndomMod - SMarmor_roll))
-                                SMhp_roll = SMhp_roll * Ignore * NimbleMod * GladMod * IndomMod + OverflowDamage
+                                OverflowDamage = max(0,(SMhp_roll * (1 - Ignore) * NimbleMod * GladMod * IndomMod * DamageMod * ExecMod - SMarmor_roll))
+                                SMhp_roll = SMhp_roll * Ignore * NimbleMod * GladMod * IndomMod * DamageMod * ExecMod + OverflowDamage
                                 hp = math.ceil(hp - SMhp_roll)
-            else: #This block is run if attack misses.
-                hp_roll = 0
-                SMhp_roll = 0
-                if FastAdaptation == 1: #If Fast Adaptation is selected, gain a stack.
-                    FastAdMod += 10
-
-            count += 1 #Add +1 to the number of hits taken.
-            if count > 500:
-                raise CalculatorException("Defender is surviving over 500 attacks, please adjust testing parameters.")
-
-            #Injury check:
-            if not injuryImmune and (hp > 0 or NineLivesMod):
-                InjuryThreshold = 1
-                if UseHeadShotInjuryFormula:
-                    InjuryThreshold *= 1.25
-                if Ironjaw:
-                    InjuryThreshold *= 1.25
-                if CripplingStrikes:
-                    InjuryThreshold *= 2/3
-                if ShamshirMastery:
-                    InjuryThreshold *= 0.5
-                elif Shamshir:
-                    InjuryThreshold *= 2/3
-                if not Injury:
-                    if math.floor(hp_roll) >= Def_HP * InjuryThreshold * 0.25:
-                        Injury = 1
-                        if Flail3Head:
-                            hits_until_1st_injury.append(count/3)
-                        else:
-                            hits_until_1st_injury.append(count)
-                #Heavy injury check: Heavy injuries are not guaranteed even when conditions are met, so this is only checking for chance of heavy injury.
-                if not HeavyInjuryChance:
-                    if math.floor(hp_roll) >= Def_HP * InjuryThreshold * 0.5:
-                        HeavyInjuryChance = 1
-                        if Flail3Head:
-                            hits_until_1st_heavy_injury_chance.append(count/3)
-                        else:
-                            hits_until_1st_heavy_injury_chance.append(count)
+                    
+                    #Gladiator - Bear trait check: Add another stack for the Bear to account for the second hit from Split Man
+                    if GloriousEndurance:
+                        GloriousEnduranceStacks += 1        
                 
-            #Morale check:
-            if (hp > 0 or NineLivesMod) and not Fleeing and not injuryImmune:
-                if Fearsome:
-                    if Flail3Head != 1 or (Flail3Head and count % 3 == 1): #Checking weapon and if 3Head only apply 1-14 Fearsome effect on every first hit.
-                        if math.floor(hp_roll) > 0 and math.floor(hp_roll) < 15:
-                            FearsomeProcs += 1
-                        if math.floor(hp_roll) > 0:
+                #Morale check:
+                if (hp > 0 or NineLivesMod) and not Fleeing and not injuryImmune:
+                    if Fearsome:
+                        if not Flail3Head or (Flail3Head and count % 3 == 1): #Checking weapon and if 3Head only apply 1-14 Fearsome effect on every first hit.
+                            if math.floor(hp_roll) > 0 and math.floor(hp_roll) < 15:
+                                FearsomeProcs += 1
+                            if math.floor(hp_roll) > 0:
+                                MoraleChecks += 1
+                                resolve_roll = random.randint(1,100) #Random number used to see if we pass/fail morale check.
+                                chance_morale_drop = max(5, 100 - (((Def_Resolve * ResolveMod) - FearsomeMod) - 40 * (1 - hp/Def_HP))) #Formula for chance of losing morale from damage.
+                                if resolve_roll <= chance_morale_drop: #If we fail the check, we will fall to Wavering, Breaking, or Fleeing, in that order.
+                                    if not Wavering:
+                                        Wavering = True
+                                        ResolveMod = .9 #Wavering morale gives a -10% Resolve penalty, making us more vulnerable to further drops.
+                                        if Flail3Head:
+                                            hits_until_wavering.append(count/3)
+                                        else:
+                                            hits_until_wavering.append(count) #Return the time until Wavering for later data analysis.
+                                    elif not Breaking:
+                                        Breaking = True
+                                        ResolveMod = .8
+                                        if Flail3Head:
+                                            hits_until_breaking.append(count/3)
+                                        else:
+                                            hits_until_breaking.append(count)
+                                    elif not Fleeing:
+                                        Fleeing = True
+                                        if Flail3Head:
+                                            hits_until_fleeing.append(count/3)
+                                        else:
+                                            hits_until_fleeing.append(count)
+                        else:
+                            if Flail3Head and count % 3 != 1:                  #This block is only run for 3Head's second/third hits.
+                                if math.floor(hp_roll) >= 15:
+                                    MoraleChecks += 1
+                                    resolve_roll = random.randint(1,100)
+                                    chance_morale_drop = max(5, 100 - (((Def_Resolve * ResolveMod) - FearsomeMod) - 40 * (1 - hp/Def_HP)))
+                                    if resolve_roll <= chance_morale_drop:
+                                        if not Wavering:
+                                            Wavering = True
+                                            ResolveMod = .9
+                                            hits_until_wavering.append(count/3)
+                                        elif not Breaking:
+                                            Breaking = True
+                                            ResolveMod = .8
+                                            hits_until_breaking.append(count/3)
+                                        elif not Fleeing:
+                                            Fleeing = True
+                                            hits_until_fleeing.append(count/3)
+
+                        if SplitMan:                                           #Split Man block. Split Man doesn't get the 1-14 Fearsome effect.
+                            if math.floor(SMhp_roll) >= 15:
+                                MoraleChecks += 1
+                                resolve_roll = random.randint(1,100)
+                                chance_morale_drop = max(5, 100 - (((Def_Resolve * ResolveMod) - FearsomeMod) - 40 * (1 - hp/Def_HP)))
+                                if resolve_roll <= chance_morale_drop:
+                                    if not Wavering:
+                                        Wavering = True
+                                        ResolveMod = .9
+                                        hits_until_wavering.append(count)
+                                    elif not Breaking:
+                                        Breaking = True
+                                        ResolveMod = .8
+                                        hits_until_breaking.append(count)
+                                    elif not Fleeing:
+                                        Fleeing = True
+                                        hits_until_fleeing.append(count)
+                    else:
+                        if math.floor(hp_roll) >= 15: #Rehash of prior code blocks but without Fearsome.
                             MoraleChecks += 1
-                            resolve_roll = random.randint(1,100) #Random number used to see if we pass/fail morale check.
-                            chance_morale_drop = max(5, 100 - (((Def_Resolve * ResolveMod) - FearsomeMod) - 40 * (1 - hp/Def_HP))) #Formula for chance of losing morale from damage.
-                            if resolve_roll <= chance_morale_drop: #If we fail the check, we will fall to Wavering, Breaking, or Fleeing, in that order.
+                            resolve_roll = random.randint(1,100)
+                            chance_morale_drop = max(5, 100 - ((Def_Resolve * ResolveMod) - 40 * (1 - hp/Def_HP)))
+                            if resolve_roll <= chance_morale_drop:
                                 if not Wavering:
                                     Wavering = True
-                                    ResolveMod = .9 #Wavering morale gives a -10% Resolve penalty, making us more vulnerable to further drops.
+                                    ResolveMod = .9
                                     if Flail3Head:
                                         hits_until_wavering.append(count/3)
                                     else:
-                                        hits_until_wavering.append(count) #Return the time until Wavering for later data analysis.
+                                        hits_until_wavering.append(count)
                                 elif not Breaking:
                                     Breaking = True
                                     ResolveMod = .8
@@ -774,107 +871,51 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                                         hits_until_fleeing.append(count/3)
                                     else:
                                         hits_until_fleeing.append(count)
-                    else:
-                        if Flail3Head and count % 3 != 1:                  #This block is only run for 3Head's second/third hits.
-                            if math.floor(hp_roll) >= 15:
+                        if SplitMan:
+                            if math.floor(SMhp_roll) >= 15:
                                 MoraleChecks += 1
                                 resolve_roll = random.randint(1,100)
-                                chance_morale_drop = max(5, 100 - (((Def_Resolve * ResolveMod) - FearsomeMod) - 40 * (1 - hp/Def_HP)))
+                                chance_morale_drop = max(5, 100 - ((Def_Resolve * ResolveMod) - 40 * (1 - hp/Def_HP)))
                                 if resolve_roll <= chance_morale_drop:
                                     if not Wavering:
                                         Wavering = True
                                         ResolveMod = .9
-                                        hits_until_wavering.append(count/3)
+                                        hits_until_wavering.append(count)
                                     elif not Breaking:
                                         Breaking = True
                                         ResolveMod = .8
-                                        hits_until_breaking.append(count/3)
+                                        hits_until_breaking.append(count)
                                     elif not Fleeing:
                                         Fleeing = True
-                                        hits_until_fleeing.append(count/3)
+                                        hits_until_fleeing.append(count)
 
-                    if SplitMan:                                           #Split Man block. Split Man doesn't get the 1-14 Fearsome effect.
-                        if math.floor(SMhp_roll) >= 15:
-                            MoraleChecks += 1
-                            resolve_roll = random.randint(1,100)
-                            chance_morale_drop = max(5, 100 - (((Def_Resolve * ResolveMod) - FearsomeMod) - 40 * (1 - hp/Def_HP)))
-                            if resolve_roll <= chance_morale_drop:
-                                if not Wavering:
-                                    Wavering = True
-                                    ResolveMod = .9
-                                    hits_until_wavering.append(count)
-                                elif not Breaking:
-                                    Breaking = True
-                                    ResolveMod = .8
-                                    hits_until_breaking.append(count)
-                                elif not Fleeing:
-                                    Fleeing = True
-                                    hits_until_fleeing.append(count)
-                else:
-                    if math.floor(hp_roll) >= 15: #Rehash of prior code blocks but without Fearsome.
-                        MoraleChecks += 1
-                        resolve_roll = random.randint(1,100)
-                        chance_morale_drop = max(5, 100 - ((Def_Resolve * ResolveMod) - 40 * (1 - hp/Def_HP)))
-                        if resolve_roll <= chance_morale_drop:
-                            if not Wavering:
-                                Wavering = True
-                                ResolveMod = .9
+                if not FirstMoraleCheck:
+                    if Fearsome:
+                        if not Flail3Head or (Flail3Head and count % 3 == 1): #Checking weapon and if 3Head only apply 1-14 Fearsome effect on every first hit.
+                            if math.floor(hp_roll) > 0:
+                                FirstMoraleCheck = True
                                 if Flail3Head:
-                                    hits_until_wavering.append(count/3)
+                                    hits_until_1st_morale.append(count/3)
                                 else:
-                                    hits_until_wavering.append(count)
-                            elif not Breaking:
-                                Breaking = True
-                                ResolveMod = .8
-                                if Flail3Head:
-                                    hits_until_breaking.append(count/3)
-                                else:
-                                    hits_until_breaking.append(count)
-                            elif not Fleeing:
-                                Fleeing = True
-                                if Flail3Head:
-                                    hits_until_fleeing.append(count/3)
-                                else:
-                                    hits_until_fleeing.append(count)
-                    if SplitMan:
-                        if math.floor(SMhp_roll) >= 15:
-                            MoraleChecks += 1
-                            resolve_roll = random.randint(1,100)
-                            chance_morale_drop = max(5, 100 - ((Def_Resolve * ResolveMod) - 40 * (1 - hp/Def_HP)))
-                            if resolve_roll <= chance_morale_drop:
-                                if not Wavering:
-                                    Wavering = True
-                                    ResolveMod = .9
-                                    hits_until_wavering.append(count)
-                                elif not Breaking:
-                                    Breaking = True
-                                    ResolveMod = .8
-                                    hits_until_breaking.append(count)
-                                elif not Fleeing:
-                                    Fleeing = True
-                                    hits_until_fleeing.append(count)
-
-            if not FirstMoraleCheck:
-                if Fearsome:
-                    if not Flail3Head or (Flail3Head and count % 3 == 1): #Checking weapon and if 3Head only apply 1-14 Fearsome effect on every first hit.
-                        if math.floor(hp_roll) > 0:
+                                    hits_until_1st_morale.append(count)
+                    else:
+                        if math.floor(hp_roll) >= 15:
                             FirstMoraleCheck = True
                             if Flail3Head:
                                 hits_until_1st_morale.append(count/3)
                             else:
                                 hits_until_1st_morale.append(count)
-                else:
-                    if math.floor(hp_roll) >= 15:
-                        FirstMoraleCheck = True
-                        if Flail3Head:
-                            hits_until_1st_morale.append(count/3)
-                        else:
+                    if SplitMan:
+                        if math.floor(SMhp_roll) >= 15:
+                            FirstMoraleCheck = True
                             hits_until_1st_morale.append(count)
-                if SplitMan:
-                    if math.floor(SMhp_roll) >= 15:
-                        FirstMoraleCheck = True
-                        hits_until_1st_morale.append(count)
-                    
+                                    
+            else: #This block is run if attack misses.
+                hp_roll = 0
+                SMhp_roll = 0
+                if FastAdaptation: #If Fast Adaptation is selected, gain a stack.
+                    FastAdMod += 10
+    
             #Ijirok armor check:
             if (hp > 0 or NineLivesMod) and (IjirokHeal10 or IjirokHeal20):
                 if Ijirok1TurnHeal or (Ijirok2TurnHeal and count % 2 == 0):
@@ -925,6 +966,8 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                         Forge_bonus_armor.append(ForgeSaved)
                     if (IjirokHeal10 or IjirokHeal20) and (Ijirok1TurnHeal or Ijirok2TurnHeal):
                         Total_Ijirok_Healing.append(IjirokTotalHeal)
+                    if Fearsome:
+                        NumberFearsomeProcs.append(FearsomeProcs)
                     if Flail3Head:
                         hits_until_death.append(count/3)
                     else:
@@ -956,8 +999,6 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
                             hits_until_fleeing.append(count/3)
                         else:
                             hits_until_fleeing.append(count)
-                    if Fearsome:
-                        NumberFearsomeProcs.append(FearsomeProcs)
 
     #Analysis on data collection:
     HitsToDeath = statistics.mean(hits_until_death)
@@ -1365,3 +1406,14 @@ if __name__ == '__main__':
 #---- Warbow: Armor% changed to 60% (was 65%). Used in Master Archer preset.
 #---- Lindwurm: armor% changed to 150% (was 140%). Used in Lindwurm preset.
 #-- Fixed an oversight where BonePlates attachment was blocking a hit against Puncture tests when it shouldn't be able to.
+#Version 1.6.7 (10/1/2024)
+#-- Added logic and switches for Ijirok armor tests.
+#-- Added a condition for the code to terminate if a defender is surviving over 500 attacks.
+#Version 1.7.0 (3/20/2025)
+#-- Readjusted Split Man calculations to match recent bug fix in game where it previously did not account for offensive damage modifiers.
+#---- This means that the second hit can now use offensive modifiers like Executioner, Huge, Orc bonuses, etc.
+#-- Added logic to update Forge, Glorious Endurance trait (Bear), and Executioner before rolling the damage of the second hit of Split Man.
+#---- This means that Executioner can turn online before the second hit calculates. Forge gets weaker before the second hit. Bear gets tankier before second hit.
+#-- Recoded the Injury Check section to be much more concise (Thank you Osgboy for suggestion/advice).
+#-- Changed injury multiplier for Crippling Strikes and Shamshir (without Mastery) to .66 to match how it is in game (previously was using 2/3).
+#-- Fixed an oversight with all sub-variants of the calculator where they could return injury rates that were faster than reality in circumstances where the enemy could get their first injury on the same hit where they die. The main BBCalc.py did not have this problem.

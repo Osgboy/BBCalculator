@@ -33,7 +33,7 @@
             </nav>
             <hgroup>            
                 <h1><a href="/">Battle Brothers Damage Calculator</a></h1>
-                <p>Version 1.6.6, last updated October 2nd, 2024.</p>
+                <p>Version 1.7.0, last updated March 20th, 2025.</p>
             </hgroup>
         </header>
         <main class="container">
@@ -725,6 +725,9 @@
                             {% endif %}
                         </div>
                         <div class="result-container">
+                            <samp>{{ results.Fearsome|linebreaksbr|default:"Returns number of fearsome procs." }}</samp>
+                        </div>
+                        <div class="result-container">
                             <samp>{{ results.Nimble|linebreaksbr|default:"Returns % damage modifier from nimble." }}</samp>
                         </div>
                         <div class="result-container">
@@ -734,10 +737,10 @@
                             <samp>{{ results.Ijirok|linebreaksbr|default:"Returns HP healed by Ijirok armor." }}</samp>
                         </div>
                         <div class="result-container">
-                            <samp>{{ results.Ambusher|linebreaksbr|default:"Returns average number of hits until poisoned (Goblin Ambusher only)." }}</samp>
+                            <samp>{{ results.Ambusher|linebreaksbr|default:"Returns number of hits until poisoned (Goblin Ambusher only)." }}</samp>
                         </div>
                         <div class="result-container">
-                            <samp>{{ results.Cleaver|linebreaksbr|default:"Returns average number of hits until bleeding." }}</samp>
+                            <samp>{{ results.Cleaver|linebreaksbr|default:"Returns number of hits until bleeding." }}</samp>
                         </div>
                     </div>
                 </details>
