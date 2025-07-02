@@ -194,6 +194,11 @@
                                 <img src="{% static 'icons/weapon/destroyarmor2.png' %}" alt="Destroy armor icon">
                                 <abbr data-placement="right" data-tooltip="Uses Destroy Armor 2 times instead of 1. Does nothing unless DestroyArmor or DestroyArmorMastery are set.">Destroy Armor Twice</abbr>
                             </label>
+                            <label title="Applies to Shatter, reduces Ignore by 10%.">
+                                <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="AoE2HHammer" value="AoE2HHammer" {% if "AoE2HHammer" in AtkWeapon %} checked {% endif %}>
+                                <img src="{% static 'icons/weapon/shatter.png' %}" alt="Shatter icon">
+                                <abbr data-placement="right" data-tooltip="Applies to Shatter, reduces Ignore by 10%.">2H Hammer AoE</abbr>
+                            </label>
                             <label title="Applies bonus damage to Headshots. Negated by Steel Brow.">
                                 <input class="atk-checkbox" type="checkbox" name="AtkWeapon" id="Axe1H" value="Axe1H" {% if "Axe1H" in AtkWeapon %} checked {% endif %}>
                                 <img src="{% static 'icons/weapon/chop.png' %}" alt="Chop icon">
