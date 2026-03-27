@@ -250,7 +250,7 @@ switchTheme.addEventListener('click', (e)=> {
     isLight = !isLight
     html.setAttribute('data-theme', isLight? 'light':'dark')
     switchTheme.innerHTML = isLight? sun : moon
-    switchTheme.setAttribute('data-tooltip', `${isLight?'Light':'Dark'} theme`)
+    // switchTheme.setAttribute('data-tooltip', `${isLight?'Light':'Dark'} theme`)
     localStorage.setItem('theme', isLight? 'light':'dark')
     removeTooltip()
 })

@@ -163,7 +163,7 @@ Skirmisher = False,          #Ignore * 1.25
 Overseer = False,            #Ignore * 1.1
 Wolfrider = False,           #Ignore * 1.25
 MasterArcher = False,        #Ignore * 1.25
-FrenziedDirewolf = False,    #Damage +20%.
+FrenziedDirewolf = False,    #Damage +25%.
 UnholdDay90 = False,         #Damage +10%.
 LindwurmDay170 = False,      #Damage +10%.
 
@@ -364,7 +364,7 @@ FallenBetrayerD = False,     #25% armor damage reduction for Watermill Betrayers
     if HedgeKnight:
         DamageMod *= 1.2
     if FrenziedDirewolf:
-        DamageMod *= 1.2
+        DamageMod *= 1.25
     if UnholdDay90:
         DamageMod *= 1.1
     if LindwurmDay170:
@@ -1431,3 +1431,5 @@ if __name__ == '__main__':
 #-- Reworked how 3Head Flail data is tracked to return the number of swings rather than tracking by each individual sub-hit. So instead of showing .33|.66|1 hits to kill, these would all be rounded up to 1.
 #---- Tracking by sub-hit skewed the averages down and made the weapon look stronger (Thank you smr_rst). Realistically it does not matter if you kill in a sub-hit but rather how many total swings it takes. 
 #-- Added a AoE 2HHammer switch to the weapon options.
+#Version 1.7.2 (3/26/2026)
+#-- Fixed Frenzied Direwolf damage modifier to +25%. It was +20% in error (Thank you HeyPashi). 
